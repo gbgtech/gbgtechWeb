@@ -24,6 +24,7 @@ gulp.task("default", ["minimize-js", "copy-index"]);
 
 
 gulp.task('watch', function() {
+  gulp.run(["minimize-js", "copy-index"]);
   watch('src/*', function() {
     gulp.run(["minimize-js", "copy-index"]);
   });
