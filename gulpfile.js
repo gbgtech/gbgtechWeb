@@ -22,7 +22,7 @@ gulp.task("default", ["minimize-js", "copy-index"]);
 
 
 gulp.task('watch', function() {
-  watch('src/*', function() {
+  watch('src/frontend/**', function() {
     gulp.run(["minimize-js", "copy-index"]);
   });
 });
