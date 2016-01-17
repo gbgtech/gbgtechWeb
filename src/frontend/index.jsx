@@ -1,14 +1,14 @@
 var React = require('react');
 var ReactDOM = require('react-dom');
-
 var ReactRouter = require('react-router');
+
 var Router = ReactRouter.Router;
 var Route = ReactRouter.Route;
 var IndexRoute = ReactRouter.IndexRoute;
 
-var App = require('./App');
-var Hello = require('./Hello');
-var World = require('./World');
+var App = require('./App.jsx');
+var Hello = require('./Hello.jsx');
+var World = require('./World.jsx');
 
 ReactDOM.render((
     <Router>
