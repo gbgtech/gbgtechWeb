@@ -7,6 +7,6 @@ var Hello = React.createClass({
 
 
 ReactDOM.render(
-  <Hello name="World" />,
-  document.getElementById('container')
+  <Hello name="World world" />,
+  document.getElementById('root')
 );

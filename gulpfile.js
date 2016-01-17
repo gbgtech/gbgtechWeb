@@ -25,7 +25,7 @@ gulp.task("default", ["minimize-js", "copy-index"]);
 gulp.task('watch', function() {
   gulp.run(["minimize-js", "copy-index"]);
   server.listen( { path: './src/backend/app.js' } );
-  watch('src/*', function() {
+  watch('src/frontend/**', function() {
     gulp.run(["minimize-js", "copy-index"]);
   });
 });
