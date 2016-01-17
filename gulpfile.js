@@ -3,6 +3,7 @@ var sourcemaps = require("gulp-sourcemaps");
 var babel = require("gulp-babel");
 var concat = require("gulp-concat");
 var watch = require('gulp-watch');
+var server = require( 'gulp-develop-server' );
 
 gulp.task("minimize-js", function () {
   return gulp.src("src/frontend/**/*.jsx")
@@ -23,6 +24,7 @@ gulp.task("default", ["minimize-js", "copy-index"]);
 
 gulp.task('watch', function() {
   gulp.run(["minimize-js", "copy-index"]);
+  server.listen( { path: './src/backend/app.js' } );
   watch('src/*', function() {
     gulp.run(["minimize-js", "copy-index"]);
   });
