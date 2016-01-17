@@ -28,6 +28,8 @@
     "react-dom": "^0.14.6"
   },
   "devDependencies": {
-    "gulp-babel": "^6.1.1"
+    "gulp-babel": "^6.1.1",
+    "gulp-concat": "^2.6.0",
+    "gulp-sourcemaps": "^1.6.0"
   }
 }
