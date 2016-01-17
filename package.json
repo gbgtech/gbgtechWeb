@@ -28,6 +28,7 @@
     "react-dom": "^0.14.6"
   },
   "devDependencies": {
+    "gulp": "^3.9.0",
     "gulp-babel": "^6.1.1"
   }
 }
