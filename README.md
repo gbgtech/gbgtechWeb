@@ -10,5 +10,4 @@ This is the website for gbgtech.co
 * npm
 
 ===How to run===
-* Gulp build
-* Gulp watch
+* npm run dev
