@@ -44,6 +44,9 @@ body {
 }
 
 .top-menu {
+    position: fixed;
+    z-index: 2;
+    width: 100%;
     background: $mainBlack;
     color: $mainWhite;
 
@@ -76,6 +79,7 @@ body {
 }
 
 .main-container {
+    margin-top: 100px;
     padding: 2em;
     flex-direction: row;
     justify-content: center;
