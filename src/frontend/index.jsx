@@ -1,20 +1,20 @@
-var React = require('react');
-var ReactDOM = require('react-dom');
-var ReactRouter = require('react-router');
+import React from 'react';
+import ReactDOM from 'react-dom';
+import { Router, Route, IndexRoute } from 'react-router';
 
-var Router = ReactRouter.Router;
-var Route = ReactRouter.Route;
-var IndexRoute = ReactRouter.IndexRoute;
+var App = require('./App');
+var Hello = require('./Hello');
+var World = require('./World');
 
-var App = require('./App.jsx');
-var Hello = require('./Hello.jsx');
-var World = require('./World.jsx');
 
-ReactDOM.render((
-    <Router>
+
+const AppRoute = () => (
+     <Router>
         <Route path="/" component={App}>
-            <IndexRoute path="" component={Hello}></IndexRoute>
-            <Route path="world" component={World}></Route>
+            <IndexRoute component={Hello}/>
+            <Route path="world" component={World}/>
         </Route>
     </Router>
-), document.getElementById('root'));
+);
+
+ReactDOM.render(<AppRoute/>, document.getElementById('root'));

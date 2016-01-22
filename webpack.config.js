@@ -23,7 +23,7 @@ var config = {
   output: {
     path: __dirname + '/build',
     filename: outputFile,
-    publicPath: __dirname + '/example'
+    publicPath: __dirname + '/src/frontend'
   },
   module: {
     loaders: [
@@ -48,7 +48,7 @@ var config = {
 
 if (env === 'dev') {
   new WebpackDevServer(webpack(config), {
-    contentBase: './example',
+    contentBase: './src/frontend',
     hot: true,
     debug: true
   }).listen(port, host, function (err, result) {
