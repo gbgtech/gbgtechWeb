@@ -9,7 +9,7 @@ var World = require('./World');
 
 
 const AppRoute = () => (
-     <Router>
+    <Router>
         <Route path="/" component={App}>
             <IndexRoute component={Hello}/>
             <Route path="world" component={World}/>

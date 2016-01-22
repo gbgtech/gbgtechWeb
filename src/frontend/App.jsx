@@ -1,18 +1,11 @@
 import React  from 'react';
 import TopMenu from './TopMenu';
 
+const App = ({ children }) => (
+    <div className="main-body">
+        <TopMenu />
+        {children}
+    </div>
+);
 
-var App = React.createClass({
-    render() {
-
-        return (
-            <div className="main-body">
-              <TopMenu />
-                {this.props.children}
-            </div>
-        );
-    }
-});
-
-
-module.exports = App;
+export default App;
