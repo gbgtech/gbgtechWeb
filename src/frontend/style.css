@@ -1,0 +1,36 @@
+*, *:before, *:after{
+    box-sizing: border-box;
+}
+
+button,
+header,
+section,
+footer,
+nav,
+li,
+div,
+html,
+body {
+    display: flex;
+    position: relative;
+    flex-direction: column;
+    flex-shrink: 0;
+    margin: 0;
+    padding: 0;
+    align-items: stretch;
+}
+html, body, #root {
+    height: 100%;
+}
+
+
+.top-menu {
+    flex-direction: row;
+    height: 300px;
+    justify-content: space-around;
+
+    a {
+        display: inline-flex;
+        width: 200px;
+    }
+}

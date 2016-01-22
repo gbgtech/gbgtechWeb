@@ -1,8 +1,12 @@
-var webpack = require('webpack');
+var webpack           = require('webpack');
+var WebpackDevServer  = require('webpack-dev-server');
+var path              = require('path');
+
+var autoprefixer      = require('autoprefixer');
+var precss            = require('precss');
+
 var UglifyJsPlugin = webpack.optimize.UglifyJsPlugin;
 var env = process.env.WEBPACK_ENV;
-var WebpackDevServer = require('webpack-dev-server');
-var path = require('path');
 
 var appName = 'app';
 var host = '0.0.0.0';
@@ -31,6 +35,10 @@ var config = {
         test: /(\.jsx|\.js)$/,
         loader: 'babel',
         exclude: /(node_modules|bower_components)/
+      },
+      {
+        test:   /\.css$/,
+        loader: 'style-loader!css-loader!postcss-loader'
       }/*,
       {
         test: /(\.jsx|\.js)$/,
@@ -38,6 +46,9 @@ var config = {
         exclude: /node_modules/
       }*/
     ]
+  },
+  postcss: function() {
+    return [autoprefixer, precss];
   },
   resolve: {
     root: path.resolve('./src'),

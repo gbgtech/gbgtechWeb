@@ -5,7 +5,7 @@ var TopMenu = React.createClass({
 
     render() {
          return (
-            <div>
+            <div className="top-menu">
               <ul>
                 <li><Link to={'/news'}>news</Link></li>
                 <li><Link to={'/hubs'}>hubs</Link></li>
@@ -14,8 +14,6 @@ var TopMenu = React.createClass({
             </div>
         );
     }
-
-
 });
 
 export default TopMenu;
