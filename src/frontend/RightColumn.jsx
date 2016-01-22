@@ -1,12 +1,17 @@
 import React from 'react';
 
-var TopMenu = React.createClass({
+
+import Twitter from './Twitter';
+
+const RightColumn = React.createClass({
 
     render() {
-         return (
-          <div>hello</div>
+        return (
+            <div className="right-column">
+                <Twitter path="hashtag/gbgtech" id="690568248279109633">#gbgtech tweets</Twitter>
+            </div>
         );
     }
 });
 
-export default TopMenu;
+export default RightColumn;

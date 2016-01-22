@@ -1,13 +1,34 @@
 import React from 'react';
+import ReactDOM from 'react-dom';
 
-  var Twitter = React.createClass({
+const Twitter = React.createClass({
 
-      render() {
-           return (
-            <div><a class="twitter-timeline" href="https://twitter.com/hashtag/gbgtech" data-widget-id="690568248279109633">#gbgtech tweets</a>
-            <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script></div>
-          );
-      }
-  });
+    componentDidMount() {
+        const elem = ReactDOM.findDOMNode(this.link);
 
-  export default Twitter;
+        if (!this.initialized) {
+            this.initialized = true;
+
+            const js = document.createElement('script')
+            js.id = 'twitter-wjs';
+            js.src = '//platform.twitter.com/widgets.js';
+            elem.parentNode.appendChild(js);
+        }
+    },
+
+    render() {
+        const { path, id, children, width } = this.props;
+
+        return (
+            <a
+                className="twitter-timeline"
+                ref={(link) => this.link = link }
+                href={`https://twitter.com/${path}`}
+                data-widget-id={id}>
+                    {children}
+            </a>
+        );
+    }
+});
+
+export default Twitter;

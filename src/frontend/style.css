@@ -36,6 +36,8 @@ body {
     align-items: stretch;
 }
 
+::selection { background: #ff1493; color: #fff; }
+
 html, body, #root {
     height: 100%;
 }
@@ -83,15 +85,29 @@ body {
 
 .main-container {
     margin-top: 100px;
-    padding: 2em;
+    padding: 0 1rem 1rem;
     flex-direction: row;
-    justify-content: center;
+
+    .left-column, .right-column {
+        flex: 1 1 300px;
+        padding: 1em;
+        // background: $mainBlue;
+    }
+
+    .right-column {
+        padding: 1em 0;
+    }
 
     section {
-        width: 100%;
+        flex: 3 0 960px;
+        padding: 0 1em;
+    }
+}
 
-        @media (min-width: 1000px) {
-            max-width: 960px;
-        }
+.event-pane {
+    border-bottom: 1px solid $mainBlue;
+
+    h6 {
+        margin-bottom: 0;
     }
 }
