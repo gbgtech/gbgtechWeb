@@ -2,9 +2,11 @@ import React  from 'react';
 import TopMenu from './TopMenu';
 
 const App = ({ children }) => (
-    <div className="main-body">
+    <div className="app">
         <TopMenu />
-        {children}
+        <div className="main-container">
+            {children}
+        </div>
     </div>
 );
 

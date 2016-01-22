@@ -1,5 +1,19 @@
+$mainBlue: #0094d8;
+$mainBlack: #222;
+$mainWhite: #fff;
+
 *, *:before, *:after{
     box-sizing: border-box;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-weight: 300;
+    color: $mainBlue;
 }
 
 button,
@@ -23,14 +37,50 @@ html, body, #root {
     height: 100%;
 }
 
+body {
+    font-family: 'Josefin Sans', sans-serif;
+    font-weight: 400;
+    font-size: 1.5rem;
+}
 
 .top-menu {
+    background: $mainBlack;
+    color: $mainWhite;
+
+    margin: 0;
+    padding: 0;
+    height: 100px;
+
+    display: flex;
     flex-direction: row;
-    height: 300px;
-    justify-content: space-around;
+    justify-content: center;
+    align-items: center;
+
+    li {
+        justify-content: center;
+        align-items: center;
+        flex-basis: 200px;
+    }
 
     a {
-        display: inline-flex;
-        width: 200px;
+        font-size: 1.2rem;
+        padding: 20px;
+        color: $mainWhite;
+        text-decoration: none;
+        border-bottom: 1px solid transparent;
+
+        &:hover {
+            border-bottom: 1px solid $mainWhite;
+        }
+    }
+}
+
+.main-container {
+    padding: 2em;
+    flex-direction: row;
+    justify-content: center;
+
+    section {
+        max-width: 960px;
     }
 }

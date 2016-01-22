@@ -5,13 +5,11 @@ var TopMenu = React.createClass({
 
     render() {
          return (
-            <div className="top-menu">
-              <ul>
+            <ul className="top-menu">
                 <li><Link to={'/news'}>news</Link></li>
                 <li><Link to={'/hubs'}>hubs</Link></li>
-                <li><a href="http://gothenburgstartup.com">Gothenburgstartup map</a></li>
-              </ul>
-            </div>
+                <li><a href="http://gothenburgstartup.com">gothenburg startup map</a></li>
+            </ul>
         );
     }
 });
