@@ -1,15 +1,15 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { Router, Route, IndexRoute } from 'react-router';
+import { Router, Route, IndexRoute, browserHistory } from 'react-router';
 
-var App = require('./App');
-var Hello = require('./Hello');
-var World = require('./World');
+import App from './App';
+import Hello from './Hello';
+import World from './World';
 
 
 
 const AppRoute = () => (
-    <Router>
+    <Router history={browserHistory}>
         <Route path="/" component={App}>
             <IndexRoute component={Hello}/>
             <Route path="world" component={World}/>

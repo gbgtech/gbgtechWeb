@@ -1,8 +1,9 @@
-var React = require('react');
+import React from 'react';
+
 var Hello = React.createClass({
     render() {
          return <div>Hello</div>;
     }
 });
 
-module.exports = Hello;
+export default Hello;

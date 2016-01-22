@@ -3,7 +3,7 @@ import TopMenu from './TopMenu';
 
 
 
-var World = React.createClass({
+const World = React.createClass({
 
     render() {
          return <div><TopMenu />World</div>;
@@ -12,4 +12,4 @@ var World = React.createClass({
 
 });
 
-module.exports = World;
+export default World;
