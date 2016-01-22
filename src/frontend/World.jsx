@@ -1,8 +1,12 @@
-var React = require('react');
+import React from 'react';
+import TopMenu from './TopMenu';
+
+
+
 var World = React.createClass({
 
     render() {
-         return <div>World</div>;
+         return <div><TopMenu />World</div>;
     }
 
 
