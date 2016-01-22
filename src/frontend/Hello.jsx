@@ -1,6 +1,6 @@
 import React from 'react';
 
-var Hello = React.createClass({
+var Map = React.createClass({
     render() {
          return <div>Hello</div>;
     }

@@ -6,8 +6,11 @@ var TopMenu = React.createClass({
     render() {
          return (
             <div>
-                <Link to={'/hubs'}>hubs</Link>
-                <Link to={'/map'}>map</Link>
+              <ul>
+                <li><Link to={'/news'}>news</Link></li>
+                <li><Link to={'/hubs'}>hubs</Link></li>
+                <li><a href="http://gothenburgstartup.com">Gothenburgstartup map</a></li>
+              </ul>
             </div>
         );
     }
