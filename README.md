@@ -1,10 +1,13 @@
-===What is this===
+# What is this?
+
 This is the website for gbgtech.co
 
-===Neaded===
+## Needed
+
 * node
 * npm
 
-===How to run===
-* npm install
-* npm run dev
+## How to run
+
+* `npm install`
+* `npm run dev`
