@@ -1,8 +1,5 @@
-var express = require('express');
-var config = require('./config.js');
+var config = require('./config/config.js');
 var mongoose = require('mongoose');
-
-var app = express();
 
 var db = mongoose.connect(config.db, function(err) {
 	if (err) {
@@ -11,12 +8,12 @@ var db = mongoose.connect(config.db, function(err) {
 	}
 });
 
+var app = require('./config/express')(db);
+
 app.get('/api', function (req, res) {
   res.send('Hello World!');
 });
 
-app.use(express.static('build'));
-
-app.listen(3000, function () {
-  console.log('Example app listening on port 3000!');
-})
+app.post('/api/apabepa', function(req, res) {
+	res.status(501).send();
+});
