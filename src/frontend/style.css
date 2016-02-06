@@ -154,8 +154,26 @@ body {
     input, button {
         font-size: 1.2em;
     }
-
     button {
+
         margin-left: 0.3em;
     }
+}
+.postForm{
+  flex:1;
+  .quill {
+    flex:1;
+    flex-direction: column;
+    .quill-toolbar{
+      display: inline;
+      flex-grow:0;
+    }
+    .quill-contents {
+      border: 1px solid black;
+      flex:1;
+      .ql-editor {
+        flex:1;
+      }
+    }
+  }
 }

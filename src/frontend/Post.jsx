@@ -15,9 +15,9 @@ const Post = React.createClass({
     render() {
         return (
             <section>
-              <form>
+              <form className="postForm">
                 <labels>Title:<input /></labels>
-                <labels>body:<input /></labels>
+                <labels>body:</labels>
                 <ReactQuill theme="snow" value={this.state.value} />
 
               </form>
@@ -26,7 +26,6 @@ const Post = React.createClass({
         );
     }
 });
-
 
 
 export default Post;

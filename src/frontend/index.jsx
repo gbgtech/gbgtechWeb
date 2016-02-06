@@ -4,7 +4,7 @@ import { Router, Route, IndexRoute, browserHistory } from 'react-router';
 
 
 require('./style.css');
-//require('../../node_modules/quill/dist/style.css');
+require('../../node_modules/quill/dist/quill.snow.css');
 
 import App from './App';
 import Hello from './Hello';
