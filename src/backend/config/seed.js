@@ -2,12 +2,12 @@ var mongo = require('./mongo');
 var seeder = require('mongoose-seeder');
 
 
-mongo().then(function() {
+mongo().then(() => {
 
     // Load Mongoose models
-    seeder.seed(data).then(function() {
+    seeder.seed(data).then(() => {
         process.exit();
-    }).catch(function(error) {
+    }).catch((error) => {
         console.error(error);
     });
 });

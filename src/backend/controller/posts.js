@@ -5,57 +5,49 @@ var Categories = mongoose.model('Categories');
 var Users = mongoose.model('Users');
 
 module.exports = {
-    index: index,
-    show: show
+    index,
+    show
 };
 
 
 
 function index(req, res) {
 
-    Promise.all([
+    return Promise.all([
         Posts.find().exec(),
         Categories.find().exec()
-    ]).then(function(results) {
+    ]).then((results) => {
 
         var posts      = results[0];
         var categories = results[1];
 
-        var userIds = posts.map(function(post) { return post.author });
+        var userIds = posts.map(post => post.author);
 
-        return Users.find({_id: {$in: userIds}}).exec().then(function(users) {
-            posts = posts.map(function(post) {
-               return decoratePost(post, users, categories);
-            });
-            res.json(posts).end();
+        return Users.find({_id: {$in: userIds}}).exec().then((users) => {
+            posts = posts.map((post) => decoratePost(post, users, categories));
+            return res.json(posts).end();
         });
 
-    }).catch(function(err) {
-        handleError(err, res);
-    });
+    }).catch((err) => handleError(err, res));
 }
 
 function show(req, res) {
     Promise.all([
         Posts.findOne({_id: req.params.id}).exec(),
         Categories.find().exec()
-    ]).then(function(results) {
+    ]).then((results) => {
 
         var post       = results[0];
         var categories = results[1];
 
         var userId = post.author;
 
-        return Users.findOne({_id: userId}).exec().then(function(user) {
-            res.json(
-                decoratePost(post, [user], categories)
-            ).end();
-        });
+        return Users.findOne({_id: userId}).exec().then(user => res.json(
+            decoratePost(post, [user], categories)
+        ).end());
 
 
-    }).catch(function(err) {
-        handleError(err, res);
-    });
+    }).catch((err) => handleError(err, res));
 }
 
 function handleError(err, res) {
@@ -64,16 +56,12 @@ function handleError(err, res) {
 }
 
 
-function decoratePost(post, users, categories) {
-    var authorObject = users.find(function(user) {
-        return post.author.equals(user._id);
-    });
+const decoratePost = (post, users, categories) => {
+    const authorObject = users.find(user => post.author.equals(user._id));
 
-    var categoryObjects = post.categories.map(function(categoryId) {
-        return categories.find(function(category) {
-            return categoryId.equals(category._id);
-        });
-    });
+    const categoryObjects = post.categories.map((categoryId) =>
+        categories.find(category => categoryId.equals(category._id))
+    );
 
     return Object.assign({}, post._doc, {
         author: authorObject,

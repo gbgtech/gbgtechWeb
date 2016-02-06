@@ -14,7 +14,6 @@ function create(req, res) {
         email: userData.email,
         subscribedCategories: userData.categories
     }, function(err, user) {
-        console.log(err, user);
         if (err) {
             res.status(400).json(err);
         } else {
