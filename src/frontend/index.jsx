@@ -13,6 +13,9 @@ const AppRoute = () => (
         <Route path="/" component={App}>
             <IndexRoute component={Hello}/>
         </Route>
+        <Route path="/post" component={App}>
+            <IndexRoute component={post}/>
+        </Route>
     </Router>
 );
 
