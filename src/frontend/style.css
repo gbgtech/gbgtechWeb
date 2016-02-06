@@ -1,6 +1,7 @@
 $mainBlue: #0094d8;
 $mainBlack: #222;
 $mainWhite: #fff;
+$hotPink: #ff1493;
 
 *,
 *:before,
@@ -36,7 +37,7 @@ body {
     align-items: stretch;
 }
 
-::selection { background: #ff1493; color: #fff; }
+::selection { background: $hotPink; color: $mainWhite; }
 
 html, body, #root {
     height: 100%;
