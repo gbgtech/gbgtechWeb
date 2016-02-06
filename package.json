@@ -4,9 +4,10 @@
   "description": "Website gbgtech.co",
   "main": "index.js",
   "scripts": {
-    "dev": "WEBPACK_ENV=dev ./node_modules/.bin/webpack --watch --inline",
-    "build": "WEBPACK_ENV=build ./node_modules/.bin/webpack",
+    "dev": "./node_modules/.bin/webpack-dev-server --inline --progress --colors",
+    "build": "./node_modules/.bin/webpack -p",
     "test:ci": "watch 'npm run test' src/"
+    "postinstall": "npm run build"
   },
   "repository": {
     "type": "git",
