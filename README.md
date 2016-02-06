@@ -2,12 +2,15 @@
 
 This is the website for gbgtech.co
 
-## Needed
+## Required
 * node
 * npm
+* running mongoDB server
 
 ## How to run
 * `npm install`
+* `npm seed` 
+   * for seeding th mongoDB 
 * `npm start`
     * Starts live reload on frontend and backend.
 
