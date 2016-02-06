@@ -1,6 +1,8 @@
 import React from 'react';
-
 import moment from 'moment';
+
+
+import NewsPost from './NewsPost';
 
 const NewsPage = React.createClass({
     getInitialState() {
@@ -19,11 +21,7 @@ const NewsPage = React.createClass({
         return (
             <section>
                 {posts.map(post => (
-                    <article key={post.id}>
-                        <h2>{post.title}</h2>
-                        <small>by {post.author.email} | {moment(post.updatedAt).fromNow()} | {post.categories.map(c => c.name).join(', ')}</small>
-                        <p>{post.body}</p>
-                    </article>
+                    <NewsPost key={post._id} post={post}/>
                 ))}
             </section>
         );

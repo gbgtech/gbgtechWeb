@@ -9,4 +9,5 @@ module.exports = function(app) {
     app.post('/api/users/create', UsersController.create);
     app.get('/api/categories', CategoriesController.index);
     app.get('/api/posts', PostsController.index);
+    app.get('/api/posts/:id', PostsController.show);
 };
