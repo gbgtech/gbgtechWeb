@@ -18,9 +18,7 @@ const AppRoute = () => (
             <IndexRoute component={Hello}/>
             <Route path="news" component={NewsPage}/>
             <Route path="news/:postId" component={SinglePostPage} />
-        </Route>
-        <Route path="/post" component={App}>
-            <IndexRoute component={Post}/>
+            <Route path="post" component={Post}/>
         </Route>
     </Router>
 );
