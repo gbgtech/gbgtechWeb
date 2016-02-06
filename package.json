@@ -6,8 +6,7 @@
   "scripts": {
     "build": "./node_modules/.bin/webpack -p",
     "start": "./node_modules/.bin/supervisor -e 'js' -d ./src/backend/ node server.js",
-    "test:ci": "watch 'npm run test' src/",
-    "postinstall": "npm run build"
+    "test:ci": "watch 'npm run test' src/"
   },
   "repository": {
     "type": "git",
