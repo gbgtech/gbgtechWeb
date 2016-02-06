@@ -1,17 +1,18 @@
 var express = require('express'),
     path = require('path'),
     bodyParser = require('body-parser'),
-    webpack = require('webpack'),
-    webpackMiddleware = require('webpack-dev-middleware'),
-    webpackHotMiddleware = require('webpack-hot-middleware'),
-    webpConfig = require('../../../webpack.config.js'),
+    mongoose = require('mongoose'),
+    config = require('./config');
     helmet = require('helmet');
 
-module.exports = function(db) {
+module.exports = function(app) {
 
-  var port = process.env.PORT || 3000;
-  var isDev = process.env.NODE_ENV !== 'production';
-  var app = express();
+  var db = mongoose.connect(config.db, function(err) {
+  	if (err) {
+  		console.error('Could not connect to MongoDB!');
+  		console.error(err);
+  	}
+  });
 
   // Request body parsing middleware should be above methodOverride
   app.use(bodyParser.urlencoded({
@@ -30,34 +31,6 @@ module.exports = function(db) {
   app.get('/api/apa/', function(req, res) {
     return res.send("Bepa!");
   })
-
-  if(isDev) {
-    var compiler = webpack(webpConfig);
-    var middleware = webpackMiddleware(compiler, {
-      publicPath: webpConfig.output.publicPath,
-      contentBase: 'src',
-      stats: {
-        colors: true,
-        hash: false,
-        timings: true,
-        chunks: false,
-        chunkModules: false,
-        modules: false
-      }
-    });
-
-    app.use(middleware);
-    app.use(webpackHotMiddleware(compiler));
-    app.get('*', function response(req, res) {
-      res.write(middleware.fileSystem.readFileSync(path.join(__dirname, 'build/index.html')));
-      res.end();
-    });
-  }
-
-  app.listen(port, function() {
-    console.log("Backend is on port "+ port);
-    console.log("isDev ", isDev);
-  });
 
   return app;
 };
