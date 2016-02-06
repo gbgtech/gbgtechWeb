@@ -48,6 +48,15 @@ const RegistrationBox = React.createClass({
         });
     },
     finishRegistration() {
+        const { email, categories } = this.state;
+        const selected = categories.filter(c => c.checked).map(c => c.id);
+
+        fetch('/api/users/create', {
+            method: 'POST',
+            body: JSON.stringify({ email, categories: selected })
+        }).then(res => {
+            console.log(res);
+        });
         this.setState({
             finished: true
         });
