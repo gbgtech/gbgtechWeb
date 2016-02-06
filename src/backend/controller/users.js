@@ -3,12 +3,12 @@ var mongoose = require('mongoose');
 var Users = mongoose.model('Users');
 
 module.exports = {
-    createUser: createUser
+    create: create
 };
 
 
 
-function createUser(req, res) {
+function create(req, res) {
     var userData = req.body;
     Users.create({
         email: userData.email,
