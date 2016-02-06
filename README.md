@@ -22,5 +22,6 @@ This is the website for gbgtech.co
 * webpack
 
 ## Questions
-* irc.chalmers.it
-* #gbgtech
+* irc
+    * server: irc.chalmers.it  
+    * chanel: #gbgtech
