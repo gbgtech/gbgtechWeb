@@ -7,11 +7,13 @@ require('./style.css');
 
 import App from './App';
 import Hello from './Hello';
+import NewsPage from './NewsPage';
 
 const AppRoute = () => (
     <Router history={browserHistory}>
         <Route path="/" component={App}>
             <IndexRoute component={Hello}/>
+            <Route path="news" component={NewsPage}/>
         </Route>
     </Router>
 );
