@@ -10,7 +10,7 @@ This is the website for gbgtech.co
 ## How to run
 * `npm install`
 * `npm start`
-Starts live reload on frontend and backend.
+    * Starts live reload on frontend and backend.
 
 
 ## Using
@@ -19,6 +19,7 @@ Starts live reload on frontend and backend.
 * babel
 * express
 * mongodb
+* webpack
 
 ## Questions
 * irc.chalmers.it
