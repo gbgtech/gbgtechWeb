@@ -3,7 +3,6 @@
 This is the website for gbgtech.co
 
 ## Needed
-
 * node
 * npm
 
@@ -24,4 +23,4 @@ This is the website for gbgtech.co
 ## Questions
 * irc
     * server: irc.chalmers.it  
-    * chanel: #gbgtech
+    * channel: #gbgtech
