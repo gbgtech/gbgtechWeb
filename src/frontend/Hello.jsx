@@ -7,7 +7,7 @@ const Hello = React.createClass({
         return (
             <section>
                 <RegistrationBox />
-                <h1>Hello</h1>
+                <h1>Hello </h1>
                 <h2>What is #gbgtech?</h2>
                 <p>
                     #gbgtech is Gothenburg's Tech and Startup Community. The community exist to position Gothenburg as an attractive tech- and startup-commuity in Scandinavia by promoting communication and interaction. No one is in charge of the community, it is built by the organizations and persons that are a part of it.

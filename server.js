@@ -30,3 +30,8 @@ app.listen({port: port, bind: '0.0.0.0'}, function() {
 });
 
 app.use(express.static('./public'));
+
+app.get('*', function(req, res,next) {
+  if (req.url.startsWith('/build/') ) return next();
+  res.sendfile('index.html', {root: './public'});
+});

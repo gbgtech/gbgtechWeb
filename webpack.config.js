@@ -7,7 +7,7 @@ module.exports = {
     './src/frontend/index.jsx',
     'webpack-hot-middleware/client'
   ],
-  devtool: 'eval-source-map',
+  devtool: 'source-map',
   output: {
     path: __dirname + '/public',
     publicPath: 'build/'
@@ -23,7 +23,11 @@ module.exports = {
         test:   /\.css$/,
         loader: 'style!css!postcss'
       }
-    ]
+    ],
+    // Shut off warnings about using pre-built javascript files
+    // as Quill.js unfortunately ships one as its `main`.
+    noParse: /node_modules\/quill\/dist/
+
   },
   postcss: function() {
     return [autoprefixer, precss];

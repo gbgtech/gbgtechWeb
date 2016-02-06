@@ -3,14 +3,22 @@ import ReactQuill from 'react-quill';
 
 
 
-const Hello = React.createClass({
+const Post = React.createClass({
+    getInitialState() {
+        return {
+            email: '',
+            modalOpen: false,
+            finished: false,
+            categories: []
+        };
+    },
     render() {
         return (
             <section>
               <form>
                 <labels>Title:<input /></labels>
                 <labels>body:<input /></labels>
-                <ReactQuill value={this.state.value} />
+                <ReactQuill theme="snow" value={this.state.value} />
 
               </form>
 
@@ -21,4 +29,4 @@ const Hello = React.createClass({
 
 
 
-export default Hello;
+export default Post;
