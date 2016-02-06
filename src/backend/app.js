@@ -8,7 +8,7 @@ var db = mongoose.connect(config.db, function(err) {
 	}
 });
 
-var app = require('./config/express')(db);
+var app = require('./config/express.js')(db);
 
 app.get('/api', function (req, res) {
   res.send('Hello World!');

@@ -1,5 +1,6 @@
 var webpack           = require('webpack');
 var WebpackDevServer  = require('webpack-dev-server');
+var HtmlWebpackPlugin = require('html-webpack-plugin');
 var path              = require('path');
 
 var autoprefixer      = require('autoprefixer');
@@ -12,7 +13,20 @@ var appName = 'app';
 var host = '0.0.0.0';
 var port = '9000';
 
-var plugins = [], outputFile;
+var plugins, outputFile;
+
+plugins = [
+  new HtmlWebpackPlugin({
+    template: 'src/frontend/index.html',
+    inject: 'body',
+    filename: 'index.html'
+  }),
+  new webpack.HotModuleReplacementPlugin(),
+  new webpack.DefinePlugin({
+    'process.env.NODE_ENV': JSON.stringify('development')
+  })
+];
+
 
 if (env === 'build') {
   plugins.push(new UglifyJsPlugin({ minimize: true }));
@@ -23,12 +37,13 @@ if (env === 'build') {
 
 var config = {
   entry: './src/frontend/index.jsx',
-  devtool: 'source-map',
+  devtool: 'eval-source-map',
   output: {
-    path: __dirname + '/build',
+    path: '/',
     filename: outputFile,
-    publicPath: __dirname + '/src/frontend'
+    //publicPath: path.join(__dirname, '/src/frontend')
   },
+  plugins: plugins,
   module: {
     loaders: [
       {
@@ -53,23 +68,22 @@ var config = {
   resolve: {
     root: path.resolve('./src'),
     extensions: ['', '.js', '.jsx']
-  },
-  plugins: plugins
+  }
 };
 
-if (env === 'dev') {
-  new WebpackDevServer(webpack(config), {
-    contentBase: './src/frontend',
-    hot: true,
-    debug: true
-  }).listen(port, host, function (err, result) {
-    if (err) {
-      console.log(err);
-    }
-  });
-  console.log('-------------------------');
-  console.log('Local web server runs at http://' + host + ':' + port);
-  console.log('-------------------------');
-}
+// if (env === 'dev') {
+//   new WebpackDevServer(webpack(config), {
+//     contentBase: './src/frontend',
+//     hot: true,
+//     debug: true
+//   }).listen(port, host, function (err, result) {
+//     if (err) {
+//       console.log(err);
+//     }
+//   });
+//   console.log('-------------------------');
+//   console.log('Local web server runs at http://' + host + ':' + port);
+//   console.log('-------------------------');
+// }
 
 module.exports = config;
