@@ -28,9 +28,7 @@ module.exports = function(app) {
   app.use(helmet.ienoopen());
   app.disable('x-powered-by');
 
-  app.get('/api/apa/', function(req, res) {
-    return res.send("Bepa!");
-  })
+  require('../routes')(app);
 
   return app;
 };
