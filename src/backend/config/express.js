@@ -5,6 +5,11 @@ var express = require('express'),
     config = require('./config');
     helmet = require('helmet');
 
+
+config.getGlobbedFiles('../model/*.js').forEach(function(modelPath) {
+  require(path.resolve(modelPath));
+})
+
 module.exports = function(app) {
 
   var db = mongoose.connect(config.db, function(err) {
