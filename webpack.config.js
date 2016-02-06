@@ -6,7 +6,7 @@ module.exports = {
   devtool: 'source-map',
   output: {
     path: __dirname + '/public',
-    publicPath: 'public/'
+    publicPath: '/public/'
   },
   module: {
     loaders: [

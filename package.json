@@ -4,9 +4,9 @@
   "description": "Website gbgtech.co",
   "main": "index.js",
   "scripts": {
-    "dev": "./node_modules/.bin/webpack-dev-server --inline --progress --colors",
     "build": "./node_modules/.bin/webpack -p",
-    "test:ci": "watch 'npm run test' src/"
+    "start": "node server.js",
+    "test:ci": "watch 'npm run test' src/",
     "postinstall": "npm run build"
   },
   "repository": {
