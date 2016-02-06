@@ -1,14 +1,17 @@
 var autoprefixer  = require('autoprefixer');
 var precss        = require('precss');
+var webpack       = require('webpack');
 
 module.exports = {
-  entry: './src/frontend/index.jsx',
+  entry: [
+    './src/frontend/index.jsx',
+    'webpack-hot-middleware/client'
+  ],
   devtool: 'eval-source-map',
   output: {
     path: __dirname + '/public',
-    publicPath: '/public/'
+    publicPath: 'build/'
   },
-  // plugins: plugins,
   module: {
     loaders: [
       {
@@ -30,5 +33,10 @@ module.exports = {
   },
   devServer: {
     contentBase: './public'
-  }
+  },
+  plugins: [
+    new webpack.optimize.OccurenceOrderPlugin(),
+    new webpack.HotModuleReplacementPlugin(),
+    new webpack.NoErrorsPlugin()
+  ]
 };
