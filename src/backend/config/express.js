@@ -2,8 +2,16 @@ var express = require('express'),
     path = require('path'),
     bodyParser = require('body-parser'),
     mongoose = require('mongoose'),
-    config = require('./config');
+    config = require('./config'),
+    fs = require('fs'),
     helmet = require('helmet');
+
+
+var modelDir = './src/backend/model';
+fs.readdirSync(modelDir).forEach(function(modelPath) {
+  console.log(modelDir + '/' + modelPath);
+  require('../model/' + modelPath);
+});
 
 module.exports = function(app) {
 
@@ -28,9 +36,7 @@ module.exports = function(app) {
   app.use(helmet.ienoopen());
   app.disable('x-powered-by');
 
-  app.get('/api/apa/', function(req, res) {
-    return res.send("Bepa!");
-  })
+  require('../routes')(app);
 
   return app;
 };

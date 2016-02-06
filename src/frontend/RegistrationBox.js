@@ -10,25 +10,13 @@ const RegistrationBox = React.createClass({
         };
     },
     componentDidMount() {
-        // fetch data -> setState
-        this.setState({
-            categories: [
-                {id: 1, name: 'Ping pong', checked: false},
-                {id: 2, name: 'Techföreläsning', checked: false},
-                {id: 3, name: 'Startupföreläsning', checked: false},
-                {id: 4, name: 'After hours (fest)', checked: false},
-                {id: 5, name: 'Show and tell', checked: false},
-                {id: 6, name: 'Ping pong', checked: false},
-                {id: 7, name: 'Techföreläsning', checked: false},
-                {id: 8, name: 'Startupföreläsning', checked: false},
-                {id: 9, name: 'After hours (fest)', checked: false},
-                {id: 10, name: 'Show and tell', checked: false}
-            ]
+        fetch('/api/categories').then(res => res.json()).then(categories => {
+            this.setState({categories});
         });
     },
     handleCategoryChecked(categoryId) {
         const categories = this.state.categories.map(category => {
-            if (category.id === categoryId) {
+            if (category._id === categoryId) {
                 return {
                     ...category,
                     checked: !category.checked
@@ -48,6 +36,18 @@ const RegistrationBox = React.createClass({
         });
     },
     finishRegistration() {
+        const { email, categories } = this.state;
+        const selected = categories.filter(c => c.checked).map(c => c._id);
+
+        fetch('/api/users/create', {
+            method: 'POST',
+            body: JSON.stringify({ email, categories: selected }),
+            headers: new Headers({
+                'Content-Type': 'application/json'
+            }),
+        }).then(res => {
+            console.log(res);
+        });
         this.setState({
             finished: true
         });
@@ -61,8 +61,8 @@ const RegistrationBox = React.createClass({
                 <h3>Choose categories that interests you</h3>
                 <ul className="categories row">
                     {categories.map(category => (
-                        <li key={category.id}>
-                            <label><input type="checkbox" checked={category.checked} onChange={() => this.handleCategoryChecked(category.id)}/>{category.name}</label>
+                        <li key={category._id}>
+                            <label><input type="checkbox" checked={category.checked} onChange={() => this.handleCategoryChecked(category._id)}/>{category.name}</label>
                         </li>
                     ))}
                 </ul>
@@ -96,7 +96,7 @@ const RegistrationBox = React.createClass({
             <div className="register row">
                 <h3>Sign up for our newsfeed:</h3>
                 <form className="row" onSubmit={this.openModal}>
-                    <input type="email" required value={this.state.email} onChange={this.changeEmail} placeholder="Enter your email" />
+                    <input type="email" tabIndex="1" required value={this.state.email} onChange={this.changeEmail} placeholder="Enter your email" />
                     <button>Next</button>
                 </form>
             </div>

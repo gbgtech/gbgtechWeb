@@ -10,6 +10,7 @@ var validateLocalStrategyPassword = function(password) {
 };
 
 var UserSchema = new Schema({
+  subscribedCategories: [Schema.Types.ObjectId],
   password: {
     type: String,
     validate: [validateLocalStrategyPassword, '']
@@ -24,9 +25,9 @@ var UserSchema = new Schema({
   },
   provider: {
     type: String,
-    required: 'Provider is required'
+    default: 'email'
   },
-  created: {
+  createdAt: {
 		type: Date,
 		default: Date.now
 	},
@@ -39,4 +40,4 @@ var UserSchema = new Schema({
 	}
 });
 
-mongoose.model('Users', UserSchema);
+module.exports = mongoose.model('Users', UserSchema);
