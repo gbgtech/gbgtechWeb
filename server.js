@@ -25,7 +25,7 @@ if(true) { // Assumes that this runs as dev. Fix and add production routine
   app.use(webpackHotMiddleware(compiler));
 }
 
-app.listen(port, function() {
+app.listen({port: port, bind: '0.0.0.0'}, function() {
   console.log("Backend is on port "+ port);
 });
 

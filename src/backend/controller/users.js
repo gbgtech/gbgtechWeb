@@ -16,9 +16,9 @@ function createUser(req, res) {
     }, function(err, user) {
         console.log(err, user);
         if (err) {
-            res.statusCode(400).json(err);
+            res.status(400).json(err);
         } else {
-            res.statusCode(201).json(user);
+            res.status(201).json(user);
         }
 
         res.end();

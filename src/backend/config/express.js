@@ -2,13 +2,16 @@ var express = require('express'),
     path = require('path'),
     bodyParser = require('body-parser'),
     mongoose = require('mongoose'),
-    config = require('./config');
+    config = require('./config'),
+    fs = require('fs'),
     helmet = require('helmet');
 
 
-config.getGlobbedFiles('../model/*.js').forEach(function(modelPath) {
-  require(path.resolve(modelPath));
-})
+var modelDir = './src/backend/model';
+fs.readdirSync(modelDir).forEach(function(modelPath) {
+  console.log(modelDir + '/' + modelPath);
+  require('../model/' + modelPath);
+});
 
 module.exports = function(app) {
 

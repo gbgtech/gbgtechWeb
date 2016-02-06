@@ -1,16 +1,18 @@
 var seeder = require('mongoose-seed');
+var config = require('./config');
 
 // Connect to MongoDB via Mongoose
-seeder.connect('mongodb://localhost/sample-dev', function() {
+seeder.connect(config.db, function() {
 
     // Load Mongoose models
     seeder.loadModels([
-        'app/model1File.js',
-        'app/model2File.js'
+        'src/backend/model/category.js',
+        'src/backend/model/user.js',
+        'src/backend/model/post.js'
     ]);
 
     // Clear specified collections
-    seeder.clearModels(['Model1', 'Model2'], function() {
+    seeder.clearModels(['Users', 'Categories'], function() {
 
         // Callback to populate DB once collections have been cleared
         seeder.populateModels(data);
@@ -21,16 +23,15 @@ seeder.connect('mongodb://localhost/sample-dev', function() {
 // Data array containing seed data - documents organized by Model
 var data = [
     {
-        'model': 'Model1',
+        'model': 'Categories',
         'documents': [
-            {
-                'name': 'Doc1'
-                'value': 200
-            },
-            {
-                'name': 'Doc2'
-                'value': 400
-            }
+            { name: 'Ping pong' },
+            { name: 'Meetups' },
+            { name: 'Hackathons' },
+            { name: 'Tech lecture' },
+            { name: 'Startup lecture' },
+            { name: 'After hours (party!!!)' },
+            { name: 'Show and tell' }
         ]
     }
 ];
