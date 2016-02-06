@@ -1,37 +1,27 @@
-var seeder = require('mongoose-seed');
-var config = require('./config');
+var mongo = require('./mongo');
+var seeder = require('mongoose-seeder');
 
-// Connect to MongoDB via Mongoose
-seeder.connect(config.db, function() {
+
+mongo().then(function() {
 
     // Load Mongoose models
-    seeder.loadModels([
-        'src/backend/model/category.js',
-        'src/backend/model/user.js',
-        'src/backend/model/post.js'
-    ]);
-
-    // Clear specified collections
-    seeder.clearModels(['Users', 'Categories'], function() {
-
-        // Callback to populate DB once collections have been cleared
-        seeder.populateModels(data);
-
+    seeder.seed(data).then(function() {
+        process.exit();
+    }).catch(function(error) {
+        console.error(error);
     });
 });
 
 // Data array containing seed data - documents organized by Model
-var data = [
-    {
-        'model': 'Categories',
-        'documents': [
-            { name: 'Ping pong' },
-            { name: 'Meetups' },
-            { name: 'Hackathons' },
-            { name: 'Tech lecture' },
-            { name: 'Startup lecture' },
-            { name: 'After hours (party!!!)' },
-            { name: 'Show and tell' }
-        ]
+var data = {
+    users: {
+        '_model': 'Categories',
+        'c1': { name: 'Ping pong' },
+        'c2': { name: 'Meetups' },
+        'c3': { name: 'Hackathons' },
+        'c4': { name: 'Tech lecture' },
+        'c5': { name: 'Startup lecture' },
+        'c6': { name: 'After hours (party!!!)' },
+        'c7': { name: 'Show and tell' }
     }
-];
+};

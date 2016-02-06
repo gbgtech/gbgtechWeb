@@ -1,26 +1,14 @@
 var express = require('express'),
-    path = require('path'),
     bodyParser = require('body-parser'),
-    mongoose = require('mongoose'),
-    config = require('./config'),
-    fs = require('fs'),
-    helmet = require('helmet');
+    helmet = require('helmet'),
+    mongo = require('./mongo');
 
 
-var modelDir = './src/backend/model';
-fs.readdirSync(modelDir).forEach(function(modelPath) {
-  console.log(modelDir + '/' + modelPath);
-  require('../model/' + modelPath);
-});
+mongo();
+
+
 
 module.exports = function(app) {
-
-  var db = mongoose.connect(config.db, function(err) {
-  	if (err) {
-  		console.error('Could not connect to MongoDB!');
-  		console.error(err);
-  	}
-  });
 
   // Request body parsing middleware should be above methodOverride
   app.use(bodyParser.urlencoded({
