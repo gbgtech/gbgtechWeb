@@ -1,9 +1,12 @@
 import React from 'react';
 
+import RegistrationBox from './RegistrationBox'
+
 const Hello = React.createClass({
     render() {
         return (
             <section>
+                <RegistrationBox />
                 <h1>Hello</h1>
                 <h2>What is #gbgtech?</h2>
                 <p>
@@ -27,7 +30,6 @@ const Hello = React.createClass({
                 <p>
                     Of course! 2015 was good, 2016 is going to be even better! Between the 9th and 15th of May Gothenburg will focus on startups, the tech scene and entrepreneurs! There will be hackathons, networking opportunities, lectures and workshops during one week, everything for free! Can it get any better? Spread the word with #gbgtech on Twitter!
                 </p>
-            
 
             </section>
         );

@@ -19,12 +19,12 @@ h6 {
     color: $mainBlue;
 }
 
-button,
 header,
 section,
 footer,
 nav,
 li,
+form,
 div,
 html,
 body {
@@ -38,6 +38,10 @@ body {
 }
 
 ::selection { background: $hotPink; color: $mainWhite; }
+
+.row {
+    flex-direction: row;
+}
 
 html, body, #root {
     height: 100%;
@@ -92,7 +96,6 @@ body {
     .left-column, .right-column {
         flex: 1 1 300px;
         padding: 1em;
-        // background: $mainBlue;
     }
 
     .right-column {
@@ -110,5 +113,48 @@ body {
 
     h6 {
         margin-bottom: 0;
+    }
+}
+
+.register {
+    height: 140px;
+    margin-top: 1em;
+    padding: 1em;
+    justify-content: space-around;
+    align-items: center;
+    background: $mainWhite;
+    border: 1px solid $mainBlue;
+
+    transition: height 0.3s ease-out;
+    overflow: hidden;
+
+    &.modal {
+        min-height: 300px;
+        justify-content: space-between;
+    }
+
+    .row {
+        align-items: center;
+    }
+
+    .categories {
+        margin: 0;
+
+        li {
+            display: inline-flex;
+            width: 30%;
+        }
+    }
+
+    .row, input {
+        flex: 1;
+    }
+
+    input, button {
+        font-size: 1.2em;
+    }
+
+    button {
+        margin-left: 0.3em;
     }
 }
