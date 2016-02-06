@@ -9,7 +9,7 @@ This is the website for gbgtech.co
 
 ## How to run
 * `npm install`
-* `npm seed` 
+* `npm run seed` 
    * for seeding th mongoDB 
 * `npm start`
     * Starts live reload on frontend and backend.
