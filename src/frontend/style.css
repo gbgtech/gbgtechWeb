@@ -90,7 +90,7 @@ body {
 
 .main-container {
     margin-top: 100px;
-    padding: 0 1rem 1rem;
+    padding: 0 1rem 0;
     flex-direction: row;
 
     .left-column, .right-column {
@@ -99,7 +99,11 @@ body {
     }
 
     .right-column {
-        padding: 1em 0;
+        padding: 1em 0 0;
+
+        iframe {
+            flex: 1;
+        }
     }
 
     section {
