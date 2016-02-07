@@ -1,5 +1,5 @@
 import React from 'react';
-import moment from 'moment';
+import { get } from './fetcher';
 
 
 import NewsPost from './NewsPost';
@@ -11,9 +11,7 @@ const NewsPage = React.createClass({
         };
     },
     componentDidMount() {
-        fetch('/api/posts').then(res => res.json()).then(posts => {
-            this.setState({ posts });
-        })
+        get('/posts').then(posts => this.setState({ posts }));
     },
     render() {
         const { posts } = this.state;

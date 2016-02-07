@@ -3,6 +3,8 @@ import ReactDOM from 'react-dom';
 import { Router, Route, IndexRoute, browserHistory } from 'react-router';
 
 
+import fetcher from './fetcher';
+
 require('./style.css');
 require('../../node_modules/quill/dist/quill.snow.css');
 
