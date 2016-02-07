@@ -1,23 +1,13 @@
 import React from 'react';
 
-import EventPane from './EventPane';
+import EventsList from './EventsList';
 
 const LeftColumn = React.createClass({
 
     render() {
         return (
             <div className="left-column">
-                <EventPane date="11 januari">Ping pong</EventPane>
-                <EventPane date="11 januari">Ping pong</EventPane>
-                <EventPane date="11 januari">Ping pong</EventPane>
-                <EventPane date="11 januari">Ping pong</EventPane>
-                <EventPane date="11 januari">Ping pong</EventPane>
-                <EventPane date="11 januari">Ping pong</EventPane>
-                <EventPane date="11 januari">Ping pong</EventPane>
-                <EventPane date="11 januari">Ping pong</EventPane>
-                <EventPane date="11 januari">Ping pong</EventPane>
-                <EventPane date="11 januari">Ping pong</EventPane>
-                <EventPane date="11 januari">Ping pong</EventPane>
+               <EventsList />
             </div>
         );
     }

@@ -30,6 +30,7 @@
     "exports-loader": "~0.6.2",
     "express": "^4.13.3",
     "glob": "^6.0.4",
+    "googleapis": "~2.1.7",
     "helmet": "^1.1.0",
     "imports-loader": "~0.6.5",
     "lodash": "^4.0.0",
