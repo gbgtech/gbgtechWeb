@@ -5,6 +5,7 @@ import {postJson,get} from '../fetcher';
 const Post = React.createClass({
     getInitialState() {
         return {
+          post: {
             title: '',
             body: '',
             categories: [],
@@ -14,6 +15,7 @@ const Post = React.createClass({
             organizer:'',
             rsvpLink:'',
             position:''
+          }
         };
     },
     handleShowEventInfo(){
@@ -26,16 +28,19 @@ const Post = React.createClass({
 
     handleSetValue(event, name){
       this.setState({
-        [name]: event.target.value
+        post: {
+          ...this.state.post,
+          [name]: event.target.value
+        }
       });
     },
-    handleTitlechange(event){
+    onTextChange: function(body) {
       this.setState({
-         title : event.target.value
-      })
-    },
-    onTextChange: function(value) {
-      this.setState({ body:value });
+        post: {
+          ...this.state.post,
+          body
+        }
+      });
     },
     componentDidMount() {
         get('/categories').then(categories => {
@@ -46,7 +51,7 @@ const Post = React.createClass({
       event.preventDefault();
         postJson('/posts/create',
             {
-              ...this.state,
+              ...this.state.post,
               categories: this.state.categories.filter(c => c.checked).map(c => c._id)
             }
         )
@@ -56,7 +61,7 @@ const Post = React.createClass({
 
       },
       handleCategoryChecked(categoryId) {
-          const categories = this.state.categories.map(category => {
+          const categories = this.state.post.categories.map(category => {
               if (category._id === categoryId) {
                   return {
                       ...category,
@@ -67,47 +72,62 @@ const Post = React.createClass({
               }
           });
 
-          this.setState({ categories });
+          this.setState({
+            post: {
+              ...this.state.post,
+              categories
+            }
+          });
       },
 
     render() {
-      const { categories } = this.state;
+      const { categories, title, showEventInfo, body } = this.state.post;
         return (
             <section>
               <form className="postForm" onSubmit={this.handleSubmit}>
-                <labels>Title:<input value={this.state.title} onChange={this.handleTitlechange} /></labels>
-                  <ul className="categories row">
-                      {categories.map(category => (
-                          <li key={category._id}>
-                              <label><input type="checkbox" checked={category.checked} onChange={() => this.handleCategoryChecked(category._id)}/>{category.name}</label>
-                          </li>
-                      ))}
-                  </ul>
-
-                  <label><input type="checkbox" checked={this.state.showEventInfo} onChange={ this.handleShowEventInfo}/>Is event</label>
-
-                  { this.state.showEventInfo ? this.renderEventInfo() : null }
-
-
-                <ReactQuill theme="snow" value={this.state.body} onChange={this.onTextChange}  />
+                <labels>Title:<input value={title} onChange={(event) => this.handleSetValue(event,'title')} /></labels>
+                <ul className="categories row">
+                  {categories.map(category => (
+                    <li key={category._id}>
+                      <label><input type="checkbox" checked={category.checked} onChange={() => this.handleCategoryChecked(category._id)}/>{category.name}</label>
+                    </li>
+                  ))}
+                </ul>
+                <label><input type="checkbox" checked={showEventInfo} onChange={this.handleShowEventInfo}/>Is event</label>
+                {showEventInfo && this.renderEventInfo()}
+                <ReactQuill theme="snow" value={body} onChange={this.onTextChange}  />
                 <button className="button">Submit</button>
               </form>
-
             </section>
         );
     },
     renderEventInfo () {
-        return (
-            <div className="eventInfo">
-                <label>From:<input value={this.state.from} onChange={(event) => this.handleSetValue(event,'from')} type="datetime-local"/></label>
-                <label>To:<input value={this.state.to}  onChange={(event) => this.handleSetValue(event,'to')} type="datetime-local"/></label>
-                <label>Orginiser:<input value={this.state.organizer}  onChange={(event) => this.handleSetValue(event,'organizer')} /></label>
-                <label>RSVP-link (optional):<input  value={this.state.handleRsvpLink}  onChange={(event) => this.handleSetValue(event,'rsvpLink')}  /></label>
-                <label>position:<input value={this.state.position}  onChange={(event) => this.handleSetValue(event,'position')} /></label>
+      const { from, to, organizer, rsvpLink, position } = this.state.post;
 
-
-            </div>
-        );
+      return (
+          <div className="eventInfo">
+              <label>
+                From:
+                <input value={from} onChange={(event) => this.handleSetValue(event, 'from')} type="datetime-local"/>
+              </label>
+              <label>
+                To:
+                <input value={to} onChange={(event) => this.handleSetValue(event, 'to')} type="datetime-local"/>
+              </label>
+              <label>
+                Organizer:
+                <input value={organizer} onChange={(event) => this.handleSetValue(event, 'organizer')} />
+              </label>
+              <label>
+                RSVP-link (optional):
+                <input value={rsvpLink} onChange={(event) => this.handleSetValue(event, 'rsvpLink')} />
+              </label>
+              <label>
+                Position:
+                <input value={position}  onChange={(event) => this.handleSetValue(event, 'position')} />
+              </label>
+          </div>
+      );
     }
 });
 

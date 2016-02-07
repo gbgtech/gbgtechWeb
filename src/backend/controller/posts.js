@@ -15,8 +15,14 @@ module.exports = {
 
 function index(req, res) {
 
+    var filter = {accepted: 'APPROVED'};
+
+    if (req.query.waiting === '1') {
+        filter.accepted = 'WAITING';
+    }
+
     return Promise.all([
-        Posts.find().sort({ createdAt: -1 }).exec(),
+        Posts.find(filter).sort({ createdAt: -1 }).exec(),
         Categories.find().exec()
     ]).then((results) => {
 
@@ -43,14 +49,19 @@ function create(req, res) {
             to: post.to,
             from: post.from,
             organizer: post.organizer,
-            rsvp: post.rsvpLink
+            rsvp: post.rsvpLink,
+            location: {
+                lat: null,
+                lng: null,
+                name: null
+            }
         };
     }
 
     Posts.create({
         title: post.title,
         slug: slugify(post.title),
-        // author: '56b79691cf977223359ee3a8',
+        author: null,
         body: post.body,
         categories: post.categories,
         eventData: event
@@ -67,7 +78,7 @@ function create(req, res) {
 
 function show(req, res) {
     Promise.all([
-        Posts.findOne({slug: req.params.id}).exec(),
+        Posts.findOne({slug: req.params.id, accepted: 'APPROVED'}).exec(),
         Categories.find().exec()
     ]).then((results) => {
 
@@ -81,7 +92,7 @@ function show(req, res) {
         ).end());
 
 
-    }).catch((err) => handleError(err, res));
+    }).catch((err) => res.status(404).end());
 }
 
 function handleError(err, res) {
