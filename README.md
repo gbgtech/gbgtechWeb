@@ -10,7 +10,8 @@ This is the website for gbgtech.co
 ## How to run
 * `npm install`
 * `npm run seed` 
-   * for seeding th mongoDB 
+   * for seeding th mongoDB
+* Copy src/backend/config/config.local.json.base to src/backend/config/config.local.json and add calender id and calender api key(https://console.developers.google.com/apis/).
 * `npm start`
     * Starts live reload on frontend and backend.
 
