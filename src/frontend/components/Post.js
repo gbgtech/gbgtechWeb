@@ -1,10 +1,10 @@
 import React from 'react';
 import ReactQuill from 'react-quill';
+import {postJson,get} from '../fetcher';
 
 const Post = React.createClass({
     getInitialState() {
         return {
-            email: '',
             title: '',
             body: '',
             categories: [],
@@ -16,17 +16,52 @@ const Post = React.createClass({
          showEventInfo :! this.state.showEventInfo
       })
     },
+    handleTitlechange(event){
+      this.setState({
+         title : event.target.value
+      })
+    },
+    onTextChange: function(value) {
+      this.setState({ body:value });
+    },
     componentDidMount() {
-        fetch('/api/categories').then(res => res.json()).then(categories => {
+        get('/categories').then(categories => {
             this.setState({categories});
         });
     },
+    handleSubmit: function() {
+        postJson('/posts/create',
+            {
+              ...this.state,
+              categories: this.state.categories.filter(c => c.checked).map(c => c._id)
+            }
+        )
+        .then(res => {
+            console.log(res);
+        });
+
+      },
+      handleCategoryChecked(categoryId) {
+          const categories = this.state.categories.map(category => {
+              if (category._id === categoryId) {
+                  return {
+                      ...category,
+                      checked: !category.checked
+                  };
+              } else {
+                  return category;
+              }
+          });
+
+          this.setState({ categories });
+      },
+
     render() {
       const { categories } = this.state;
         return (
             <section>
-              <form className="postForm">
-                <labels>Title:<input value={this.state.body} /></labels>
+              <form className="postForm" onSubmit={this.handleSubmit}>
+                <labels>Title:<input value={this.state.title} onChange={this.handleTitlechange} /></labels>
                   <ul className="categories row">
                       {categories.map(category => (
                           <li key={category._id}>
@@ -40,8 +75,8 @@ const Post = React.createClass({
                   { this.state.showEventInfo ? <EventInfo /> : null }
 
 
-                <ReactQuill theme="snow" value={this.state.body} />
-
+                <ReactQuill theme="snow" value={this.state.body} onChange={this.onTextChange}  />
+                <button className="button">Submit</button>
               </form>
 
             </section>
@@ -53,12 +88,12 @@ var EventInfo = React.createClass({
     render: function() {
         return (
             <div className="eventInfo">
-                <label>From:<input/></label>
-                <label>To:<input/></label>
+                <label>From:<input type="datetime-local"/></label>
+                <label>To:<input type="datetime-local"/></label>
                 <label>Orginiser:<input/></label>
-                <label>rsvp (opt):<input/></label>
-                <label>position:
-                </label>
+                <label>RSVP-link (optional):<input/></label>
+                <label>position:<input/></label>
+
 
             </div>
         );
