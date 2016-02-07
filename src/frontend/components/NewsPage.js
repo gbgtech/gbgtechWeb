@@ -3,6 +3,7 @@ import { get } from '../fetcher';
 
 
 import NewsPost from './NewsPost';
+import RegistrationBox from './RegistrationBox'
 
 const NewsPage = React.createClass({
     getInitialState() {
@@ -18,6 +19,7 @@ const NewsPage = React.createClass({
 
         return (
             <section>
+                <RegistrationBox />
                 {posts.map(post => (
                     <NewsPost key={post._id} post={post}/>
                 ))}
