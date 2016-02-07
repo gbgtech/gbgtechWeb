@@ -8,8 +8,13 @@ const Post = React.createClass({
             title: '',
             body: '',
             categories: [],
-            showEventInfo:true
+            showEventInfo:false
         };
+    },
+    handleShowEventInfo(){
+      this.setState({
+         showEventInfo :! this.state.showEventInfo
+      })
     },
     componentDidMount() {
         fetch('/api/categories').then(res => res.json()).then(categories => {
@@ -30,7 +35,7 @@ const Post = React.createClass({
                       ))}
                   </ul>
 
-                  <label><input type="checkbox" checked={this.state.showEventInfo} onChange={() => this.handleCategoryChecked(category._id)}/>Is event</label>
+                  <label><input type="checkbox" checked={this.state.showEventInfo} onChange={ this.handleShowEventInfo}/>Is event</label>
 
                   { this.state.showEventInfo ? <EventInfo /> : null }
 
