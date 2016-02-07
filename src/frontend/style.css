@@ -1,6 +1,8 @@
 $mainBlue: #0094d8;
 $mainBlack: #222;
 $mainWhite: #fff;
+$lightYellow: #fffeee;
+$darkYellow: yellow;
 $hotPink: #ff1493;
 
 *,
@@ -113,6 +115,13 @@ body {
         flex: 3 1 960px;
         padding: 0 1em;
     }
+}
+
+.news-article {
+  background: $lightYellow;
+  border: 1px solid $darkYellow;
+  padding: 1em;
+  margin-bottom: 1em;
 }
 
 .event-pane {
