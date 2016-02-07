@@ -93,11 +93,15 @@ body {
     flex-direction: row;
 
     .left-column, .right-column {
-        flex: 1 1 300px;
         padding: 1em;
     }
 
+    .left-column {
+        flex: 1 1 25%;
+    }
+
     .right-column {
+      flex: 1 1 35%;
         padding: 1em 0 0;
 
         iframe {
@@ -106,17 +110,21 @@ body {
     }
 
     section {
-        flex: 3 0 960px;
+        flex: 3 1 960px;
         padding: 0 1em;
     }
 }
 
 .event-pane {
+    padding-bottom: 1em;
     border-bottom: 1px solid $mainBlue;
 
-    h6 {
-        margin-bottom: 0;
-    }
+    h4 { margin: 1em 0 0; }
+    small { font-size: 0.6em }
+
+    .description { margin-top: 0.8em; font-size: 0.7em }
+
+
 }
 
 .register {
@@ -154,7 +162,7 @@ body {
         flex: 1;
     }
 
-    input, button {
+    input {
         font-size: 1.2em;
     }
     button {
@@ -163,15 +171,12 @@ body {
     }
 }
 .postForm{
-  flex:1;
-  .categories {
-    li {
-      display: inline-flex;
-      width: 30%;
-    }
+  flex: 1;
+  margin-top: 1em;
+  .categories li {
+    display: inline-flex;
+    width: 30%;
   }
-
-
   .quill {
     flex:1;
     flex-direction: column;
@@ -208,7 +213,6 @@ a.button {
   border: 1px solid transparent;
   border-radius: 0;
   padding: 0.85em 1em;
-  margin: 0 0 1rem 0;
   font-size: 0.9rem;
   background-color: $mainBlue;
   color: #fff; }
