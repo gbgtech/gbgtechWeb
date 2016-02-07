@@ -1,9 +1,11 @@
 var mongoose = require('mongoose');
+var util = require('util');
 
 var Users = mongoose.model('Users');
 
+
 module.exports = {
-    createUser: createUser
+    createUser: util.deprecate(createUser, 'DEPRECATED: usersController.createUser - Users will only be created by authentication methods')
 };
 
 

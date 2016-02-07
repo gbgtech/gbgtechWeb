@@ -1,12 +1,9 @@
 var express = require('express'),
     bodyParser = require('body-parser'),
     helmet = require('helmet'),
-    mongo = require('./mongo');
-
-
-mongo();
-
-
+    mongo = require('./mongo'),
+    passport = require('./passport'),
+    session = require('./session');
 
 module.exports = function(app) {
 
@@ -24,7 +21,14 @@ module.exports = function(app) {
   app.use(helmet.ienoopen());
   app.disable('x-powered-by');
 
-  require('../routes')(app);
+  mongo().then(function(db) {
+    session(app, db);
+    passport(app, db);
 
-  return app;
+    require('../routes')(app);
+    return app;
+
+  }).catch((err) => {
+    console.error(err);
+  });
 };

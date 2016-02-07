@@ -11,33 +11,26 @@ var validateLocalStrategyPassword = function(password) {
 
 var UserSchema = new Schema({
   subscribedCategories: [Schema.Types.ObjectId],
-  password: {
-    type: String,
-    validate: [validateLocalStrategyPassword, '']
-  },
   email: {
     type: String,
     required: 'Email is required',
+    unique: 'Email is already in use',
     match: [/.+\@.+\..+/, 'Please fill a valid email address']
-  },
-  salt: {
-    type: String
   },
   provider: {
     type: String,
-    default: 'email'
+    required: 'Provider is required'
   },
   createdAt: {
 		type: Date,
 		default: Date.now
 	},
-	/* For reset password */
-	resetPasswordToken: {
-		type: String
-	},
-	resetPasswordExpires: {
-		type: Date
-	}
+  signinToken: {
+    type: String
+  },
+  signinTokenExpire: {
+    type: Date
+  }
 });
 
 module.exports = mongoose.model('Users', UserSchema);
