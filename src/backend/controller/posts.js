@@ -50,7 +50,7 @@ function create(req, res) {
     Posts.create({
         title: post.title,
         slug: slugify(post.title),
-        author: '56b79691cf977223359ee3a8',
+        // author: '56b79691cf977223359ee3a8',
         body: post.body,
         categories: post.categories,
         eventData: event

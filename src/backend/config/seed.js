@@ -1,5 +1,6 @@
 var mongo = require('./mongo');
 var seeder = require('mongoose-seeder');
+var slugify = require('speakingurl');
 
 
 mongo().then(() => {
@@ -31,6 +32,7 @@ var data = {
     posts: {
         '_model': 'Posts',
         p1: {
+            slug: slugify('Startup Ping pong tournament'),
             title: 'Startup Ping pong tournament',
             organizer: 'StartupPingPong AB',
             author: '->users.admin',
