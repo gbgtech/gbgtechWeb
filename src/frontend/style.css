@@ -161,6 +161,14 @@ body {
 }
 .postForm{
   flex:1;
+  .categories {
+    li {
+      display: inline-flex;
+      width: 30%;
+    }
+  }
+
+
   .quill {
     flex:1;
     flex-direction: column;

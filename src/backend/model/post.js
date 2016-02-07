@@ -4,10 +4,8 @@ var mongoose = require('mongoose'),
 var PostSchema = new Schema({
   slug: String,
   title: String,
-  organizer: String,
   author: Schema.Types.ObjectId,
   body: String,
-  url: String,
   categories: [Schema.Types.ObjectId],
   createdAt: {
     type: Date,
@@ -20,6 +18,7 @@ var PostSchema = new Schema({
   eventData: {
     from: Date,
     to: Date,
+    organizer: String,
     rsvp: String,
     location: {
       lat: String,
