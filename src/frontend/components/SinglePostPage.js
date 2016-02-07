@@ -1,7 +1,7 @@
 import React from 'react';
 import moment from 'moment';
 
-import { get } from './fetcher';
+import { get } from '../fetcher';
 
 import NewsPost from './NewsPost';
 

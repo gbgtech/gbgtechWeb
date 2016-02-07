@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { get, postJson } from './fetcher';
+import { get, postJson } from '../fetcher';
 
 const RegistrationBox = React.createClass({
     getInitialState() {

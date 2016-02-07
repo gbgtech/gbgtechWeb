@@ -1,5 +1,5 @@
 import React from 'react';
-import { get } from './fetcher';
+import { get } from '../fetcher';
 
 
 import NewsPost from './NewsPost';
