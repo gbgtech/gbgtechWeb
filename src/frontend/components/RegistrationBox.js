@@ -63,7 +63,7 @@ const RegistrationBox = React.createClass({
                         </li>
                     ))}
                 </ul>
-                <button onClick={this.finishRegistration}>Sign up</button>
+                <button className="button" onClick={this.finishRegistration}>Sign up</button>
             </div>
         );
     },
@@ -94,7 +94,7 @@ const RegistrationBox = React.createClass({
                 <h3>Sign up for our newsfeed:</h3>
                 <form className="row" onSubmit={this.openModal}>
                     <input type="email" tabIndex="1" required value={this.state.email} onChange={this.changeEmail} placeholder="Enter your email" />
-                    <button>Next</button>
+                    <button className="button">Next</button>
                 </form>
             </div>
         );
