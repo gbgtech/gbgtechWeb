@@ -1,4 +1,5 @@
 var mongoose = require('mongoose');
+var slugify = require('speakingurl');
 
 var Posts = mongoose.model('Posts');
 var Categories = mongoose.model('Categories');
@@ -6,6 +7,7 @@ var Users = mongoose.model('Users');
 
 module.exports = {
     index,
+    create,
     show
 };
 
@@ -14,7 +16,7 @@ module.exports = {
 function index(req, res) {
 
     return Promise.all([
-        Posts.find().exec(),
+        Posts.find().sort({ createdAt: -1 }).exec(),
         Categories.find().exec()
     ]).then((results) => {
 
@@ -31,9 +33,41 @@ function index(req, res) {
     }).catch((err) => handleError(err, res));
 }
 
+function create(req, res) {
+
+    const post = req.body;
+    var event = null;
+
+    if (req.body.showEventInfo) {
+        event = {
+            to: post.to,
+            from: post.from,
+            organizer: post.organizer,
+            rsvp: post.rsvpLink
+        };
+    }
+
+    Posts.create({
+        title: post.title,
+        slug: slugify(post.title),
+        author: '56b79691cf977223359ee3a8',
+        body: post.body,
+        categories: post.categories,
+        eventData: event
+    }, (err, post) => {
+        if (err) {
+            res.status(400).json(err);
+        } else {
+            res.status(201).json(post);
+        }
+
+        res.end()
+    });
+}
+
 function show(req, res) {
     Promise.all([
-        Posts.findOne({_id: req.params.id}).exec(),
+        Posts.findOne({slug: req.params.id}).exec(),
         Categories.find().exec()
     ]).then((results) => {
 
@@ -57,7 +91,7 @@ function handleError(err, res) {
 
 
 const decoratePost = (post, users, categories) => {
-    const authorObject = users.find(user => post.author.equals(user._id));
+    const authorObject = users.find(user => user._id.equals(post.author));
 
     const categoryObjects = post.categories.map((categoryId) =>
         categories.find(category => categoryId.equals(category._id))

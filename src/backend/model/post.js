@@ -2,8 +2,14 @@ var mongoose = require('mongoose'),
     Schema = mongoose.Schema;
 
 var PostSchema = new Schema({
-  slug: String,
-  title: String,
+  slug: {
+    type: String,
+    index: true
+  },
+  title: {
+    type: String,
+    required: 'Title is required'
+  },
   author: Schema.Types.ObjectId,
   body: String,
   categories: [Schema.Types.ObjectId],
