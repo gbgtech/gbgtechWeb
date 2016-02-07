@@ -4,7 +4,7 @@ var webpack       = require('webpack');
 
 module.exports = {
   entry: [
-    './src/frontend/index.jsx',
+    './src/frontend/index',
     'webpack-hot-middleware/client'
   ],
   devtool: 'source-map',

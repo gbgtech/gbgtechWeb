@@ -17,16 +17,16 @@ const NewsPost = ({ post }) => (
     </article>
 );
 
-const EventsPartial = (event) => (
-    <div>
-        <span>{formatDate(event.from)} {formatDate(event.to)}</span>
-        {event.rsvp && (<a href={event.rsvp}>RSVP!</a>)}
-        <GoogleMapsLink {...event.location} />
+const EventsPartial = ({ from, to, rsvp, location }) => (
+    <div className="event-partial">
+        <span>{formatDate(from)} {formatDate(to)}</span>
+        {rsvp && (<a href={rsvp} className="button">RSVP!</a>)}
+        <GoogleMapsLink {...location} />
     </div>
 );
 
 
-const GoogleMapsLink = ({lat, lng, name}) => (
+const GoogleMapsLink = ({ lat, lng, name }) => (
     <a href={`https://www.google.com/maps/preview/@${lat},${lng},13z`} target="_blank">{name}</a>
 );
 
