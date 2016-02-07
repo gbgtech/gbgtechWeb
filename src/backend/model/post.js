@@ -6,6 +6,10 @@ var PostSchema = new Schema({
     type: String,
     index: true
   },
+  accepted: {
+    type: String,
+    default: 'WAITING' // WAITING, APPROVED or DENIED
+  },
   title: {
     type: String,
     required: 'Title is required'

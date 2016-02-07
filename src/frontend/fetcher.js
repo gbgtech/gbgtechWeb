@@ -1,12 +1,19 @@
 
-const handleError = (err) => console.log(err);
+const handleError = (result) => {
+    if (result.ok) {
+        return result;
+    } else {
+        throw result;
+    }
+};
+
 const handleJson = (data) => data.json();
 
 
 const baseFetcher = (url, options) =>
     fetch('/api' + url, options)
-        .then(handleJson)
-        .catch(handleError);
+        .then(handleError)
+        .then(handleJson);
 
 
 export const get = (url) => baseFetcher(url);
