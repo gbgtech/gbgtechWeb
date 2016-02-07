@@ -8,7 +8,7 @@ const RightColumn = React.createClass({
     render() {
         return (
             <div className="right-column">
-                <Twitter path="hashtag/gbgtech" id="690568248279109633">#gbgtech tweets</Twitter>
+                <Twitter path="search?q=%23gbgtech%20-RT" id="696282839873093633">#gbgtech tweets</Twitter>
             </div>
         );
     }

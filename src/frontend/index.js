@@ -3,14 +3,16 @@ import ReactDOM from 'react-dom';
 import { Router, Route, IndexRoute, browserHistory } from 'react-router';
 
 
+import fetcher from './fetcher';
+
 require('./style.css');
 require('../../node_modules/quill/dist/quill.snow.css');
 
-import App from './App';
-import Hello from './Hello';
-import Post from './Post';
-import NewsPage from './NewsPage';
-import SinglePostPage from './SinglePostPage';
+import App from './components/App';
+import Hello from './components/Hello';
+import Post from './components/Post';
+import NewsPage from './components/NewsPage';
+import SinglePostPage from './components/SinglePostPage';
 
 const AppRoute = () => (
     <Router history={browserHistory}>

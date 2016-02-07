@@ -23,6 +23,7 @@ const Twitter = React.createClass({
             <a
                 className="twitter-timeline"
                 ref={(link) => this.link = link }
+                data-chrome="noborders nofooter transparent"
                 href={`https://twitter.com/${path}`}
                 data-widget-id={id}>
                     {children}

@@ -1,5 +1,7 @@
 import React from 'react';
 
+import { get, postJson } from '../fetcher';
+
 const RegistrationBox = React.createClass({
     getInitialState() {
         return {
@@ -10,9 +12,7 @@ const RegistrationBox = React.createClass({
         };
     },
     componentDidMount() {
-        fetch('/api/categories').then(res => res.json()).then(categories => {
-            this.setState({categories});
-        });
+        get('/categories').then(categories => this.setState({categories}));
     },
     handleCategoryChecked(categoryId) {
         const categories = this.state.categories.map(category => {
@@ -39,13 +39,10 @@ const RegistrationBox = React.createClass({
         const { email, categories } = this.state;
         const selected = categories.filter(c => c.checked).map(c => c._id);
 
-        fetch('/api/users/create', {
-            method: 'POST',
-            body: JSON.stringify({ email, categories: selected }),
-            headers: new Headers({
-                'Content-Type': 'application/json'
-            }),
-        }).then(res => {
+        postJson('/users/create',
+            { email, categories: selected }
+        )
+        .then(res => {
             console.log(res);
         });
         this.setState({
