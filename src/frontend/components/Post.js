@@ -8,13 +8,26 @@ const Post = React.createClass({
             title: '',
             body: '',
             categories: [],
-            showEventInfo:false
+            showEventInfo:false,
+            from : '',
+            to:'',
+            organizer:'',
+            rsvpLink:'',
+            position:''
         };
     },
     handleShowEventInfo(){
       this.setState({
          showEventInfo :! this.state.showEventInfo
       })
+    },
+
+
+
+    handleSetValue(event, name){
+      this.setState({
+        [name]: event.target.value
+      });
     },
     handleTitlechange(event){
       this.setState({
@@ -29,7 +42,8 @@ const Post = React.createClass({
             this.setState({categories});
         });
     },
-    handleSubmit: function() {
+    handleSubmit: function(event) {
+      event.preventDefault();
         postJson('/posts/create',
             {
               ...this.state,
@@ -72,7 +86,7 @@ const Post = React.createClass({
 
                   <label><input type="checkbox" checked={this.state.showEventInfo} onChange={ this.handleShowEventInfo}/>Is event</label>
 
-                  { this.state.showEventInfo ? <EventInfo /> : null }
+                  { this.state.showEventInfo ? this.renderEventInfo() : null }
 
 
                 <ReactQuill theme="snow" value={this.state.body} onChange={this.onTextChange}  />
@@ -81,24 +95,23 @@ const Post = React.createClass({
 
             </section>
         );
-    }
-});
-
-var EventInfo = React.createClass({
-    render: function() {
+    },
+    renderEventInfo () {
         return (
             <div className="eventInfo">
-                <label>From:<input type="datetime-local"/></label>
-                <label>To:<input type="datetime-local"/></label>
-                <label>Orginiser:<input/></label>
-                <label>RSVP-link (optional):<input/></label>
-                <label>position:<input/></label>
+                <label>From:<input value={this.state.from} onChange={(event) => this.handleSetValue(event,'from')} type="datetime-local"/></label>
+                <label>To:<input value={this.state.to}  onChange={(event) => this.handleSetValue(event,'to')} type="datetime-local"/></label>
+                <label>Orginiser:<input value={this.state.organizer}  onChange={(event) => this.handleSetValue(event,'organizer')} /></label>
+                <label>RSVP-link (optional):<input  value={this.state.handleRsvpLink}  onChange={(event) => this.handleSetValue(event,'rsvpLink')}  /></label>
+                <label>position:<input value={this.state.position}  onChange={(event) => this.handleSetValue(event,'position')} /></label>
 
 
             </div>
         );
     }
 });
+
+
 
 
 
