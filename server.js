@@ -11,7 +11,7 @@ var app = express();
 
 require('./src/backend/config/express.js')(app);
 
-if(true) { // Assumes that this runs as dev. Fix and add production routine
+if (true) { // Assumes that this runs as dev. Fix and add production routine
   var compiler = webpack(webpackConfig);
 
   app.use(webpackMiddleware(compiler, {
@@ -25,8 +25,15 @@ if(true) { // Assumes that this runs as dev. Fix and add production routine
   app.use(webpackHotMiddleware(compiler));
 }
 
-app.listen({port: port, bind: '0.0.0.0'}, function() {
+app.listen({port: port, bind: '0.0.0.0'}, () => {
   console.log("Backend is on port "+ port);
 });
 
 app.use(express.static('./public'));
+
+app.get('*', (req, res, next) => {
+  if (req.url.startsWith('/build/')) {
+    return next();
+  }
+  res.sendFile('index.html', {root: './public'});
+});

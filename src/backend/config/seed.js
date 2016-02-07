@@ -2,12 +2,12 @@ var mongo = require('./mongo');
 var seeder = require('mongoose-seeder');
 
 
-mongo().then(function() {
+mongo().then(() => {
 
     // Load Mongoose models
-    seeder.seed(data).then(function() {
+    seeder.seed(data).then(() => {
         process.exit();
-    }).catch(function(error) {
+    }).catch((error) => {
         console.error(error);
     });
 });
@@ -15,6 +15,10 @@ mongo().then(function() {
 // Data array containing seed data - documents organized by Model
 var data = {
     users: {
+        '_model': 'Users',
+        'admin': { email: 'admin@gbgtech.co' }
+    },
+    categories: {
         '_model': 'Categories',
         'c1': { name: 'Ping pong' },
         'c2': { name: 'Meetups' },
@@ -23,5 +27,26 @@ var data = {
         'c5': { name: 'Startup lecture' },
         'c6': { name: 'After hours (party!!!)' },
         'c7': { name: 'Show and tell' }
+    },
+    posts: {
+        '_model': 'Posts',
+        p1: {
+            title: 'Startup Ping pong tournament',
+            organizer: 'StartupPingPong AB',
+            author: '->users.admin',
+            body: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
+            url: 'https://google.com',
+            categories: ['->categories.c1', '->categories.c5'],
+            eventData: {
+                from: '=new Date(2016, 2, 6, 13, 37)',
+                to: '=new Date(2016, 2, 6, 17, 0)',
+                rsvp: 'http://splashthat.com',
+                location: {
+                    lat: '57.7166056',
+                    lng: '12.0061702',
+                    name: 'Hubben 2.1'
+                }
+            }
+        }
     }
 };
