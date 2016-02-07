@@ -1,24 +1,41 @@
 import React from 'react';
 import ReactQuill from 'react-quill';
 
-
-
 const Post = React.createClass({
     getInitialState() {
         return {
             email: '',
-            modalOpen: false,
-            finished: false,
-            categories: []
+            title: '',
+            body: '',
+            categories: [],
+            showEventInfo:true
         };
     },
+    componentDidMount() {
+        fetch('/api/categories').then(res => res.json()).then(categories => {
+            this.setState({categories});
+        });
+    },
     render() {
+      const { categories } = this.state;
         return (
             <section>
               <form className="postForm">
-                <labels>Title:<input /></labels>
-                <labels>body:</labels>
-                <ReactQuill theme="snow" value={this.state.value} />
+                <labels>Title:<input value={this.state.body} /></labels>
+                  <ul className="categories row">
+                      {categories.map(category => (
+                          <li key={category._id}>
+                              <label><input type="checkbox" checked={category.checked} onChange={() => this.handleCategoryChecked(category._id)}/>{category.name}</label>
+                          </li>
+                      ))}
+                  </ul>
+
+                  <label><input type="checkbox" checked={this.state.showEventInfo} onChange={() => this.handleCategoryChecked(category._id)}/>Is event</label>
+
+                  { this.state.showEventInfo ? <EventInfo /> : null }
+
+
+                <ReactQuill theme="snow" value={this.state.body} />
 
               </form>
 
@@ -26,6 +43,23 @@ const Post = React.createClass({
         );
     }
 });
+
+var EventInfo = React.createClass({
+    render: function() {
+        return (
+            <div className="eventInfo">
+                <label>From:<input/></label>
+                <label>To:<input/></label>
+                <label>Orginiser:<input/></label>
+                <label>rsvp (opt):<input/></label>
+                <label>position:
+                </label>
+
+            </div>
+        );
+    }
+});
+
 
 
 export default Post;
