@@ -3,15 +3,15 @@ import moment from 'moment';
 
 import { Link } from 'react-router';
 
-
-const DATE_FORMAT = 'YYYY-MM-DD HH:mm';
-
-const formatDate = (date) => moment(date).format(DATE_FORMAT);
+import { formatDate } from '../formatter';
 
 const NewsPost = ({ post }) => (
     <article className="news-article">
-        <h2><Link to={`/news/${post.slug}`}>{post.title}</Link></h2>
-        <small>by {post.author && post.author.email} | {moment(post.updatedAt).fromNow()} | {post.categories.map(c => c.name).join(', ')}</small>
+        <header>
+            {post.origin && <ProviderBadge {...post.origin} />}
+            <h2><Link to={`/news/${post.slug}`}>{post.title}</Link></h2>
+        </header>
+        <small>by {post.author && post.author.email} | {post.createdAt} | {post.categories.map(c => c.name).join(', ')}</small>
         <p dangerouslySetInnerHTML={{__html: post.body}}></p>
         {post.eventData && <EventsPartial {...post.eventData} />}
     </article>
@@ -23,6 +23,14 @@ const EventsPartial = ({ from, to, rsvp, location }) => (
         {rsvp && (<a href={rsvp} className="button">RSVP!</a>)}
         {location && (<GoogleMapsLink {...location} />)}
     </div>
+);
+
+const providers = {
+    meetup: 'http://img1.meetupstatic.com/img/94156887029318281691566697/logo.svg'
+};
+
+const ProviderBadge = ({ provider, url }) => (
+    <a href={url}><img src={providers[provider]}/></a>
 );
 
 
