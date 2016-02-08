@@ -15,5 +15,5 @@ module.exports = function(app) {
     app.get('/api/posts/:id', PostsController.show);
     app.post('/api/posts/create', PostsController.create);
 
-    app.get('/api/events', EventsController.index)
+    app.get('/api/events', EventsController.googleCalendar)
 };
