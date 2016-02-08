@@ -8,8 +8,8 @@ import { formatDate } from '../formatter';
 const NewsPost = ({ post }) => (
     <article className="news-article">
         <header>
-            {post.origin && <ProviderBadge {...post.origin} />}
             <h2><Link to={`/news/${post.slug}`}>{post.title}</Link></h2>
+            {post.origin && <ProviderBadge {...post.origin} />}
         </header>
         <small>by {post.author && post.author.email} | {post.createdAt} | {post.categories.map(c => c.name).join(', ')}</small>
         <p dangerouslySetInnerHTML={{__html: post.body}}></p>
