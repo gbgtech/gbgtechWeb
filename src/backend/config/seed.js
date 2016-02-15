@@ -17,7 +17,7 @@ mongo().then(() => {
 var data = {
     users: {
         '_model': 'Users',
-        'admin': { email: 'admin@gbgtech.co' }
+        'admin': { email: 'admin@gbgtech.co', provider: 'email' }
     },
     categories: {
         '_model': 'Categories',
