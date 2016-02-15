@@ -26,8 +26,3 @@ This is the website for gbgtech.co
 * express
 * mongodb
 * webpack
-
-## Questions
-* irc
-    * server: irc.chalmers.it  
-    * channel: #gbgtech
