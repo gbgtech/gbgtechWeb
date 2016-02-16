@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "build": "./node_modules/.bin/webpack -p",
-    "start": "./node_modules/.bin/supervisor -e 'js' -d ./src/backend/ node server.js",
+    "start": "node server",
     "test:ci": "watch 'npm run test' src/",
     "seed": "node ./src/backend/config/seed.js"
   },
@@ -21,14 +21,17 @@
   "author": "",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/gbgtech/gbgtechWeb/issues"
+    "url": "https://github.com/gbgtech/gbgtechWeb/issues",
+    "oldStart": "./node_modules/.bin/supervisor -e 'js' -d ./src/backend/ node server.js"
   },
   "dependencies": {
     "babel-preset-react": "^6.3.13",
     "babelify": "^7.2.0",
     "body-parser": "^1.14.2",
+    "connect-mongo": "^1.1.0",
     "exports-loader": "~0.6.2",
     "express": "^4.13.3",
+    "express-session": "^1.13.0",
     "glob": "^6.0.4",
     "googleapis": "~2.1.7",
     "helmet": "^1.1.0",
@@ -59,13 +62,13 @@
     "babel-plugin-syntax-object-rest-spread": "~6.3.13",
     "babel-plugin-transform-object-rest-spread": "~6.3.13",
     "babel-preset-es2015": "^6.3.13",
+    "chokidar": "^1.4.2",
     "core-js": "1.1.4",
     "css-loader": "~0.23.1",
     "eslint": "1.4.3",
     "eslint-loader": "1.0.0",
     "eslint-plugin-react": "^3.15.0",
     "html-webpack-plugin": "^2.7.2",
-    "phantomjs": "^1.9.19",
     "postcss-loader": "~0.8.0",
     "precss": "~1.4.0",
     "react-transform-hmr": "~1.0.2",
