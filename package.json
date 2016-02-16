@@ -6,6 +6,7 @@
   "scripts": {
     "build": "./node_modules/.bin/webpack -p",
     "start": "node server",
+    "oldStart": "./node_modules/.bin/supervisor -e 'js' -d ./src/backend/ node server.js",
     "test:ci": "watch 'npm run test' src/",
     "seed": "node ./src/backend/config/seed.js"
   },
@@ -22,7 +23,6 @@
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/gbgtech/gbgtechWeb/issues",
-    "oldStart": "./node_modules/.bin/supervisor -e 'js' -d ./src/backend/ node server.js"
   },
   "dependencies": {
     "babel-preset-react": "^6.3.13",
