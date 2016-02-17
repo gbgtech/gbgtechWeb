@@ -22,7 +22,7 @@
   "author": "",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/gbgtech/gbgtechWeb/issues",
+    "url": "https://github.com/gbgtech/gbgtechWeb/issues"
   },
   "dependencies": {
     "babel-preset-react": "^6.3.13",
