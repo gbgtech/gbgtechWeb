@@ -1,9 +1,17 @@
 var express    = require('express'),
     bodyParser = require('body-parser'),
     helmet = require('helmet'),
-    mongo = require('./mongo'),
-    passport = require('./passport'),
-    session = require('./session');
+    fs = require('fs'),
+    mongoose = require('mongoose'),
+    config = require('./config');
+
+
+var modelDir = './src/backend/model';
+
+fs.readdirSync(modelDir).forEach((modelPath) => {
+  console.log(modelDir + '/' + modelPath);
+  require('../model/' + modelPath);
+});
 
 module.exports = function(app) {
 
@@ -21,14 +29,15 @@ module.exports = function(app) {
   app.use(helmet.ienoopen());
   app.disable('x-powered-by');
 
-  mongo().then(function(db) {
-    session(app, db);
-    passport(app, db);
+  require('../routes')(app);
 
-    require('../routes')(app);
-    return app;
+  var db = mongoose.connect(config.db, (err) => {
+    if(err) {
 
-  }).catch((err) => {
-    console.error(err);
+    } else {
+      require('./session')(app, db);
+      require('./passport')(app, db);
+      return app;
+    }
   });
 };
