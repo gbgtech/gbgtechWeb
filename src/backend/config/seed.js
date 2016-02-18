@@ -1,10 +1,17 @@
-var mongo = require('./mongo');
+var mongoose = require('mongoose');
+var config = require('./config');
 var seeder = require('mongoose-seeder');
 var slugify = require('speakingurl');
+var fs = require('fs');
 
+var modelDir = './src/backend/model';
 
-mongo().then(() => {
+fs.readdirSync(modelDir).forEach((modelPath) => {
+  console.log(modelDir + '/' + modelPath);
+  require('../model/' + modelPath);
+});
 
+mongoose.connect(config.db, function(err) {
     // Load Mongoose models
     seeder.seed(data).then(() => {
         process.exit();
