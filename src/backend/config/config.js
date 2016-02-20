@@ -22,6 +22,10 @@ module.exports = {
     // in HTTPS mode.
     secure: false
   },
+	mail: {
+		url: process.env.MAILGUN_URL,
+		key: process.env.MAILGUN_KEY
+	},
   // sessionSecret should be changed for security measures and concerns
   sessionSecret: process.env.SESSION_SECRET || 'MEAN',
   // sessionKey is set to the generic sessionId key used by PHP applications

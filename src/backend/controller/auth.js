@@ -1,5 +1,6 @@
-var User = require('mongoose').model('Users'),
+const User = require('mongoose').model('Users'),
     crypto = require('crypto'),
+    mail = require('../integration/email'),
     passport = require('passport');
 
 var requestEmail = function(req, res) {
@@ -20,9 +21,13 @@ var requestEmail = function(req, res) {
 
       crypto.randomBytes(24, (ex, buf) => {
         user.signinToken = buf.toString('hex');
-        console.log(req.protocol + '://' + req.hostname + ':3000' + '/api/auth/email/signin/' + user.signinToken);
-        user.save(function(err) {
-          return res.status(200).json({message:'signin request created', exists: true});
+        const signinUrl = req.protocol + '://' + req.hostname + ':3000/api/auth/email/signin/' + user.signinToken;
+        user.save((err) => {
+          if (!err) {
+            mail.sendSigninMail(user.email, signinUrl);
+
+            return res.status(200).json({message:'signin request created', exists: true});
+          }
         });
       });
 
