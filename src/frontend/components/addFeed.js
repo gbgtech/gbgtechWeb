@@ -6,26 +6,15 @@ const Post = React.createClass({
     getInitialState() {
         return {
           post: {
-            title: '',
-            body: '',
+            name: '',
+            uniqueId: '',
             categories: [],
-            showEventInfo:false,
-            from : '',
-            to:'',
-            organizer:'',
-            rsvpLink:'',
-            position:''
+            vendor:'Meetup',
+            acceptedDefault:  'WAITING'
           }
         };
     },
-    handleShowEventInfo(){
-      this.setState({
-        post: {
-          ...this.state.post,
-         showEventInfo :! this.state.post.showEventInfo
-       }
-      })
-    },
+
 
 
 
@@ -37,63 +26,60 @@ const Post = React.createClass({
         }
       });
     },
-    onTextChange: function(body) {
-      this.setState({
-        post: {
-          ...this.state.post,
-          body
-        }
-      });
-    },
     componentDidMount() {
-      get('/categories').then(categories => {
-          console.log("state.post: ",this.state.post);
-          this.setState({post: {
-            ...this.state.post,
-            categories: categories
-          }});
+        get('/categories').then(categories => {
+            console.log("state.post: ",this.state.post);
+            this.setState({post: {
+              ...this.state.post,
+              categories: categories
+            }});
+          //  console.log(this.state.categories);
 
-      });
+        });
     },
     handleSubmit: function(event) {
       event.preventDefault();
-        postJson('/posts/create',
+        postJson('/feeds/create',
             {
               ...this.state.post,
-              categories: this.state.categories.filter(c => c.checked).map(c => c._id)
+              categories: this.state.post.categories.filter(c => c.checked).map(c => c._id)
             }
         )
         .then(res => {
             console.log(res);
         });
-
-      },
-      handleCategoryChecked(categoryId) {
-          const categories = this.state.post.categories.map(category => {
-              if (category._id === categoryId) {
-                  return {
-                      ...category,
-                      checked: !category.checked
-                  };
-              } else {
-                  return category;
-              }
-          });
-
-          this.setState({
-            post: {
-              ...this.state.post,
-              categories
+    },
+    handleCategoryChecked(categoryId) {
+        const categories = this.state.post.categories.map(category => {
+            if (category._id === categoryId) {
+                return {
+                    ...category,
+                    checked: !category.checked
+                };
+            } else {
+                return category;
             }
-          });
-      },
+        });
 
+        this.setState({
+          post: {
+            ...this.state.post,
+            categories
+          }
+        });
+    },
     render() {
-      const { categories, title, showEventInfo, body } = this.state.post;
+      console.log(this.state);
+      const { categories, name,uniqueId, showEventInfo, body } = this.state.post;
         return (
             <section>
               <form className="postForm" onSubmit={this.handleSubmit}>
-                <labels>Title:<input value={title} onChange={(event) => this.handleSetValue(event,'title')} /></labels>
+                <select defaultValue="Meetup"  onChange={(event) => this.handleSetValue(event,'vendor')}>
+                 <option value="Meetup">Meetup</option>
+               </select>
+
+                <labels>Name:<input value={name} onChange={(event) => this.handleSetValue(event,'name')} /></labels>
+                <labels>Group name:<input value={uniqueId} onChange={(event) => this.handleSetValue(event,'uniqueId')} /></labels>
                 <ul className="categories row">
                   {categories.map(category => (
                     <li key={category._id}>
@@ -101,9 +87,11 @@ const Post = React.createClass({
                     </li>
                   ))}
                 </ul>
-                <label><input type="checkbox" checked={showEventInfo} onChange={this.handleShowEventInfo}/>Is event</label>
-                {showEventInfo && this.renderEventInfo()}
-                <ReactQuill theme="snow" value={body} onChange={this.onTextChange}  />
+                <select defaultValue="WAITING" onChange={(event) => this.handleSetValue(event,'acceptedDefault')} name="acceptedDefault">
+                 <option value="DENIED">DENIED</option>
+                 <option value="WAITING">WAITING</option>
+                 <option value="APPROVED">APPROVED</option>
+               </select>
                 <button className="button">Submit</button>
               </form>
             </section>

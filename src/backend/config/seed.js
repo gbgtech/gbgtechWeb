@@ -24,7 +24,8 @@ mongoose.connect(config.db, function(err) {
 var data = {
     users: {
         '_model': 'Users',
-        'admin': { email: 'admin@gbgtech.co', provider: 'email' }
+        'admin': { email: 'admin@gbgtech.co', provider: 'email' },
+        'bark': { email: 'erikaxelsson1@gmail.com', provider: 'email' }
     },
     categories: {
         '_model': 'Categories',
@@ -38,7 +39,7 @@ var data = {
     },
     posts: {
         '_model': 'Posts',
-        p1: {
+        'p1': {
             slug: slugify('Startup Ping pong tournament'),
             title: 'Startup Ping pong tournament',
             organizer: 'StartupPingPong AB',
@@ -58,5 +59,16 @@ var data = {
                 }
             }
         }
+    },
+    feeds:{
+      '_model': 'Feeds',
+      'f1':{
+        userId: '->users.bark',
+        categories: ['->categories.c1', '->categories.c5'],
+        name:"javaForum",
+        acceptedDefault:'WAITING',
+        uniqueId:'java-forum',
+        vendor:"Meetup"
+      }
     }
 };

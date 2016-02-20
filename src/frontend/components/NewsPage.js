@@ -14,6 +14,7 @@ const NewsPage = React.createClass({
     componentDidMount() {
         get('/posts').then(posts => this.setState({ posts }));
     },
+
     render() {
         const { posts } = this.state;
 
