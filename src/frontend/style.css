@@ -5,6 +5,8 @@ $lightYellow: #fffeee;
 $darkYellow: yellow;
 $hotPink: #ff1493;
 
+$headerHeight: 100px;
+
 *,
 *:before,
 *:after {
@@ -31,7 +33,6 @@ div,
 html,
 body {
     display: flex;
-    position: relative;
     flex-direction: column;
     flex-shrink: 0;
     margin: 0;
@@ -54,21 +55,64 @@ body {
     font-size: 1.5rem;
 }
 
-.top-menu {
-    position: fixed;
-    z-index: 2;
+nav {
     width: 100%;
     background: $mainBlack;
     color: $mainWhite;
 
-    margin: 0;
-    padding: 0;
-    height: 100px;
-
-    display: flex;
+    height: $headerHeight;
     flex-direction: row;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
+
+    ul {
+        margin: 0;
+        padding: 0;
+        height: 100%;
+        justify-content: center;
+        align-items: center;
+        flex-direction: row;
+        display: flex;
+    }
+
+    .navigation {
+        flex: 1;
+    }
+
+    .login-menu, .logo {
+        flex: 0 1 200px;
+    }
+
+    .shade {
+        z-index: 1;
+        background: rgba(10, 10, 10, 0.6);
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        justify-content: flex-start;
+        align-items: flex-end;
+    }
+
+    .login-box {
+        margin-top: $headerHeight;
+        color: black;
+        border: 1px solid black;
+        background: white;
+        padding: 2em;
+
+        input {
+            margin-left: 1em;
+            width: 300px;
+            font-size: 1em;
+        }
+
+        button {
+            margin: 1em 0;
+        }
+    }
 
     .logo {
       height: 100%;
@@ -79,21 +123,18 @@ body {
     }
 
     li {
-        justify-content: center;
-        align-items: center;
-        flex-basis: 200px;
-    }
-
-    a {
         font-size: 1.2rem;
-        padding: 20px;
-        color: $mainWhite;
-        text-decoration: none;
         border-bottom: 1px solid transparent;
+        padding: 20px;
 
         &:hover {
             border-bottom: 1px solid $mainWhite;
         }
+    }
+
+    a {
+        color: $mainWhite;
+        text-decoration: none;
     }
 }
 
