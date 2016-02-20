@@ -24,7 +24,8 @@ mongoose.connect(config.db, function(err) {
 var data = {
     users: {
         '_model': 'Users',
-        'admin': { email: 'admin@gbgtech.co', provider: 'email' }
+        'admin': { email: 'admin@gbgtech.co', provider: 'email' },
+        'bark': { email: 'erikaxelsson1@gmail.com', provider: 'email' }
     },
     categories: {
         '_model': 'Categories',
