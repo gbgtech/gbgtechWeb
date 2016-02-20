@@ -29,15 +29,14 @@ module.exports = function(app) {
   app.use(helmet.ienoopen());
   app.disable('x-powered-by');
 
+
+
+  var db = mongoose.connect(config.db);
+  
+  require('./session')(app, db);
+  require('./passport')(app, db);
+
   require('../routes')(app);
+  return app;
 
-  var db = mongoose.connect(config.db, (err) => {
-    if(err) {
-
-    } else {
-      require('./session')(app, db);
-      require('./passport')(app, db);
-      return app;
-    }
-  });
 };
