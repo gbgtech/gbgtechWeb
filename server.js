@@ -1,3 +1,4 @@
+require('dotenv').config();
 var express = require('express');
 var webpack = require('webpack');
 var webpackMiddleware = require('webpack-dev-middleware');
