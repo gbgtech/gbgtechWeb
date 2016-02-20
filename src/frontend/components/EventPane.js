@@ -1,11 +1,11 @@
 import React from 'react';
-import moment from 'moment';
 
+import { formatDate } from '../formatter';
 
 const EventPane = (event) => (
     <div className="event-pane">
         <h4>{event.summary}</h4>
-        <small>{moment(event.start.dateTime).format('YYYY-MM-DD HH:mm')}</small>
+        <small>{formatDate(event.start.dateTime)}</small>
         <div className="description">{event.description}</div>
     </div>
 );

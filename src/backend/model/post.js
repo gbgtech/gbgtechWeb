@@ -6,6 +6,11 @@ var PostSchema = new Schema({
     type: String,
     index: true
   },
+  origin: {
+    provider: String,
+    id: String,
+    url: String
+  },
   accepted: {
     type: String,
     default: 'WAITING' // WAITING, APPROVED or DENIED

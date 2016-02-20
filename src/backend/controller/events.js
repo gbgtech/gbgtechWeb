@@ -1,7 +1,8 @@
+const config = require('../config/config.local.json');
+
 const google = require('googleapis');
 const calendar = google.calendar('v3');
 
-const config = require('../config/config.local.json');
 
 const auth = config.googlecalendar.apiKey,
       calendarId = config.googlecalendar.calendarId;
@@ -15,10 +16,10 @@ const options = {
 };
 
 module.exports = {
-    index
+    googleCalendar
 };
 
-function index(req, res) {
+function googleCalendar(req, res) {
     return calendar.events.list(options, (err, events) => {
         if (err) {
             res.status(500).send(err).end();
@@ -26,4 +27,4 @@ function index(req, res) {
             res.json(events);
         }
     });
-};
+}

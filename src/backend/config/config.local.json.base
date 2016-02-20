@@ -2,5 +2,9 @@
   "googlecalendar": {
     "apiKey": "",
     "calendarId": ""
+  },
+  "meetup": {
+    "apiKey": "",
+    "groups": []
   }
 }
