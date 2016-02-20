@@ -31,7 +31,8 @@ module.exports = function (app, db) {
 
   require('./passport_strategies/email')();
 
-  // Add passport's middleware
   app.use(passport.initialize());
   app.use(passport.session());
+
+  // Add passport's middleware
 };
