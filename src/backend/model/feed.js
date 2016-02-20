@@ -1,7 +1,7 @@
 var mongoose = require('mongoose'),
     Schema = mongoose.Schema;
 
-var FeedCollectorSchema = new Schema({
+var FeedSchema = new Schema({
   name: {
     type: String
   },
@@ -9,7 +9,8 @@ var FeedCollectorSchema = new Schema({
     type: String // Meetup
   },
   uniqueId: {
-    type: String
+    type: String,
+    unique:true
   },
   userId: {
     type: Schema.Types.ObjectId,
@@ -28,4 +29,4 @@ var FeedCollectorSchema = new Schema({
   }
 });
 
-module.exports = mongoose.model('FeedCollector', FeedCollectorSchema);
+module.exports = mongoose.model('Feeds', FeedSchema);

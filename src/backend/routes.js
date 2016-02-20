@@ -3,7 +3,8 @@ var UsersController = require('./controller/users');
 var CategoriesController = require('./controller/categories');
 var PostsController = require('./controller/posts');
 var EventsController = require('./controller/events');
-var authRoutes = require('./routes/auth.js');
+var FeedController = require('./controller/feed');
+var authRoutes = require('./routes/auth');
 
 module.exports = function(app) {
     authRoutes(app);
@@ -17,4 +18,13 @@ module.exports = function(app) {
     app.post('/api/posts/create', PostsController.create);
 
     app.get('/api/events', EventsController.googleCalendar)
+
+
+    //Need editor access
+    app.get('/api/feeds', FeedController.index);
+    app.post('/api/feeds/create', FeedController.create);
+
+
+    //Need admin access
+
 };

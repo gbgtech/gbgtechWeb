@@ -14,9 +14,6 @@ const NewsPage = React.createClass({
     componentDidMount() {
         get('/posts').then(posts => this.setState({ posts }));
     },
-    loginWhitBark(){
-      console.log("loggin whit bark");
-    },
 
     render() {
         const { posts } = this.state;
@@ -24,7 +21,6 @@ const NewsPage = React.createClass({
         return (
             <section>
                 <RegistrationBox />
-                <button onClick={this.loginWhitBark}>login whit bark</button>
                 {posts.map(post => (
                     <NewsPost key={post._id} post={post}/>
                 ))}
