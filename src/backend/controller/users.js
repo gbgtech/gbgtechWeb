@@ -14,6 +14,7 @@ function create(req, res) {
     var userData = req.body;
     Users.create({
         email: userData.email,
+        provider: 'email'
         subscribedCategories: userData.categories
     }, function(err, user) {
         if (err) {

@@ -6,9 +6,12 @@ var requestEmail = function(req, res) {
   if(req.body && req.body.email) {
     var user;
     User.findOne({'email': req.body.email}, function(err, u) {
-      if(err || !u) {
-
-        user = new User({email: req.body.email, provider: 'email'});
+      if(err) {
+        console.error("auth/email/request | Database error:", err);
+        return res.status(500).send();
+      }
+      if(!u) {
+        return res.json({exists: false, message:'Email not registered'});
       } else {
         user = u;
       }
@@ -19,7 +22,7 @@ var requestEmail = function(req, res) {
         user.signinToken = buf.toString('hex');
         console.log(req.protocol + '://' + req.hostname + ':3000' + '/api/auth/email/signin/' + user.signinToken);
         user.save(function(err) {
-          return res.status(200).send();
+          return res.status(200).json({message:'signin request created', exists: true});
         });
       });
 
