@@ -1,3 +1,5 @@
+const slugify = require('speakingurl');
+
 const mongoose = require('mongoose');
 const Posts = mongoose.model('Posts');
 const Feeds = mongoose.model('Feeds');
@@ -67,6 +69,11 @@ const transformMeetupEvent = (event, feed) => ({
   accepted: feed.acceptedDefault,
   author: feed.userId,
   title: event.name,
+  slug: slugify([
+    event.id,
+    event.group.name,
+    event.name
+  ].join(' ')),
   body: event.description,
   categories: feed.categories,
   eventData: {
