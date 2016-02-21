@@ -6,13 +6,30 @@ const RegistrationBox = React.createClass({
     getInitialState() {
         return {
             email: '',
+            isSignedIn: false,
             modalOpen: false,
             finished: false,
+            verify: false,
             categories: []
         };
     },
     componentDidMount() {
         get('/categories').then(categories => this.setState({categories}));
+        get('/auth/user').then(user => {
+          console.log(user);
+          this.setState({isSignedIn: (user != null)});
+        })
+    },
+    requestAuth(event) {
+      event.preventDefault();
+      postJson('/auth/email/request', {email: this.state.email}).then(res => {
+        console.log(res);
+        if(res.exists) {
+          this.setState({verify: true});
+        } else {
+          this.setState({modalOpen: true});
+        }
+      })
     },
     handleCategoryChecked(categoryId) {
         const categories = this.state.categories.map(category => {
@@ -82,6 +99,16 @@ const RegistrationBox = React.createClass({
         );
     },
 
+    renderVerify() {
+
+      return (
+          <div className="register">
+              <h3>Thanks man!</h3>
+              <p>Go check your inbox for the link to sign in</p>
+          </div>
+      );
+    },
+
     changeEmail(event) {
         this.setState({
             email: event.target.value
@@ -92,7 +119,7 @@ const RegistrationBox = React.createClass({
         return (
             <div className="register row">
                 <h3>Sign up for our newsfeed:</h3>
-                <form className="row" onSubmit={this.openModal}>
+                <form className="row" onSubmit={this.requestAuth}>
                     <input type="email" tabIndex="1" required value={this.state.email} onChange={this.changeEmail} placeholder="Enter your email" />
                     <button className="button">Next</button>
                 </form>
@@ -101,12 +128,16 @@ const RegistrationBox = React.createClass({
     },
 
     render() {
-        const { modalOpen, finished } = this.state;
+        const { modalOpen, finished, verify, isSignedIn} = this.state;
 
-        if (finished) {
+        if (isSignedIn) {
+            return ;
+        } else if (finished) {
             return this.renderFinished();
         } else if (modalOpen) {
             return this.renderModal();
+        } else if (verify) {
+            return this.renderVerify();
         } else {
             return this.renderForm();
         }
@@ -114,4 +145,3 @@ const RegistrationBox = React.createClass({
 });
 
 export default RegistrationBox;
-

@@ -5,7 +5,7 @@ module.exports = function(app) {
     app.get('/api/auth/email/signin/:token', authController.SigninEmail);
 
     app.get('/api/auth/signout', authController.Signout);
-    app.get('/api/auth/test', authController.Test);
+    app.get('/api/auth/user', authController.Test);
 
     /*
     /api/auth/google

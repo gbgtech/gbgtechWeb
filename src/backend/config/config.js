@@ -24,7 +24,7 @@ module.exports = {
   },
 	mail: {
 		url: process.env.MAILGUN_URL,
-		key: process.env.MAILGUN_KEY
+		key: (function() { return 'basic ' + new Buffer('api:'+ process.env.MAILGUN_KEY).toString('base64') })()
 	},
   // sessionSecret should be changed for security measures and concerns
   sessionSecret: process.env.SESSION_SECRET || 'MEAN',
