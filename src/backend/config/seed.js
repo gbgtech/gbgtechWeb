@@ -29,13 +29,13 @@ var data = {
     },
     categories: {
         '_model': 'Categories',
-        'c1': { name: 'Ping pong' },
-        'c2': { name: 'Meetups' },
-        'c3': { name: 'Hackathons' },
-        'c4': { name: 'Tech lecture' },
-        'c5': { name: 'Startup lecture' },
-        'c6': { name: 'After hours (party!!!)' },
-        'c7': { name: 'Show and tell' }
+        'c1': { description:"Learn abute a new framework or language", name: 'Tech talk' },
+        'c2': { description:"Hear the storys from great entrepreneurs", name: 'Startup talk' },
+        'c3': { description:"Startups explains what they do", name: 'Show and tell' },
+        'c4': { description:"Meet and build some thing cool", name: 'Hackathons' },
+        'c5': { description:"Who writes abute what", name: 'In the spotligth' },
+        'c6': { description:"Party?", name: 'After hours' },
+        'c7': { description:"Meet new perssons", name: 'Network' }
     },
     posts: {
         '_model': 'Posts',
@@ -64,11 +64,45 @@ var data = {
       '_model': 'Feeds',
       'f1':{
         userId: '->users.bark',
-        categories: ['->categories.c1', '->categories.c5'],
-        name:"javaForum",
+        categories: ['->categories.c1'],
+        name:"Javaforum",
         acceptedDefault:'WAITING',
-        uniqueId:'java-forum',
+        uniqueId:'Javaforum-Goteborg',
+        vendor:"Meetup"
+      },
+      'f2':{
+        userId: '->users.bark',
+        categories: ['->categories.c2', '->categories.c3'],
+        name:"gbgtartup",
+        acceptedDefault:'WAITING',
+        uniqueId:'gbgtartup',
+        vendor:"Meetup"
+      },
+      'f3':{
+        userId: '->users.bark',
+        categories: ['->categories.c2', '->categories.c6'],
+        name:"Startup-Grind",
+        acceptedDefault:'WAITING',
+        uniqueId:'Startup-Grind-Gothenburg/',
+        vendor:"Meetup"
+      },
+      'f4':{
+        userId: '->users.bark',
+        categories: ['->categories.c2', '->categories.c6'],
+        name:"HUBGothenburg",
+        acceptedDefault:'WAITING',
+        uniqueId:'HUBGothenburg',
+        vendor:"Meetup"
+      },
+      'f5':{
+        userId: '->users.bark',
+        categories: ['->categories.c4'],
+        name:"Hackathons-Goteborg",
+        acceptedDefault:'WAITING',
+        uniqueId:'Hackathons-Goteborg',
         vendor:"Meetup"
       }
-    }
+
+    },
+
 };

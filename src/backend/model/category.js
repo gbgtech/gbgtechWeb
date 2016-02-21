@@ -5,6 +5,9 @@ var CategorySchema = new Schema({
   name: {
     type: String
   },
+  description: {
+    type: String
+  },
   createdAt: {
     type: Date,
     default: Date.now
