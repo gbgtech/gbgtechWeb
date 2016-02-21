@@ -103,8 +103,10 @@ const RegistrationBox = React.createClass({
 
       return (
           <div className="register">
-              <h3>Thanks man!</h3>
-              <p>Go check your inbox for the link to sign in</p>
+              <div className="header-container">
+                  <h3>Thanks man!</h3>
+                  <p className="subtitle">Go check your inbox for the link to sign in</p>
+              </div>
           </div>
       );
     },
@@ -118,7 +120,11 @@ const RegistrationBox = React.createClass({
     renderForm() {
         return (
             <div className="register row">
-                <h3>Sign up for our newsfeed:</h3>
+                <div className="header-container">
+                    <h3>Sign up for our newsfeed</h3>
+                    <p className="subtitle">or sign in to manage your subscription</p>
+                </div>
+
                 <form className="row" onSubmit={this.requestAuth}>
                     <input type="email" tabIndex="1" required value={this.state.email} onChange={this.changeEmail} placeholder="Enter your email" />
                     <button className="button">Next</button>
@@ -131,7 +137,7 @@ const RegistrationBox = React.createClass({
         const { modalOpen, finished, verify, isSignedIn} = this.state;
 
         if (isSignedIn) {
-            return ;
+            return null;
         } else if (finished) {
             return this.renderFinished();
         } else if (modalOpen) {

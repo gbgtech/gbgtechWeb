@@ -48,7 +48,7 @@ function authSigninMail(user, path) {
   m.subject = "Sign in to #gbgtech by verifying your email"
   m.isHTML = true;
   m.to = user.email;
-  var p = path + '/'+ user.signinToken;
+  var p = path + user.signinToken;
   m.body = `<p>Please use <a href="${p}">This Link</a> to sign in to #gbgtech`;
   send(m);
 }

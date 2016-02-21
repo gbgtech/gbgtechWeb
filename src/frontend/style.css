@@ -4,6 +4,7 @@ $mainWhite: #fff;
 $lightYellow: #fffeee;
 $darkYellow: yellow;
 $hotPink: #ff1493;
+$
 
 *,
 *:before,
@@ -143,9 +144,8 @@ body {
 }
 
 .register {
-    height: 140px;
     margin-top: 1em;
-    padding: 1em;
+    padding: 1.5em 1em;
     justify-content: space-around;
     align-items: center;
     background: $mainWhite;
@@ -173,12 +173,30 @@ body {
         }
     }
 
+    .header-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+
+      margin-right: 1em;
+
+      h3 {
+        margin: 0 0 0.25em 0
+      }
+
+      .subtitle {
+        font-size: 1.1rem;
+        margin: 0;
+      }
+    }
+
     .row, input {
         flex: 1;
     }
 
     input {
-        font-size: 1.2em;
+        font-size: 1em;
+        padding: .25em;
     }
     button {
 
