@@ -39,7 +39,7 @@ var TopMenu = React.createClass({
 
          return (
             <nav>
-                <div className="logo"></div>
+                <Link to={'/'} className="logo"></Link>
                 <ul className="navigation">
                     <li><Link to={'/'}>news</Link></li>
                     <li><Link to={'/hubs'}>hubs</Link></li>
