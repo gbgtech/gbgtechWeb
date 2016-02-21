@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const Posts = mongoose.model('Posts');
 
-const config = require('../config/config.local.json');
+const config = require('../config/config');
 
 const fetch = require('node-fetch');
 const _ = require('lodash');

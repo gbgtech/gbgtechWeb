@@ -1,4 +1,4 @@
-const config = require('../config/config.local.json');
+const config = require('../config/config');
 
 const google = require('googleapis');
 const calendar = google.calendar('v3');

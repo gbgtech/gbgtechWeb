@@ -22,9 +22,16 @@ module.exports = {
     // in HTTPS mode.
     secure: false
   },
+	googlecalendar: {
+		apiKey: process.env.GOOGLECALENDAR_KEY,
+		calendarId: process.env.GOOGLECALENDAR_ID
+	},
+	meetup: {
+		apiKey: process.env.MEETUP_KEY
+	},
 	mail: {
 		url: process.env.MAILGUN_URL,
-		key: process.env.MAILGUN_KEY
+		key: (function() { return 'basic ' + new Buffer('api:'+ process.env.MAILGUN_KEY).toString('base64') })()
 	},
   // sessionSecret should be changed for security measures and concerns
   sessionSecret: process.env.SESSION_SECRET || 'MEAN',
