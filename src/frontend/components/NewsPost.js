@@ -6,7 +6,7 @@ import { Link } from 'react-router';
 import { formatDate } from '../formatter';
 
 const NewsPost = ({ post }) => (
-    <article className="news-article">
+    <article>
         <header>
             <h2><Link to={`/news/${post.slug}`}>{post.title}</Link></h2>
             {post.origin && <ProviderBadge {...post.origin} />}
@@ -25,12 +25,8 @@ const EventsPartial = ({ from, to, rsvp, location }) => (
     </div>
 );
 
-const providers = {
-    meetup: 'http://img1.meetupstatic.com/img/94156887029318281691566697/logo.svg'
-};
-
 const ProviderBadge = ({ provider, url }) => (
-    <a href={url}><img src={providers[provider]}/></a>
+    <a href={url} className={'provider ' + provider}></a>
 );
 
 

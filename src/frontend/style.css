@@ -165,7 +165,7 @@ nav {
     }
 }
 
-.news-article {
+article, .news-article {
   background: $lightYellow;
   border: 1px solid $darkYellow;
   padding: 1em;
@@ -175,6 +175,19 @@ nav {
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
+
+    .provider {
+      width: 50px;
+      height: 50px;
+
+      background-repeat: no-repeat;
+      background-position: center;
+
+      &.meetup {
+        background-image: url(/assets/meetup.svg);
+        background-size: 100%;
+      }
+    }
   }
 }
 
@@ -186,8 +199,6 @@ nav {
     small { font-size: 0.6em }
 
     .description { margin-top: 0.8em; font-size: 0.7em }
-
-
 }
 
 .register {
