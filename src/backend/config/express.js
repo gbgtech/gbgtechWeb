@@ -32,7 +32,8 @@ module.exports = function(app) {
 
 
   var db = mongoose.connect(config.db);
-  
+  mongoose.Promise = Promise;
+
   require('./session')(app, db);
   require('./passport')(app, db);
 

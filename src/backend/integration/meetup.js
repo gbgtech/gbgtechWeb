@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const Posts = mongoose.model('Posts');
+const Feeds = mongoose.model('Feeds');
 
 const config = require('../config/config');
 
@@ -13,21 +14,28 @@ module.exports = {
 };
 
 
-const fetchEvents = (group) =>
-    fetch(`https://api.meetup.com/2/events?key=${config.meetup.apiKey}&group_urlname=${group}`)
+const fetchEvents = (feed) =>
+    fetch(`https://api.meetup.com/2/events?key=${config.meetup.apiKey}&group_urlname=${feed.uniqueId}`)
         .then(res => res.json());
 
-function fetchMeetupEvents() {
+function fetchMeetupEvents(req, res) {
 
-    return Promise.all(config.meetup.groups.map(fetchEvents))
-      .then(events => {
-          events = _.flatMap(events, (e) => e.results)
-                      .map(transformMeetupEvent);
+    Feeds.find({
+      vendor: 'meetup'
+    }).then(feeds => {
+      console.info("Fetching events for meetup:", feeds.map(feed => feed.uniqueId).join(', '))
+      const transformedEvents = _.flatMap(feeds, feed =>
+        fetchEvents(feed).then(group =>
+          group.results
+            .map(result => transformMeetupEvent(result, feed))
+            .map(transformToUpsertPromise)
+        )
+      );
 
-          return Promise.all(events.map(transformToUpsertPromise))
-            .then((events) => res.json(events).end())
-      })
-      .catch(err => console.error(err))
+      return Promise.all(transformedEvents)
+        .then(events => res.json(events).end());
+    })
+    .catch(err => console.error(err));
 }
 
 
@@ -39,20 +47,28 @@ const transformToUpsertPromise = (event) => new Promise((resolve) => Posts.findO
       {"origin.provider": event.origin.provider},
       {"origin.id": event.origin.id}
   ]
-}, { $set: event }, upsertOptions, (err, res) => resolve(res));
+}, { $set: event }, upsertOptions, (err, res) => {
+  if (err) {
+    reject(err);
+  } else {
+    resolve(res);
+  }
+}));
 
 
 
-const transformMeetupEvent = (event) => ({
+const transformMeetupEvent = (event, feed) => ({
   origin: {
     updatedAt: event.updated,
     provider: 'meetup',
     id: event.id,
     url: event.event_url
   },
-  accepted: 'APPROVED',
+  accepted: feed.acceptedDefault,
+  author: feed.userId,
   title: event.name,
   body: event.description,
+  categories: feed.categories,
   eventData: {
     from: event.time,
     to: ((event.duration && event.time + event.duration) || (event.time + 3600000)),

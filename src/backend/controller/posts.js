@@ -104,7 +104,7 @@ function handleError(err, res) {
 const decoratePost = (post, users, categories) => {
     const authorObject = users.find(user => user._id.equals(post.author));
 
-    const categoryObjects = post.categories.map((categoryId) =>
+    const categoryObjects = (post.categories || []).map((categoryId) =>
         categories.find(category => categoryId.equals(category._id))
     );
 

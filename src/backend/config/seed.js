@@ -68,7 +68,7 @@ var data = {
         name:"Javaforum",
         acceptedDefault:'WAITING',
         uniqueId:'Javaforum-Goteborg',
-        vendor:"Meetup"
+        vendor:"meetup"
       },
       'f2':{
         userId: '->users.bark',
@@ -76,15 +76,15 @@ var data = {
         name:"gbgtartup",
         acceptedDefault:'WAITING',
         uniqueId:'gbgtartup',
-        vendor:"Meetup"
+        vendor:"meetup"
       },
       'f3':{
         userId: '->users.bark',
         categories: ['->categories.c2', '->categories.c6'],
         name:"Startup-Grind",
         acceptedDefault:'WAITING',
-        uniqueId:'Startup-Grind-Gothenburg/',
-        vendor:"Meetup"
+        uniqueId:'Startup-Grind-Gothenburg',
+        vendor:"meetup"
       },
       'f4':{
         userId: '->users.bark',
@@ -92,7 +92,7 @@ var data = {
         name:"HUBGothenburg",
         acceptedDefault:'WAITING',
         uniqueId:'HUBGothenburg',
-        vendor:"Meetup"
+        vendor:"meetup"
       },
       'f5':{
         userId: '->users.bark',
@@ -100,7 +100,7 @@ var data = {
         name:"Hackathons-Goteborg",
         acceptedDefault:'WAITING',
         uniqueId:'Hackathons-Goteborg',
-        vendor:"Meetup"
+        vendor:"meetup"
       }
 
     },

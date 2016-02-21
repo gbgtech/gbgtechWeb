@@ -18,6 +18,7 @@ function create(req, res) {
   Feeds.create({
       name: req.body.name,
       vendor: req.body.vendor,
+      categories: [],
       uniqueId: req.body.uniqueId,
       userId: req.user,
       acceptedDefault:req.body.acceptedDefault

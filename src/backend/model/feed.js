@@ -6,7 +6,7 @@ var FeedSchema = new Schema({
     type: String
   },
   vendor: {
-    type: String // Meetup
+    type: String // meetup
   },
   uniqueId: {
     type: String,
