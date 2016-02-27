@@ -114,4 +114,3 @@ const RegistrationBox = React.createClass({
 });
 
 export default RegistrationBox;
-

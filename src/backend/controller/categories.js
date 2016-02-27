@@ -3,8 +3,14 @@ var mongoose = require('mongoose');
 var Categories = mongoose.model('Categories');
 
 module.exports = {
-    index
+    index,test
 };
+
+
+
+function test(req, res) {
+  res.send('Hello World! as a');
+}
 
 
 

@@ -21,6 +21,10 @@ module.exports = function(app) {
     app.get('/api/events', EventsController.googleCalendar);
     app.get('/api/meetup', Meetup.fetchMeetupEvents);
 
+
+    app.get('/api/test', CategoriesController.test);
+
+
     //Need editor access
     app.get('/api/feeds', FeedController.index);
     app.post('/api/feeds/create', FeedController.create);
