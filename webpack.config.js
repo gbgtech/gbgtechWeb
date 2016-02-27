@@ -5,7 +5,7 @@ var webpack       = require('webpack');
 module.exports = {
   entry: [
     './src/frontend/index',
-    'webpack-hot-middleware/client'
+    'webpack/hot/dev-server'
   ],
   devtool: 'source-map',
   output: {
@@ -28,7 +28,8 @@ module.exports = {
     // as Quill.js unfortunately ships one as its `main`.
   //  noParse: /node_modules\/quill\/dist/quill.
 
-  },
+},
+
   postcss: function() {
     return [autoprefixer, precss];
   },
@@ -36,7 +37,19 @@ module.exports = {
     extensions: ['', '.js', '.jsx']
   },
   devServer: {
-    contentBase: './public'
+    contentBase: './public',
+    publicPath: '/build',
+    hot:true,
+    stats: {
+        colors: true,
+        chunks: false
+    },
+    proxy: {
+      '/api/*': {
+        target: 'http://localhost:3001',
+        secure: false,
+      },
+    },
   },
   plugins: [
     new webpack.optimize.OccurenceOrderPlugin(),
