@@ -4,11 +4,13 @@ var slugify = require('speakingurl');
 var Posts = mongoose.model('Posts');
 var Categories = mongoose.model('Categories');
 var Users = mongoose.model('Users');
+var Reddit = require('../outlet/reddit');
 
 module.exports = {
     index,
     create,
-    show
+    show,
+    postToOutlets
 };
 
 
@@ -98,6 +100,12 @@ function show(req, res) {
 function handleError(err, res) {
     console.error(err);
     return res.status(500).end();
+}
+
+function postToOutlets(){
+  Posts.findOne().exec().then((post)=> {
+      Reddit.postEvents(post);
+  });
 }
 
 

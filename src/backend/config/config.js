@@ -29,6 +29,13 @@ module.exports = {
 	meetup: {
 		apiKey: process.env.MEETUP_KEY
 	},
+	reddit:{
+		oath2User: process.env.REDDIT_OATH2_USER,
+		oath2Key: process.env.REDDIT_OATH2_KEY,
+		user: process.env.REDDIT_USER,
+		pass: process.env.REDDIT_PASS
+	},
+
 	mail: {
 		url: process.env.MAILGUN_URL,
 		key: (function() { return 'basic ' + new Buffer('api:'+ process.env.MAILGUN_KEY).toString('base64') })()

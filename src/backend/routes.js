@@ -7,8 +7,13 @@ var FeedController = require('./controller/feed');
 var authRoutes = require('./routes/auth');
 var Meetup = require('./integration/meetup');
 
+
+
 module.exports = function(app) {
     authRoutes(app);
+
+    app.post('/api/test', CategoriesController.test);
+
 
     app.post('/api/users/create', UsersController.create);
 
@@ -20,6 +25,9 @@ module.exports = function(app) {
 
     app.get('/api/events', EventsController.googleCalendar);
     app.get('/api/meetup', Meetup.fetchMeetupEvents);
+
+    app.get('/api/reddit', PostsController.postToOutlets);
+
 
     //Need editor access
     app.get('/api/feeds', FeedController.index);
