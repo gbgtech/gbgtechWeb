@@ -1,5 +1,4 @@
 import React from 'react';
-import ReactQuill from 'react-quill';
 import {postJson,get} from '../fetcher';
 
 const Post = React.createClass({
@@ -14,10 +13,6 @@ const Post = React.createClass({
           }
         };
     },
-
-
-
-
     handleSetValue(event, name){
       this.setState({
         post: {
@@ -126,9 +121,5 @@ const Post = React.createClass({
       );
     }
 });
-
-
-
-
 
 export default Post;

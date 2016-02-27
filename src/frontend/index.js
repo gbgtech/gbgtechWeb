@@ -6,7 +6,7 @@ import { Router, Route, Redirect, IndexRoute, browserHistory } from 'react-route
 import fetcher from './fetcher';
 
 require('./style.css');
-require('../../node_modules/quill/dist/quill.snow.css');
+require('./editor.css');
 
 import App from './components/App';
 import Hello from './components/Hello';
