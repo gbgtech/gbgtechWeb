@@ -1,7 +1,7 @@
 import React from 'react';
 import Editor from './Editor';
 
-import { convertToRaw, convertFromRaw } from 'draft-js';
+import { convertToRaw, convertFromRaw, EditorState, ContentState } from 'draft-js';
 import _ from 'lodash';
 
 import {postJson, get} from '../fetcher';
@@ -26,9 +26,16 @@ const Post = React.createClass({
 
     if (savedState) {
       savedState = JSON.parse(savedState);
+      if (savedState.body) {
+        savedState.body = EditorState.createWithContent(
+          ContentState.createFromBlockArray(
+            convertFromRaw(savedState.body)
+          )
+        )
+      }
       savedState = {
         ...emptyPost,
-        body: savedState.body && convertFromRaw(savedState.body)
+        ...savedState
       }
     }
 
@@ -42,7 +49,6 @@ const Post = React.createClass({
       if (callback) {
         callback();
       }
-      console.log("post state saved");
       this.storePostState(this.state.post);
     })
   },
@@ -69,11 +75,11 @@ const Post = React.createClass({
       this.setState({ categories });
     });
 
-    this.storePostState = _.debounce((post) => {
-      console.log("debounce", LOCAL_STORAGE_KEY);
+    this.storePostState = _.debounce(() => {
+      const post = this.state.post;
       localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify({
         ...post,
-        body: post.body && convertToRaw(post.body)
+        body: post.body && convertToRaw(post.body.getCurrentContent())
       }));
     }, 2000);
   },
@@ -81,7 +87,7 @@ const Post = React.createClass({
     event.preventDefault();
     postJson('/posts/create', {
       ...this.state.post,
-      body: convertToRaw(this.state.post.body)
+      body: convertToRaw(this.state.post.body.getCurrentContent())
     })
     .then(res => {
       console.log(res);
@@ -96,7 +102,7 @@ const Post = React.createClass({
     } else {
       this.setPostState({
         ...this.state.post,
-        categories: [...categories, categoryId]
+        categories: [...this.state.post.categories, categoryId]
       })
     }
   },
@@ -123,7 +129,7 @@ const Post = React.createClass({
           <button className="button">Submit</button>
         </form>
       </section>
-      );
+    );
   },
   renderEventInfo () {
     const { from, to, organizer, rsvpLink, position } = this.state.post;

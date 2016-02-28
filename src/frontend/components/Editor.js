@@ -1,13 +1,13 @@
 import React from 'react';
-import {Editor, EditorState, RichUtils} from 'draft-js';
+import {Editor, EditorState, ContentState, RichUtils} from 'draft-js';
 
 class RichEditor extends React.Component {
   constructor(props) {
     super(props);
 
-    this.state = {
-      editorState: props.initialValue || EditorState.createEmpty()
-    };
+    let editorState = props.initialValue || EditorState.createEmpty()
+
+    this.state = { editorState };
 
     this.focus = () => this.refs.editor.focus();
 
