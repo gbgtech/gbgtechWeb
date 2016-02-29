@@ -109,8 +109,7 @@ const Post = React.createClass({
 
   render() {
     const categories = this.state.categories;
-    const { title, showEventInfo, body } = this.state.post;
-    const selectedCategories = this.state.post.categories;
+    const { categories: selectedCategories, title, showEventInfo, body } = this.state.post;
     return (
       <section>
         <form className="postForm" onSubmit={this.handleSubmit}>
