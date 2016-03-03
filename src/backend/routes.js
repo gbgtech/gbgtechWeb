@@ -7,6 +7,15 @@ var FeedController = require('./controller/feed');
 var authRoutes = require('./routes/auth');
 var Meetup = require('./integration/meetup');
 
+var loginCheck =function (req, res,next){
+  console.log();
+  if(req.user!=null){
+    next();
+  }else{
+    res.send('need to login');
+  }
+};
+
 
 
 module.exports = function(app) {
@@ -30,8 +39,8 @@ module.exports = function(app) {
 
 
     //Need editor access
-    app.get('/api/feeds', FeedController.index);
-    app.post('/api/feeds/create', FeedController.create);
+    app.get('/api/feeds',loginCheck, FeedController.index);
+    app.post('/api/feeds/create',loginCheck, FeedController.create);
 
 
     //Need admin access

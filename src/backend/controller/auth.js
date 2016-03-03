@@ -25,7 +25,7 @@ var requestEmail = function(req, res) {
         user.save((err) => {
           if (!err) {
             mail.sendSigninMail(user.email, signinUrl);
-
+            console.log(user.signinToken);
             return res.status(200).json({message:'signin request created', exists: true});
           }
         });
