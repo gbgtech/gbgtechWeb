@@ -26,6 +26,7 @@ const AppRoute = () => (
         <Route path="/" component={App}>
             <IndexRoute component={NewsPage}/>
             <Route path="news/:postId" component={SinglePostPage} />
+            <Route path="news/:postId/edit" component={Post}/>
             <Route path="post" component={Post}/>
             <Route path="addFeed" component={AddFeed}/>
         </Route>

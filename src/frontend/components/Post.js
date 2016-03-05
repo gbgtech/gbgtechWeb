@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactQuill from 'react-quill';
-import {postJson,get} from '../fetcher';
+import {postJson, putJson, get} from '../fetcher';
 
 const Post = React.createClass({
     getInitialState() {
@@ -26,9 +26,6 @@ const Post = React.createClass({
        }
       })
     },
-
-
-
     handleSetValue(event, name){
       this.setState({
         post: {
@@ -46,23 +43,49 @@ const Post = React.createClass({
       });
     },
     componentDidMount() {
-      get('/categories').then(categories => {
-          console.log("state.post: ",this.state.post);
-          this.setState({post: {
-            ...this.state.post,
-            categories: categories
-          }});
 
-      });
+      const requests = [
+        get('/categories')
+      ];
+
+      const { params, route: { path } } = this.props;
+
+      if (path.includes('/edit')) {
+        requests.push(
+          get(`/posts/${params.postId}`)
+        );
+      }
+
+      Promise.all(requests)
+        .then(([categories, post]) => {
+          if (post) {
+            this.setState({post: {
+              ...post,
+              categories: categories.map(category => ({
+                ...category,
+                checked: post.categories.includes(category.id)
+              }))
+            }});
+          } else {
+            this.setState({post: {
+              ...this.state.post,
+              categories: categories
+            }});
+          }
+        });
     },
     handleSubmit: function(event) {
       event.preventDefault();
-        postJson('/posts/create',
-            {
-              ...this.state.post,
-              categories: this.state.categories.filter(c => c.checked).map(c => c._id)
-            }
-        )
+      let endpoint = '/posts/create';
+      let method = postJson;
+      if (this.state.post.id) {
+        endpoint = `/posts/${this.state.posts.id}`;
+        method = putJson;
+      }
+        method(endpoint, {
+          ...this.state.post,
+          categories: this.state.categories.filter(c => c.checked).map(c => c._id)
+        })
         .then(res => {
             console.log(res);
         });

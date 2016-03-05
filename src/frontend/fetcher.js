@@ -26,3 +26,11 @@ export const postJson = (url, object) => baseFetcher(url, {
         'Content-Type': 'application/json'
     })
 });
+
+export const putJson = (url, object) => baseFetcher(url, {
+    method: 'PUT',
+    body: JSON.stringify(object),
+    headers: new Headers({
+        'Content-Type': 'application/json'
+    })
+})
