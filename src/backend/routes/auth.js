@@ -1,4 +1,5 @@
 var authController = require('../controller/auth.js');
+var passport = require('passport');
 
 module.exports = function(app) {
     app.post('/api/auth/email/request', authController.RequestEmail);
@@ -7,8 +8,11 @@ module.exports = function(app) {
     app.get('/api/auth/signout', authController.Signout);
     app.get('/api/auth/test', authController.Test);
 
-    /*
-    /api/auth/google
-    /api/auth/googleCallback
-    */
+    app.get('/api/auth/google', passport.authenticate('google', {
+      scope: [
+        'https://www.googleapis.com/auth/userinfo.profile',
+  			'https://www.googleapis.com/auth/userinfo.email'
+      ]
+    }));
+    app.get('/api/auth/google/callback', authController.oauthCallback('google'));
 }

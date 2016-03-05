@@ -23,13 +23,11 @@ module.exports = function (app, db) {
   });
 
   // Initialize strategies
-  // var strategyDir = './src/backend/config/passport_strategies';
-  // fs.readdirSync(strategyDir).forEach(function(strategyPath) {
-  //   console.log(strategyDir + '/' + strategyPath);
-  //   require('./passport_strategies/' + strategyPath)(config);
-  // });
-
-  require('./passport_strategies/email')();
+  var strategyDir = './src/backend/config/passport_strategies';
+  fs.readdirSync(strategyDir).forEach(function(strategyPath) {
+    console.log(strategyDir + '/' + strategyPath);
+    require('./passport_strategies/' + strategyPath)(config);
+  });
 
   app.use(passport.initialize());
   app.use(passport.session());

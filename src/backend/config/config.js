@@ -22,6 +22,11 @@ module.exports = {
     // in HTTPS mode.
     secure: false
   },
+	googleauth: {
+		clientID: process.env.GOOGLEAUTH_ID,
+		clientSecret: process.env.GOOGLEAUTH_SECRET,
+		callbackURL: (process.env.HOST || 'http://localhost:3000') + '/api/auth/google/callback'
+	},
 	googlecalendar: {
 		apiKey: process.env.GOOGLECALENDAR_KEY,
 		calendarId: process.env.GOOGLECALENDAR_ID

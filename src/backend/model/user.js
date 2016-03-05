@@ -17,9 +17,8 @@ var UserSchema = new Schema({
     unique: 'Email is already in use',
     match: [/.+\@.+\..+/, 'Please fill a valid email address']
   },
-  provider: {
-    type: String,
-    required: 'Provider is required'
+  providers: {
+    type: Object
   },
   createdAt: {
 		type: Date,

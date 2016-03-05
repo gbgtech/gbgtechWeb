@@ -1,6 +1,8 @@
 const User = require('mongoose').model('Users'),
     crypto = require('crypto'),
+    _ = require('lodash'),
     mail = require('../integration/email'),
+    oauth = require('./oauth'),
     passport = require('passport');
 
 var requestEmail = function(req, res) {
@@ -67,9 +69,12 @@ var signout = function(req, res) {
   res.redirect('/');
 }
 
-module.exports = {
-  RequestEmail: requestEmail,
-  SigninEmail: signinEmail,
-  Signout: signout,
-  Test: testAuthenticated
-};
+module.exports = _.assignIn(
+  {
+    RequestEmail: requestEmail,
+    SigninEmail: signinEmail,
+    Signout: signout,
+    Test: testAuthenticated
+  },
+  oauth
+);
