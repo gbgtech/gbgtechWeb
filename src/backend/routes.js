@@ -31,6 +31,7 @@ module.exports = function(app) {
 
     app.get('/api/posts', PostsController.index);
     app.get('/api/posts/:id', PostsController.show);
+    app.put('/api/posts/:id', PostsController.update);
     app.post('/api/posts/create', PostsController.create);
 
     app.get('/api/events', EventsController.postEvents);
