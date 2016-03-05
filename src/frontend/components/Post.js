@@ -79,13 +79,13 @@ const Post = React.createClass({
     event.preventDefault();
     let endpoint = '/posts/create';
     let method = postJson;
-    if (this.state.post.id) {
-      endpoint = `/posts/${this.state.posts.id}`;
+    if (this.state.post.slug) {
+      endpoint = `/posts/${this.state.post.slug}`;
       method = putJson;
     }
     method(endpoint, {
       ...this.state.post,
-      categories: this.state.categories.filter(c => c.checked).map(c => c._id)
+      categories: this.state.post.categories.filter(c => c.checked).map(c => c._id)
     })
     .then(res => {
       console.log(res);

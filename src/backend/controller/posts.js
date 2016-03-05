@@ -1,3 +1,5 @@
+"use strict";
+
 var mongoose = require('mongoose');
 var slugify = require('speakingurl');
 
@@ -10,6 +12,7 @@ module.exports = {
     index,
     create,
     show,
+    update,
     postToOutlets
 };
 
@@ -41,12 +44,10 @@ function index(req, res) {
     }).catch((err) => handleError(err, res));
 }
 
-function create(req, res) {
+function buildPost(post) {
+    let event = null;
 
-    const post = req.body;
-    var event = null;
-
-    if (req.body.showEventInfo) {
+    if (post.showEventInfo) {
         event = {
             to: post.to,
             from: post.from,
@@ -60,14 +61,20 @@ function create(req, res) {
         };
     }
 
-    Posts.create({
+    return {
         title: post.title,
         slug: slugify(post.title),
         author: null,
         body: post.body,
         categories: post.categories,
         eventData: event
-    }, (err, post) => {
+    };
+}
+
+function create(req, res) {
+    const post = buildPost(req.body);
+
+    Posts.create(post, (err, post) => {
         if (err) {
             res.status(400).json(err);
         } else {
@@ -76,6 +83,17 @@ function create(req, res) {
 
         res.end()
     });
+}
+
+function update(req, res) {
+    const slug = req.params.id;
+    const post = buildPost(req.body);
+
+    Posts.findOneAndUpdate({slug}, {
+        $set: post
+    }, (err, updatedPost) => {
+        res.json(updatedPost).end()
+    })
 }
 
 function show(req, res) {
