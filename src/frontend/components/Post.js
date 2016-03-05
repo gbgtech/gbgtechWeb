@@ -34,7 +34,7 @@ const Post = React.createClass({
       }
     });
   },
-  onTextChange: function(body) {
+  onTextChange(body) {
     this.setState({
       post: {
         ...this.state.post,
@@ -74,7 +74,7 @@ const Post = React.createClass({
       }
     });
   },
-  handleSubmit: function(event) {
+  handleSubmit(event) {
     event.preventDefault();
     let endpoint = '/posts/create';
     let method = postJson;
@@ -132,7 +132,7 @@ const Post = React.createClass({
       </section>
       );
   },
-  renderEventInfo () {
+  renderEventInfo() {
     const { from, to, organizer, rsvpLink, position } = this.state.post;
 
     return (
