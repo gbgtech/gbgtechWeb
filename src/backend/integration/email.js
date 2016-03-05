@@ -1,15 +1,14 @@
 'use strict';
 
 const FormData = require('form-data');
-const fetch    = require('node-fetch');
+const fetch    = require('../lib/fetch');
 const ejs      = require('ejs');
 const _        = require('lodash');
 const config   = require('../config/config.js');
 
 const BASE_URL = 'http://localhost:3000';
 const MAILGUN_URL = config.mail.url;
-const API_KEY     = config.mail.key;
-const AUTH_HEADER ='basic ' + new Buffer('api:' + API_KEY).toString('base64');
+const AUTH_HEADER = config.mail.key;
 
 const convertToFormData = (obj) => {
   return Object.keys(obj).reduce((formData, key) => {
@@ -19,9 +18,7 @@ const convertToFormData = (obj) => {
 }
 
 function send(options) {
-
   if(options.to && options.subject && options.body) {
-
     let to = options.to;
 
     if (Array.isArray(options.to)) {
@@ -49,8 +46,8 @@ function send(options) {
         Authorization: AUTH_HEADER
       }
     })
-    .then(res => res.json())
-    .then(json => console.log(json));
+    .then(json => { console.log(json) })
+    .catch(err => { console.log(err) });
 
   } else {
     console.error("Email service missing required fields");
