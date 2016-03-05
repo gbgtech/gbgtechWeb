@@ -5,6 +5,7 @@ var Posts = mongoose.model('Posts');
 var Categories = mongoose.model('Categories');
 var Users = mongoose.model('Users');
 var Reddit = require('../outlet/reddit');
+var googlecalendar = require('../outlet/googlecalendar');
 
 module.exports = {
     index,
@@ -104,7 +105,7 @@ function handleError(err, res) {
 
 function postToOutlets(){
   Posts.findOne().exec().then((post)=> {
-      Reddit.postEvents(post);
+      googlecalendar.postEvents(post);
   });
 }
 

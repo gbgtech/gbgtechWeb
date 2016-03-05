@@ -2,11 +2,12 @@
 var UsersController = require('./controller/users');
 var CategoriesController = require('./controller/categories');
 var PostsController = require('./controller/posts');
-var EventsController = require('./controller/events');
+var EventsController = require('./outlet/googlecalendar');
 var FeedController = require('./controller/feed');
 var authRoutes = require('./routes/auth');
 var Meetup = require('./integration/meetup');
 
+console.log( EventsController);
 var loginCheck =function (req, res,next){
   console.log();
   if(req.user!=null){
@@ -32,7 +33,7 @@ module.exports = function(app) {
     app.get('/api/posts/:id', PostsController.show);
     app.post('/api/posts/create', PostsController.create);
 
-    app.get('/api/events', EventsController.googleCalendar);
+    app.get('/api/events', EventsController.postEvents);
     app.get('/api/meetup', Meetup.fetchMeetupEvents);
 
     app.get('/api/reddit', PostsController.postToOutlets);

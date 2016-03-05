@@ -49,8 +49,8 @@ var data = {
             url: 'https://google.com',
             categories: ['->categories.c1', '->categories.c5'],
             eventData: {
-                from: '=new Date(2016, 2, 6, 13, 37)',
-                to: '=new Date(2016, 2, 6, 17, 0)',
+                from: '=new Date(2016, 4, 6, 13, 37)',
+                to: '=new Date(2016, 4, 6, 17, 0)',
                 rsvp: 'http://splashthat.com',
                 location: {
                     lat: '57.7166056',

@@ -22,9 +22,11 @@ module.exports = {
     // in HTTPS mode.
     secure: false
   },
+	url:process.env.URL,
 	googlecalendar: {
 		apiKey: process.env.GOOGLECALENDAR_KEY,
-		calendarId: process.env.GOOGLECALENDAR_ID
+		calendarId: process.env.GOOGLECALENDAR_ID,
+		calendarEmail: process.env.GOOGLECALENDAR_EMAIL
 	},
 	meetup: {
 		apiKey: process.env.MEETUP_KEY
