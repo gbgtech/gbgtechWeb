@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "build": "./node_modules/.bin/webpack -p",
-    "start": "./node_modules/.bin/supervisor -e 'js' -d ./src/backend/ node server.js & ./node_modules/.bin/webpack-dev-server --inline --port 3000",
+    "start": "./node_modules/.bin/supervisor -e 'js' -d ./src/backend/ node server.js & ./node_modules/.bin/webpack-dev-server --inline --port 3000 --host 0.0.0.0",
     "test:ci": "watch 'npm run test' src/",
     "seed": "node ./src/backend/config/seed.js"
   },
@@ -35,6 +35,7 @@
     "express-session": "^1.13.0",
     "form-data": "^1.0.0-rc3",
     "glob": "^6.0.4",
+    "google-oauth-jwt": "^0.2.0",
     "googleapis": "~2.1.7",
     "helmet": "^1.1.0",
     "imports-loader": "~0.6.5",

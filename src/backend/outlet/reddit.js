@@ -20,7 +20,7 @@ function postEvents(aPost) {
         if(err) {
             console.log("Unable to authenticate user: " + err);
         } else {
-          var post={r:"gbgtech",url:"gbgtech.se/news/"+aPost.slug,title:aPost.title};
+          var post={r:"gbgtech",url:config.url+"/news/"+aPost.slug,title:aPost.title};
 
           reddit.submit(post,function(err,id) {
             console.log(err);

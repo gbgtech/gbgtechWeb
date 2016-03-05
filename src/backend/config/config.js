@@ -25,11 +25,13 @@ module.exports = {
 	googleauth: {
 		clientID: process.env.GOOGLEAUTH_ID,
 		clientSecret: process.env.GOOGLEAUTH_SECRET,
-		callbackURL: (process.env.HOST || 'http://localhost:3000') + '/api/auth/google/callback'
+		callbackURL: (process.env.URL || 'http://localhost:3000') + '/api/auth/google/callback'
 	},
+	url:process.env.URL,
 	googlecalendar: {
 		apiKey: process.env.GOOGLECALENDAR_KEY,
-		calendarId: process.env.GOOGLECALENDAR_ID
+		calendarId: process.env.GOOGLECALENDAR_ID,
+		calendarEmail: process.env.GOOGLECALENDAR_EMAIL
 	},
 	meetup: {
 		apiKey: process.env.MEETUP_KEY
