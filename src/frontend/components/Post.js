@@ -59,11 +59,12 @@ const Post = React.createClass({
     Promise.all(requests)
     .then(([categories, post]) => {
       if (post) {
+        const postCategories = post.categories.map(c => c._id);
         this.setState({post: {
           ...post,
           categories: categories.map(category => ({
             ...category,
-            checked: post.categories.includes(category.id)
+            checked: postCategories.includes(category._id)
           }))
         }});
       } else {
