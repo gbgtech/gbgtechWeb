@@ -115,20 +115,20 @@ const Post = React.createClass({
     const { categories, title, showEventInfo, body } = this.state.post;
     return (
       <section>
-      <form className="postForm" onSubmit={this.handleSubmit}>
-      <labels>Title:<input value={title} onChange={(event) => this.handleSetValue(event,'title')} /></labels>
-      <ul className="categories row">
-      {categories.map(category => (
-        <li key={category._id}>
-        <label><input type="checkbox" checked={category.checked} onChange={() => this.handleCategoryChecked(category._id)}/>{category.name}</label>
-        </li>
-        ))}
-      </ul>
-      <label><input type="checkbox" checked={showEventInfo} onChange={this.handleShowEventInfo}/>Is event</label>
-      {showEventInfo && this.renderEventInfo()}
-      <ReactQuill theme="snow" value={body} onChange={this.onTextChange}  />
-      <button className="button">Submit</button>
-      </form>
+        <form className="postForm" onSubmit={this.handleSubmit}>
+          <labels>Title:<input value={title} onChange={(event) => this.handleSetValue(event,'title')} /></labels>
+          <ul className="categories row">
+            {categories.map(category => (
+              <li key={category._id}>
+                <label><input type="checkbox" checked={category.checked} onChange={() => this.handleCategoryChecked(category._id)}/>{category.name}</label>
+              </li>
+              ))}
+          </ul>
+          <label><input type="checkbox" checked={showEventInfo} onChange={this.handleShowEventInfo}/>Is event</label>
+          {showEventInfo && this.renderEventInfo()}
+          <ReactQuill theme="snow" value={body} onChange={this.onTextChange} />
+          <button className="button">Submit</button>
+        </form>
       </section>
       );
   },
@@ -137,28 +137,28 @@ const Post = React.createClass({
 
     return (
       <div className="eventInfo">
-      <label>
-      From:
-      <input value={from} onChange={(event) => this.handleSetValue(event, 'from')} type="datetime-local"/>
-      </label>
-      <label>
-      To:
-      <input value={to} onChange={(event) => this.handleSetValue(event, 'to')} type="datetime-local"/>
-      </label>
-      <label>
-      Organizer:
-      <input value={organizer} onChange={(event) => this.handleSetValue(event, 'organizer')} />
-      </label>
-      <label>
-      RSVP-link (optional):
-      <input value={rsvpLink} onChange={(event) => this.handleSetValue(event, 'rsvpLink')} />
-      </label>
-      <label>
-      Position:
-      <input value={position}  onChange={(event) => this.handleSetValue(event, 'position')} />
-      </label>
+        <label>
+          From:
+          <input value={from} onChange={(event) => this.handleSetValue(event, 'from')} type="datetime-local"/>
+        </label>
+        <label>
+          To:
+          <input value={to} onChange={(event) => this.handleSetValue(event, 'to')} type="datetime-local"/>
+        </label>
+        <label>
+          Organizer:
+          <input value={organizer} onChange={(event) => this.handleSetValue(event, 'organizer')} />
+        </label>
+        <label>
+          RSVP-link (optional):
+          <input value={rsvpLink} onChange={(event) => this.handleSetValue(event, 'rsvpLink')} />
+        </label>
+        <label>
+          Position:
+          <input value={position}  onChange={(event) => this.handleSetValue(event, 'position')} />
+        </label>
       </div>
-      );
+    );
   }
 });
 
