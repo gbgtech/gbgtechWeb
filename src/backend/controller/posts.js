@@ -44,7 +44,7 @@ function index(req, res) {
     }).catch((err) => handleError(err, res));
 }
 
-function buildPost(post) {
+function buildPost(post, userId) {
     let event = null;
 
     if (post.showEventInfo) {
@@ -64,7 +64,7 @@ function buildPost(post) {
     return {
         title: post.title,
         slug: slugify(post.title),
-        author: null,
+        author: userId,
         body: post.body,
         categories: post.categories,
         eventData: event
@@ -72,7 +72,7 @@ function buildPost(post) {
 }
 
 function create(req, res) {
-    const post = buildPost(req.body);
+    const post = buildPost(req.body, req.user._id);
 
     Posts.create(post, (err, post) => {
         if (err) {
