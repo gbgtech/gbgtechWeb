@@ -56,8 +56,12 @@ var TopMenu = React.createClass({
                 "Thanks! Check your mailbox!"
               ) : (
                 <form onSubmit={this.handleSubmit} onClick={e => e.stopPropagation()}>
-                  <label>Email: <input type="email" ref={mail => this.mail = mail} placeholder="enter email"/></label>
-                  <button className="button">Submit</button>
+                  <div className="email-row">
+                    <label>Email:</label>
+                    <input type="email" ref={mail => this.mail = mail} placeholder="enter email"/>
+                    <button className="button">Submit</button>
+                  </div>
+                  <a href="/api/auth/google" className="google-signin">Sign in with Google</a>
                 </form>
               )}
             </div>
