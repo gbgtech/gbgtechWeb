@@ -3,10 +3,10 @@ export const SET_SIGNED_OUT = 'SET_SIGNED_OUT';
 
 
 export const setSignedIn = (user) => ({
-    type: SET_SIGNED_IN,
-    user
+  type: SET_SIGNED_IN,
+  user
 });
 
 export const setSignedOut = () => ({
-    type: SET_SIGNED_OUT
+  type: SET_SIGNED_OUT
 });
