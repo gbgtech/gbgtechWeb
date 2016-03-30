@@ -16,7 +16,6 @@ module.exports = {
 
 
 function postEvents(aPost) {
-console.log(aPost)
   var newparsedKey=config.googlecalendar.apiKey.replace(/\\n/g,"\n")
 
   var jwtClient = new google.auth.JWT(config.googlecalendar.calendarEmail, null, newparsedKey, ['https://www.googleapis.com/auth/calendar'], null);
