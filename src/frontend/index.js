@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { Provider } from 'react-redux';
 import { Router, Route, Redirect, IndexRoute, browserHistory } from 'react-router';
 
 
@@ -8,6 +9,7 @@ import fetcher from './fetcher';
 require('./style.css');
 require('../../node_modules/quill/dist/quill.snow.css');
 
+import store from './store/store';
 import App from './components/App';
 import Hello from './components/Hello';
 import Post from './components/Post';
@@ -22,16 +24,18 @@ import AddFeed from './components/addFeed';
 
 
 const AppRoute = () => (
-    <Router history={browserHistory}>
-        <Route path="/" component={App}>
-            <IndexRoute component={NewsPage}/>
-            <Route path="news/:postId" component={SinglePostPage} />
-            <Route path="news/:postId/edit" component={Post}/>
-            <Route path="post" component={Post}/>
-            <Route path="addFeed" component={AddFeed}/>
-        </Route>
-        <Redirect from="*" to="/" />
-    </Router>
+    <Provider store={store}>
+        <Router history={browserHistory}>
+            <Route path="/" component={App}>
+                <IndexRoute component={NewsPage}/>
+                <Route path="news/:postId" component={SinglePostPage} />
+                <Route path="news/:postId/edit" component={Post}/>
+                <Route path="post" component={Post}/>
+                <Route path="addFeed" component={AddFeed}/>
+            </Route>
+            <Redirect from="*" to="/" />
+        </Router>
+    </Provider>
 );
 
 ReactDOM.render(<AppRoute/>, document.getElementById('root'));
