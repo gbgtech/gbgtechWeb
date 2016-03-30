@@ -3,13 +3,10 @@ import ReactDOM from 'react-dom';
 import { Router, Route, Redirect, IndexRoute, browserHistory } from 'react-router';
 
 
-import fetcher from './fetcher';
-
 require('./style.css');
 require('../../node_modules/quill/dist/quill.snow.css');
 
 import App from './components/App';
-import Hello from './components/Hello';
 import Post from './components/Post';
 import NewsPage from './components/NewsPage';
 import SinglePostPage from './components/SinglePostPage';

@@ -16,7 +16,7 @@ module.exports = {
     loaders: [
       {
         test: /(\.jsx|\.js)$/,
-        loader: 'babel',
+        loaders: ["babel", "eslint-loader"],
         exclude: /(node_modules|bower_components)/
       },
       {
@@ -28,8 +28,10 @@ module.exports = {
     // as Quill.js unfortunately ships one as its `main`.
   //  noParse: /node_modules\/quill\/dist/quill.
 
-},
-
+  },
+  eslint: {
+    configFile: '.eslintrc'
+  },
   postcss: function() {
     return [autoprefixer, precss];
   },

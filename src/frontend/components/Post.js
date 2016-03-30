@@ -24,7 +24,7 @@ const Post = React.createClass({
         ...this.state.post,
         showEventInfo :! this.state.post.showEventInfo
       }
-    })
+    });
   },
   handleSetValue(event, name){
     this.setState({
@@ -45,7 +45,7 @@ const Post = React.createClass({
   componentDidMount() {
 
     const requests = [
-    get('/categories')
+      get('/categories')
     ];
 
     const { params, route: { path } } = this.props;
@@ -53,7 +53,7 @@ const Post = React.createClass({
     if (path.includes('/edit')) {
       requests.push(
         get(`/posts/${params.postId}`)
-        );
+      );
     }
 
     Promise.all(requests)
@@ -123,7 +123,7 @@ const Post = React.createClass({
               <li key={category._id}>
                 <label><input type="checkbox" checked={category.checked} onChange={() => this.handleCategoryChecked(category._id)}/>{category.name}</label>
               </li>
-              ))}
+            ))}
           </ul>
           <label><input type="checkbox" checked={showEventInfo} onChange={this.handleShowEventInfo}/>Is event</label>
           {showEventInfo && this.renderEventInfo()}
@@ -131,7 +131,7 @@ const Post = React.createClass({
           <button className="button">Submit</button>
         </form>
       </section>
-      );
+    );
   },
   renderEventInfo() {
     const { from, to, organizer, rsvpLink, position } = this.state.post;

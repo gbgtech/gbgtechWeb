@@ -3,30 +3,30 @@ import { get } from '../fetcher';
 
 
 import NewsPost from './NewsPost';
-import RegistrationBox from './RegistrationBox'
+import RegistrationBox from './RegistrationBox';
 
 const NewsPage = React.createClass({
-    getInitialState() {
-        return {
-            posts: []
-        };
-    },
-    componentDidMount() {
-        get('/posts').then(posts => this.setState({ posts }));
-    },
+  getInitialState() {
+    return {
+      posts: []
+    };
+  },
+  componentDidMount() {
+    get('/posts').then(posts => this.setState({ posts }));
+  },
 
-    render() {
-        const { posts } = this.state;
+  render() {
+    const { posts } = this.state;
 
-        return (
-            <section>
-                <RegistrationBox />
-                {posts.map(post => (
-                    <NewsPost key={post._id} post={post}/>
-                ))}
-            </section>
-        );
-    }
+    return (
+      <section>
+        <RegistrationBox />
+        {posts.map(post => (
+          <NewsPost key={post._id} post={post}/>
+        ))}
+      </section>
+    );
+  }
 });
 
 
