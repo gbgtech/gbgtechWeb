@@ -6,6 +6,8 @@ import { formatDate } from '../formatter';
 const NewsPost = ({ post }) => (
     <article>
         <header>
+            {post.accepted === 'WAITING' && <div>POST UNDER REVIEW (NOT PUBLISHED YET)</div>}
+            {post.accepted === 'DENIED' && <div>POST DENIED (NOT PUBLISHED)</div>}
             <h2><Link to={`/news/${post.slug}`}>{post.title}</Link></h2>
             {post.origin && <ProviderBadge {...post.origin} />}
         </header>
