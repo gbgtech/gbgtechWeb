@@ -4,7 +4,7 @@ var CategoriesController = require('./controller/categories');
 var PostsController = require('./controller/posts');
 var FeedController = require('./controller/feed');
 var authRoutes = require('./routes/auth');
-var Meetup = require('./integration/meetup');
+var Meetup = require('./providers/meetup');
 
 var loginCheck =function (req, res,next){
   console.log();

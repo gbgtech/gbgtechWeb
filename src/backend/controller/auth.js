@@ -1,7 +1,7 @@
 const User = require('mongoose').model('Users'),
     crypto = require('crypto'),
     _ = require('lodash'),
-    mail = require('../integration/email'),
+    mail = require('../outlet/email'),
     oauth = require('./oauth'),
     passport = require('passport');
 
