@@ -23,4 +23,4 @@ const Reddit = React.createClass({
   }
 });
 
-export default Reddit
+export default Reddit;
