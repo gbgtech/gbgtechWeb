@@ -69,12 +69,36 @@ var signout = function(req, res) {
   res.redirect('/');
 }
 
+var roles = {
+  admin: 400,
+  editor: 300,
+  author: 200,
+  user: 100
+};
+
+var hasRole = function(role) {
+  return function(req, res, next) {
+    if(typeof role === "string") {
+      role = roles[role];
+    }
+
+    console.log(role + " - " + req.user.role);
+    if (!req.user || role > req.user.role) {
+      return res.status(401).send("Not authorized to perform this action");
+    } else {
+      next();
+    }
+  };
+}
+
 module.exports = _.assignIn(
   {
     RequestEmail: requestEmail,
     SigninEmail: signinEmail,
     Signout: signout,
-    Test: testAuthenticated
+    Test: testAuthenticated,
+    Roles: roles,
+    HasRole: hasRole
   },
   oauth
 );

@@ -3,6 +3,7 @@ var config = require('./config');
 var seeder = require('mongoose-seeder');
 var slugify = require('speakingurl');
 var fs = require('fs');
+var roles = require('../controller/auth').Roles;
 
 var modelDir = './src/backend/model';
 
@@ -24,7 +25,7 @@ mongoose.connect(config.db, function(err) {
 var data = {
     users: {
         '_model': 'Users',
-        'admin': { email: 'admin@gbgtech.co', provider: 'email' },
+      'admin': { email: 'admin@gbgtech.co', provider: 'email' role: roles.admin},
         'bark': { email: 'erikaxelsson1@gmail.com', provider: 'email' }
     },
     categories: {

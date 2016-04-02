@@ -5,9 +5,16 @@ var Users = mongoose.model('Users');
 
 
 module.exports = {
-    create: util.deprecate(create, 'DEPRECATED: usersController.createUser - Users will only be created by authentication methods')
+    create: create,
+    me: me
 };
 
+function me(req, res) {
+  var u = req.user;
+  u.providers = undefined;
+  
+  return res.send(u);
+}
 
 
 function create(req, res) {
