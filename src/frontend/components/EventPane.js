@@ -3,11 +3,10 @@ import React from 'react';
 import { formatDate } from '../formatter';
 
 const EventPane = (event) => (
-    <div className="event-pane">
-        <h4>{event.summary}</h4>
-        <small>{formatDate(event.start.dateTime)}</small>
-        <div className="description">{event.description}</div>
-    </div>
+    <a className="event-pane" href={'/news/'+event.slug}>
+        <h4>{event.title}</h4>
+        <small>{formatDate(event.eventData.from)}</small>
+    </a>
 );
 
 export default EventPane;

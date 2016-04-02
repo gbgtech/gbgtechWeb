@@ -14,7 +14,8 @@ module.exports = {
     create,
     show,
     update,
-    postToOutlets
+    postToOutlets,
+    listEvents
 };
 
 
@@ -85,6 +86,29 @@ function create(req, res) {
         res.end()
     });
 }
+function listEvents(req, res) {
+  var filter = {eventData: {$ne:null}};
+
+  return Promise.all([
+      Posts.find(filter).sort({ "eventData.from": -1 }).exec(),
+      Categories.find().exec()
+  ]).then((results) => {
+
+      var posts      = results[0];
+      var categories = results[1];
+
+      var userIds = posts.map(post => post.author);
+
+      return Users.find({_id: {$in: userIds}}).exec().then((users) => {
+          posts = posts.map((post) => decoratePost(post, users, categories));
+          return res.json(posts).end();
+      });
+
+  }).catch((err) => handleError(err, res));
+}
+
+
+
 
 function update(req, res) {
     const slug = req.params.id;

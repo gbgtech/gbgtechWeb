@@ -11,14 +11,15 @@ const EventsList = React.createClass({
     };
   },
   componentDidMount() {
-    get('/events').then(result => this.setState({ events: result.items }));
+    get('/events').then(result => this.setState({ events: result }));
   },
   render() {
     const { events } = this.state;
+    console.log(events);
     return (
       <div>
         {events.map(event => (
-          <EventPane key={event.id} {...event} />
+          <EventPane key={event.slug} {...event} />
         ))}
       </div>
     );
