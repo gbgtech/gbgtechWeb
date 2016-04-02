@@ -102,7 +102,35 @@ var data = {
         acceptedDefault:'WAITING',
         uniqueId:'Hackathons-Goteborg',
         vendor:"meetup"
-      }
+      },
+
+      'f6':{
+        userId: '->users.bark',
+        categories: ['->categories.c4'],
+        name:"Entrepreneurial hive",
+        acceptedDefault:'WAITING',
+        uniqueId:'Entrepreneurial-Hive',
+        vendor:"meetup"
+      },
+      'f7':{
+        userId: '->users.bark',
+        categories: ['->categories.c4'],
+        name:"Entrepreneurial hive",
+        acceptedDefault:'WAITING',
+        uniqueId:'Entrepreneurial-Hive',
+        vendor:"meetup"
+      },
+      'f8':{
+        userId: '->users.bark',
+        categories: ['->categories.c4'],
+        name:"Goteborg Startup Founder 101",
+        acceptedDefault:'WAITING',
+        uniqueId:'Goteborg-Startup-Founder-101',
+        vendor:"meetup"
+      },
+
+
+
 
     },
 

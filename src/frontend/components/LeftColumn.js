@@ -7,6 +7,7 @@ const LeftColumn = React.createClass({
   render() {
     return (
       <div className="left-column">
+        Comming up:<br />
         <EventsList />
       </div>
     );
