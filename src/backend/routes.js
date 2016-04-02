@@ -25,6 +25,7 @@ module.exports = function(app) {
     app.get('/api/posts/:id', PostsController.show);
     app.put('/api/posts/:id', hasRole(roles.user), PostsController.update);
     app.post('/api/posts/create', hasRole(roles.user), PostsController.create);
+    app.put('/api/posts/:id/accepted', hasRole(roles.user), PostsController.updateAccepted);
 
     app.get('/api/events', PostsController.listEvents);
     app.get('/api/meetup', Meetup.fetchMeetupEvents);

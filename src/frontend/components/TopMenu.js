@@ -81,6 +81,7 @@ var TopMenu = React.createClass({
           <li><Link to={'/'}>news</Link></li>
           <li><Link to={'/hubs'}>hubs</Link></li>
           {signedIn && <li><Link to={'/post'}>post</Link></li>}
+          {signedIn && <li><Link to={'/admin'}>admin</Link></li>}
           <li><a href="http://gothenburgstartup.com">gothenburg startup map</a></li>
         </ul>
         <ul className="login-menu">

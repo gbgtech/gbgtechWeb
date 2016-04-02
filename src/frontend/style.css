@@ -321,6 +321,39 @@ a.button {
   }
 }
 
+.admin-page {
+  flex-direction: row;
+  margin: 0 2em;
+  &>div {
+    margin-top: 1em;
+    flex: 1;
+  }
+}
+.admin-post-list-item {
+  flex-direction: row;
+  align-items: center;
+  justify-content: stretch;
+  padding: 0.5em;
+  .dot {
+    margin-right: 0.5em;
+    width: 0.5em;
+    height: 0.5em;
+    border-radius: 0.25em;
+    &.approved {
+      background: green;
+    }
+    &.denied {
+      background: red;
+    }
+    &.waiting {
+      background: orange;
+    }
+  }
+  &:nth-child(odd) {
+    background: lightgrey;
+  }
+}
+
 .button {
   user-select: none;
   display: inline-block;
