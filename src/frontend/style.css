@@ -45,7 +45,7 @@ body {
 .row { flex-direction: row; }
 .block { display: block; }
 
-html, body, #root {
+html, body, #root, .app {
     height: 100%;
 }
 
@@ -158,7 +158,8 @@ nav {
 .main-container {
     padding: 0 1rem 0;
     flex-direction: row;
-
+    flex: 1;
+    
     .left-column, .right-column {
         padding: 1em;
     }
