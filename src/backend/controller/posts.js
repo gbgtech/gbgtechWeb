@@ -94,7 +94,11 @@ function create(req, res) {
   });
 }
 function listEvents(req, res) {
-  var filter = {eventData: {$ne:null}};
+  var filter = {
+    eventData: {$ne:null},
+    accepted: 'APPROVED',
+    "eventData.from": {$gt:new Date()}
+  };
 
   return Promise.all([
       Posts.find(filter).sort({ "eventData.from": -1 }).exec(),
