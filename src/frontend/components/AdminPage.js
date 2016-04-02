@@ -24,11 +24,21 @@ const AdminPage = React.createClass({
       <section className="admin-page">
         <div >
           Pending
-          <AdminPostList posts={pending} setAccepted={this.setAccepted} setDenied={this.setDenied} edit={this.edit} reset={this.reset} />
+          <AdminPostList posts={pending}
+                         setAccepted={this.setAccepted}
+                         setDenied={this.setDenied}
+                         edit={this.edit}
+                         reset={this.reset}
+                         goto={this.goto} />
         </div>
         <div>
           Processed
-          <AdminPostList posts={processed} setAccepted={this.setAccepted} setDenied={this.setDenied} edit={this.edit} reset={this.reset} />
+          <AdminPostList posts={processed}
+                         setAccepted={this.setAccepted}
+                         setDenied={this.setDenied}
+                         edit={this.edit}
+                         reset={this.reset}
+                         goto={this.goto} />
         </div>
       </section>
     );
@@ -54,6 +64,10 @@ const AdminPage = React.createClass({
 
   edit(slug) {
     browserHistory.push('/news/' + slug + '/edit');
+  },
+
+  goto(slug) {
+    browserHistory.push(`/news/${slug}`);
   },
 
   handleAcceptedResponse(post) {
