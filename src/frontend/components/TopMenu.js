@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router';
+import { Link, browserHistory } from 'react-router';
 import { postJson } from '../fetcher';
 
 import { connect } from 'react-redux';
@@ -64,8 +64,13 @@ var TopMenu = React.createClass({
       }
     });
   },
+  handleSignout() {
+    const { signOut } = this.props;
+    signOut();
+    browserHistory.push('/');
+  },
   render() {
-    const { signedIn, user, signOut } = this.props;
+    const { signedIn } = this.props;
     const { loginBoxOpen, complete, success, mail } = this.state;
 
     return (
@@ -74,12 +79,12 @@ var TopMenu = React.createClass({
         <ul className="navigation">
           <li><Link to={'/'}>news</Link></li>
           <li><Link to={'/hubs'}>hubs</Link></li>
-          <li><Link to={'/post'}>post</Link></li>
+          {signedIn && <li><Link to={'/post'}>post</Link></li>}
           <li><a href="http://gothenburgstartup.com">gothenburg startup map</a></li>
         </ul>
         <ul className="login-menu">
           {!signedIn && <li onClick={this.openLoginBox}>Login</li>}
-          {signedIn && <li onClick={signOut}>Logout</li>}
+          {signedIn && <li onClick={this.handleSignout}>Logout</li>}
         </ul>
         {loginBoxOpen && (<LoginBox complete={complete} mail={mail} success={success} onSubmit={this.handleSubmit} onClose={this.closeLoginBox} onChangeMail={this.handleChangeMail} />)}
       </nav>
