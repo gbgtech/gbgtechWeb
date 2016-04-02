@@ -1,7 +1,5 @@
 import React  from 'react';
 import TopMenu from './TopMenu';
-import RightColumn from './RightColumn';
-import LeftColumn from './LeftColumn';
 import { get } from '../fetcher';
 import { connect } from 'react-redux';
 import { setSignedIn } from '../store/actions';
@@ -22,11 +20,7 @@ const App = React.createClass({
     return (
         <div className="app">
             <TopMenu />
-            <div className="main-container">
-                <LeftColumn/>
-                {children}
-                <RightColumn/>
-            </div>
+            {children}
         </div>
     );
   }

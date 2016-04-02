@@ -15,7 +15,8 @@ module.exports = {
     show,
     update,
     postToOutlets,
-    listEvents
+    listEvents,
+    updateAccepted
 };
 
 
@@ -24,8 +25,8 @@ function index(req, res) {
 
     var filter = {accepted: 'APPROVED'};
 
-    if (req.query.waiting === '1') {
-        filter.accepted = 'WAITING';
+    if (req.query.admin === '1') {
+        filter = {};
     }
 
     return Promise.all([
@@ -116,7 +117,7 @@ function update(req, res) {
 
     Posts.findOneAndUpdate({slug}, {
         $set: post
-    }, (err, updatedPost) => {
+    }, {new: true}, (err, updatedPost) => {
         res.json(updatedPost).end()
     })
 }
@@ -151,6 +152,17 @@ function postToOutlets(){
   });
 }
 
+function updateAccepted(req, res){
+  const slug = req.params.id;
+  const post = req.body;
+
+  Posts.findOneAndUpdate({slug}, {
+    $set: {accepted: post.accepted}
+  },{new: true},
+  (err, updatedPost) => {
+    res.json(updatedPost).end()
+  });
+}
 
 const decoratePost = (post, users, categories) => {
     const authorObject = users.find(user => user._id.equals(post.author));
