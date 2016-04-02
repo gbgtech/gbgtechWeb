@@ -29,15 +29,24 @@ const AppRoute = () => (
               <Route component={UserApp}>
                 <IndexRoute component={NewsPage}/>
                 <Route path="news/:postId" component={SinglePostPage} />
-                <Route path="news/:postId/edit" component={Post}/>
-                <Route path="post" component={Post}/>
-                <Route path="addFeed" component={AddFeed}/>
+                <Route path="news/:postId/edit" component={Post} onEnter={requireAuth}/>
+                <Route path="post" component={Post} onEnter={requireAuth}/>
+                <Route path="addFeed" component={AddFeed} onEnter={requireAuth}/>
               </Route>
-              <Route path="admin" component={AdminPage}/>
+              <Route path="admin" component={AdminPage} onEnter={requireAuth}/>
               <Redirect from="*" to="/" />
             </Route>
         </Router>
     </Provider>
 );
+
+function requireAuth(nextState, replace) {
+  if (!store.getState().signedIn) {
+    replace({
+      pathname: '/',
+      state: { nextPathname: nextState.location.pathname }
+    })
+  }
+}
 
 ReactDOM.render(<AppRoute/>, document.getElementById('root'));
