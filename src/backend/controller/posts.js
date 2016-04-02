@@ -48,35 +48,37 @@ function index(req, res) {
 }
 
 function buildPost(post, userId) {
-    let event = null;
-
-    if (post.showEventInfo) {
-        event = {
-            to: post.to,
-            from: post.from,
-            organizer: post.organizer,
-            rsvp: post.rsvpLink,
-            location: {
-                lat: null,
-                lng: null,
-                name: null
-            }
-        };
-    }
-
-    return {
-        title: post.title,
-        slug: slugify(post.title),
-        author: userId,
-        body: post.body,
-        categories: post.categories,
-        eventData: event
+  let event = null;
+  if (post.showEventInfo) {
+    event = {
+      to: post.to,
+      from: post.from,
+      organizer: post.organizer,
+      rsvp: post.rsvpLink,
+      location: {
+          lat: null,
+          lng: null,
+          name: null
+      }
     };
+  }
+
+  return {
+      title: post.title,
+      slug: slugify(post.title),
+      author: userId,
+      body: post.body,
+      categories: post.categories,
+      eventData: event
+  };
 }
 
 function create(req, res) {
-    const post = buildPost(req.body, req.user._id);
-
+  const post = buildPost(req.body, req.user._id);
+  Posts.find({slug:{$regex: '^'+post.slug}}).exec().then((posts) => {
+    if(posts.length>0){
+      post.slug+="-"+posts.length;
+    }
     Posts.create(post, (err, post) => {
         if (err) {
             res.status(400).json(err);
@@ -86,6 +88,7 @@ function create(req, res) {
 
         res.end()
     });
+  });
 }
 function listEvents(req, res) {
   var filter = {eventData: {$ne:null}};
