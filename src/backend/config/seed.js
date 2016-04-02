@@ -3,7 +3,6 @@ var config = require('./config');
 var seeder = require('mongoose-seeder');
 var slugify = require('speakingurl');
 var fs = require('fs');
-var roles = require('../controller/auth').Roles;
 
 var modelDir = './src/backend/model';
 
@@ -25,7 +24,7 @@ mongoose.connect(config.db, function(err) {
 var data = {
     users: {
         '_model': 'Users',
-      'admin': { email: 'admin@gbgtech.co', provider: 'email' role: roles.admin},
+        'admin': { email: 'admin@gbgtech.co', provider: 'email' },
         'bark': { email: 'erikaxelsson1@gmail.com', provider: 'email' }
     },
     categories: {
@@ -127,7 +126,7 @@ var data = {
         acceptedDefault:'WAITING',
         uniqueId:'Goteborg-Startup-Founder-101',
         vendor:"meetup"
-      },
+      }
 
 
 

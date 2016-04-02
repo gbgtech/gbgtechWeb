@@ -82,7 +82,6 @@ var hasRole = function(role) {
       role = roles[role];
     }
 
-    console.log(role + " - " + req.user.role);
     if (!req.user || role > req.user.role) {
       return res.status(401).send("Not authorized to perform this action");
     } else {

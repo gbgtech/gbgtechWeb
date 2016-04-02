@@ -1,5 +1,6 @@
 import React from 'react';
-
+import Twitter from './buttons/Twitter';
+import Reddit from './buttons/Reddit';
 import { get, postJson } from '../fetcher';
 
 const RegistrationBox = React.createClass({
@@ -88,11 +89,19 @@ const RegistrationBox = React.createClass({
   renderForm() {
     return (
       <div className="register row">
+
         <h3>Sign up for our newsfeed:</h3>
-        <form className="row" onSubmit={this.openModal}>
-          <input type="email" tabIndex="1" required value={this.state.email} onChange={this.changeEmail} placeholder="Enter your email" />
-          <button className="button">Next</button>
-        </form>
+        <div>
+          <form className="row" onSubmit={this.openModal}>
+            <input type="email" tabIndex="1" required value={this.state.email} onChange={this.changeEmail} placeholder="Enter your email" />
+            <button className="button">Next</button>
+
+          </form>
+          <div className="follow-us">
+            <Twitter />
+            <Reddit />
+          </div>
+        </div>
       </div>
     );
   },

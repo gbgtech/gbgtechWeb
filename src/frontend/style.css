@@ -234,7 +234,9 @@ article, .news-article {
         min-height: 300px;
         justify-content: space-between;
     }
-
+    .follow-us {
+      flex-direction: row;
+    }
     .row {
         align-items: center;
     }
