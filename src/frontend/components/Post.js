@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactQuill from 'react-quill';
 import {postJson, putJson, get} from '../fetcher';
+import { browserHistory } from 'react-router';
 
 const Post = React.createClass({
   getInitialState() {
@@ -15,7 +16,8 @@ const Post = React.createClass({
         organizer:'',
         rsvpLink:'',
         position:''
-      }
+      },
+      message: null
     };
   },
   handleShowEventInfo(){
@@ -89,6 +91,13 @@ const Post = React.createClass({
     })
     .then(res => {
       console.log(res);
+      if (res.accepted === 'APPROVED') {
+        browserHistory.push(`/news/${res.slug}`);
+      } else {
+        this.setState({
+          message: 'Post has been submitted for review'
+        });
+      }
     });
 
   },
@@ -113,9 +122,11 @@ const Post = React.createClass({
   },
 
   render() {
+    const { message } = this.state;
     const { categories, title, showEventInfo, body } = this.state.post;
     return (
       <section>
+        {message && <div className="message">{message}</div>}
         <form className="postForm" onSubmit={this.handleSubmit}>
           <labels>Title:<input value={title} onChange={(event) => this.handleSetValue(event,'title')} /></labels>
           <ul className="categories row">
