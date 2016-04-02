@@ -121,6 +121,9 @@ function update(req, res) {
     const slug = req.params.id;
     const post = buildPost(req.body);
 
+    delete post.author;
+    delete post.slug;
+
     Posts.findOneAndUpdate({slug}, {
         $set: post
     }, {new: true}, (err, updatedPost) => {
