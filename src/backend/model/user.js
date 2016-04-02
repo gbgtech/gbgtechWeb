@@ -17,6 +17,14 @@ var UserSchema = new Schema({
     unique: 'Email is already in use',
     match: [/.+\@.+\..+/, 'Please fill a valid email address']
   },
+  role: {
+    type: Number,
+    default: 100
+  },
+  organization: {
+    type: String,
+    default: null
+  },
   providers: {
     type: Object
   },

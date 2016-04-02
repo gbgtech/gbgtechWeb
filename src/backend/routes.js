@@ -6,22 +6,16 @@ var FeedController = require('./controller/feed');
 var authRoutes = require('./routes/auth');
 var Meetup = require('./providers/meetup');
 
-var loginCheck =function (req, res,next){
-  console.log();
-  if(req.user!=null){
-    next();
-  }else{
-    res.send('need to login');
-  }
-};
-
+var hasRole = require('./controller/auth').HasRole;
+var roles = require('./controller/auth').Roles;
 
 
 module.exports = function(app) {
     authRoutes(app);
 
-    app.post('/api/test', CategoriesController.test);
+    app.post('/api/test', hasRole(roles.user), CategoriesController.test);
 
+    app.get('/api/users/me', hasRole(roles.user), UsersController.me);
 
     app.post('/api/users/create', UsersController.create);
 
@@ -29,8 +23,8 @@ module.exports = function(app) {
 
     app.get('/api/posts', PostsController.index);
     app.get('/api/posts/:id', PostsController.show);
-    app.put('/api/posts/:id', PostsController.update);
-    app.post('/api/posts/create', PostsController.create);
+    app.put('/api/posts/:id', hasRole(roles.user), PostsController.update);
+    app.post('/api/posts/create', hasRole(roles.user), PostsController.create);
 
     app.get('/api/events', PostsController.listEvents);
     app.get('/api/meetup', Meetup.fetchMeetupEvents);
@@ -39,8 +33,8 @@ module.exports = function(app) {
 
 
     //Need editor access
-    app.get('/api/feeds',loginCheck, FeedController.index);
-    app.post('/api/feeds/create',loginCheck, FeedController.create);
+    app.get('/api/feeds', hasRole(roles.editor), FeedController.index);
+    app.post('/api/feeds/create', hasRole(roles.editor), FeedController.create);
 
 
     //Need admin access
