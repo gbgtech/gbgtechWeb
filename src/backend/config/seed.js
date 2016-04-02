@@ -10,6 +10,7 @@ fs.readdirSync(modelDir).forEach((modelPath) => {
   console.log(modelDir + '/' + modelPath);
   require('../model/' + modelPath);
 });
+var roles = require('../controller/auth').Roles;
 
 mongoose.connect(config.db, function(err) {
     // Load Mongoose models
@@ -24,8 +25,9 @@ mongoose.connect(config.db, function(err) {
 var data = {
     users: {
         '_model': 'Users',
-        'admin': { email: 'admin@gbgtech.co', provider: 'email' },
-        'bark': { email: 'erikaxelsson1@gmail.com', provider: 'email' }
+        'admin': { email: 'admin@gbgtech.co', provider: 'email', role: roles.admin},
+        'bark': { email: 'erikaxelsson1@gmail.com', provider: 'email' },
+        'tejp': { email: 'andresamuelsson94@gmail.com', provider: 'email', role: roles.admin}
     },
     categories: {
         '_model': 'Categories',

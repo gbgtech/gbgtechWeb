@@ -76,19 +76,20 @@ var roles = {
   user: 100
 };
 
-var hasRole = function(role) {
-  return function(req, res, next) {
-    if(typeof role === "string") {
-      role = roles[role];
-    }
-
-    if (!req.user || role > req.user.role) {
+const hasRole = (role) => (req, res, next) => {
+    if (!userHasRole(req.user, role)) {
       return res.status(401).send("Not authorized to perform this action");
     } else {
       next();
     }
-  };
-}
+};
+
+const stringToRole = (role) => (typeof role === "string") ? roles[role] : role;
+
+const userHasRole = (user, role) => {
+  role = stringToRole(role);
+  return user && user.role >= role;
+};
 
 module.exports = _.assignIn(
   {
@@ -97,7 +98,8 @@ module.exports = _.assignIn(
     Signout: signout,
     Test: testAuthenticated,
     Roles: roles,
-    HasRole: hasRole
+    HasRole: hasRole,
+    userHasRole
   },
   oauth
 );
