@@ -34,26 +34,26 @@ const AdminPage = React.createClass({
     );
   },
 
-  setAccepted(id) {
-    putJson(`/posts/${id}/accepted`, {
+  setAccepted(slug) {
+    putJson(`/posts/${slug}/accepted`, {
       accepted: 'APPROVED'
     }).then(this.handleAcceptedResponse);
   },
 
-  setDenied(id) {
-    putJson(`/posts/${id}/accepted`, {
+  setDenied(slug) {
+    putJson(`/posts/${slug}/accepted`, {
       accepted: 'DENIED'
     }).then(this.handleAcceptedResponse);
   },
 
-  reset(id) {
-    putJson(`/posts/${id}/accepted`, {
+  reset(slug) {
+    putJson(`/posts/${slug}/accepted`, {
       accepted: 'WAITING'
     }).then(this.handleAcceptedResponse);
   },
 
-  edit(id) {
-    browserHistory.push('/news/' + id + '/edit');
+  edit(slug) {
+    browserHistory.push('/news/' + slug + '/edit');
   },
 
   handleAcceptedResponse(post) {
