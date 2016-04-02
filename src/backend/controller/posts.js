@@ -138,7 +138,6 @@ function update(req, res) {
 function show(req, res) {
 
     const filter = {slug: req.params.id};
-    console.log(userHasRole(req.user, roles.admin));
     if (!userHasRole(req.user, roles.admin)) {
         filter.accepted = 'APPROVED'
     }
