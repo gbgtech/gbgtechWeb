@@ -9,6 +9,9 @@ var Users = mongoose.model('Users');
 var Reddit = require('../outlet/reddit');
 var googlecalendar = require('../outlet/googlecalendar');
 
+var userHasRole = require('./auth').userHasRole;
+var roles = require('./auth').Roles;
+
 module.exports = {
     index,
     create,
@@ -126,8 +129,15 @@ function update(req, res) {
 }
 
 function show(req, res) {
+
+    const filter = {slug: req.params.id};
+    console.log(userHasRole(req.user, roles.admin));
+    if (!userHasRole(req.user, roles.admin)) {
+        filter.accepted = 'APPROVED'
+    }
+
     Promise.all([
-        Posts.findOne({slug: req.params.id, accepted: 'APPROVED'}).exec(),
+        Posts.findOne(filter).exec(),
         Categories.find().exec()
     ]).then((results) => {
 
