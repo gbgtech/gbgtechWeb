@@ -65,7 +65,7 @@ var TopMenu = React.createClass({
     });
   },
   render() {
-    const { signedIn, user, signOut } = this.props;
+    const { signedIn, signOut } = this.props;
     const { loginBoxOpen, complete, success, mail } = this.state;
 
     return (

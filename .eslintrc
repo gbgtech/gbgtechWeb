@@ -9,7 +9,7 @@
             "unix"
         ],
         "semi": [
-            2,
+            1,
             "always"
         ],
         "no-console": [
