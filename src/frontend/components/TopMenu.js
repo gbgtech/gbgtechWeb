@@ -5,6 +5,8 @@ import { postJson } from '../fetcher';
 import { connect } from 'react-redux';
 
 import { setSignedOut } from '../store/actions';
+import { roles } from '../roles';
+
 
 
 const LoginBox = ({complete, mail, onSubmit, onClose, onChangeMail}) => (
@@ -70,7 +72,7 @@ var TopMenu = React.createClass({
     browserHistory.push('/');
   },
   render() {
-    const { signedIn } = this.props;
+    const { signedIn,user } = this.props;
 
     const { loginBoxOpen, complete, success, mail } = this.state;
 
@@ -81,8 +83,8 @@ var TopMenu = React.createClass({
           <li><Link to={'/'}>news</Link></li>
           <li><Link to={'/hubs'}>hubs</Link></li>
           {signedIn && <li><Link to={'/post'}>post</Link></li>}
-          {signedIn && <li><Link to={'/feeds'}>feeds</Link></li>}
-          {signedIn && <li><Link to={'/admin'}>admin</Link></li>}
+          {signedIn && user.role >= roles.editor && <li><Link to={'/feeds'}>feeds</Link></li>}
+          {signedIn && user.role >= roles.editor && <li><Link to={'/admin'}>admin</Link></li>}
           <li><a href="http://gothenburgstartup.com">gothenburg startup map</a></li>
         </ul>
         <ul className="login-menu">
