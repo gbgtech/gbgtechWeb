@@ -39,6 +39,7 @@
     "helmet": "^1.1.0",
     "imports-loader": "~0.6.5",
     "lodash": "^4.0.0",
+    "lost": "^6.7.2",
     "method-override": "^2.3.5",
     "moment": "~2.11.2",
     "mongoose": "^4.3.6",

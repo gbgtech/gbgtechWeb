@@ -88,16 +88,17 @@ const RegistrationBox = React.createClass({
 
   renderForm() {
     return (
-      <div className="register row">
-
-        <h3>Sign up for our newsfeed:</h3>
-        <div>
-          <form className="row" onSubmit={this.openModal}>
-            <input type="email" tabIndex="1" required value={this.state.email} onChange={this.changeEmail} placeholder="Enter your email" />
+      <div className="follow-container">
+        <div className="row email">
+          <h3 className="col left">Sign up for our newsfeed:</h3>
+          <form className="col email-form right" onSubmit={this.openModal}>
+            <input type="email" tabIndex="1" required value={this.state.email} onChange={this.changeEmail} placeholder="enter email" />
             <button className="button">Next</button>
-
           </form>
-          <div className="follow-us">
+        </div>
+        <div className="row follow">
+          <h3 className="col left">Follow our social media:</h3>
+          <div className="follow-us col right">
             <Twitter />
             <Reddit />
           </div>

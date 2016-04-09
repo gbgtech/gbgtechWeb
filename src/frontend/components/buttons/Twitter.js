@@ -11,7 +11,7 @@ const Twitter = React.createClass({
       <a
         data-show-count="false"
         className="twitter-follow-button"
-        href="https://twitter.com/gbgtech"
+        href="https://twitter.com/gbgtech" data-size="large"
          />
     );
   }
