@@ -26,7 +26,7 @@ var data = {
     users: {
         '_model': 'Users',
         'admin': { email: 'admin@gbgtech.co', provider: 'email', role: roles.admin},
-        'bark': { email: 'erikaxelsson1@gmail.com', provider: 'email' },
+        'bark': { email: 'erikaxelsson1@gmail.com', provider: 'email', role: roles.admin },
         'tejp': { email: 'andresamuelsson94@gmail.com', provider: 'email', role: roles.admin}
     },
     categories: {

@@ -1,10 +1,11 @@
 import React from 'react';
-import {postJson,get} from '../fetcher';
+import {postJson,putJson,get} from '../fetcher';
+import { browserHistory } from 'react-router';
 
-const Post = React.createClass({
+const feed = React.createClass({
   getInitialState() {
     return {
-      post: {
+      feed: {
         name: '',
         uniqueId: '',
         categories: [],
@@ -15,33 +16,65 @@ const Post = React.createClass({
   },
   handleSetValue(event, name){
     this.setState({
-      post: {
-        ...this.state.post,
+      feed: {
+        ...this.state.feed,
         [name]: event.target.value
       }
     });
   },
   componentDidMount() {
-    get('/categories').then(categories => {
-      console.log("state.post: ",this.state.post);
-      this.setState({post: {
-        ...this.state.post,
-        categories: categories
-      }});
+
+    const requests = [
+      get('/categories')
+    ];
+    const { params, route: { path } } = this.props;
+
+    if (path.includes('/edit')) {
+      requests.push(
+        get(`/Feeds/${params.feedId}`)
+      );
+    }
+
+    Promise.all(requests)
+    .then(([categories, feed]) => {
+      if(feed){
+        this.setState({feed: {
+          ...feed,
+          categories: categories.map(category => ({
+            ...category,
+            checked: feed.categories.includes(category._id)
+          }))
+        }
+        });
+      }else{
+        this.setState({feed: {
+          ...this.state.feed,
+          categories: categories
+        }});
+      }
     });
   },
   handleSubmit: function(event) {
     event.preventDefault();
-    postJson('/feeds/create', {
-      ...this.state.post,
-      categories: this.state.post.categories.filter(c => c.checked).map(c => c._id)
+    const {params, route: { path } } = this.props;
+    let endpoint = '/feeds/create';
+    let httpMethod = postJson;
+    if (path.includes('/edit')) {
+      endpoint = `/feeds/${params.feedId}`;
+      httpMethod = putJson;
+    }
+    httpMethod(endpoint, {
+      ...this.state.feed,
+      categories: this.state.feed.categories.filter(c => c.checked).map(c => c._id)
     })
-    .then(res => {
-      console.log(res);
+    .then(() => {
+      browserHistory.push(`/feeds`);
+
     });
+
   },
   handleCategoryChecked(categoryId) {
-    const categories = this.state.post.categories.map(category => {
+    const categories = this.state.feed.categories.map(category => {
       if (category._id === categoryId) {
         return {
           ...category,
@@ -53,14 +86,14 @@ const Post = React.createClass({
     });
 
     this.setState({
-      post: {
-        ...this.state.post,
+      feed: {
+        ...this.state.feed,
         categories
       }
     });
   },
   render() {
-    const { categories, name,uniqueId} = this.state.post;
+    const { categories, name,uniqueId} = this.state.feed;
     return (
       <section>
         <form className="postForm" onSubmit={this.handleSubmit}>
@@ -117,4 +150,4 @@ const Post = React.createClass({
   }
 });
 
-export default Post;
+export default feed;

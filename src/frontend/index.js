@@ -15,7 +15,9 @@ import NewsPage from './components/NewsPage';
 import SinglePostPage from './components/SinglePostPage';
 
 //Editors access
-import AddFeed from './components/addFeed';
+import Feed from './components/Feed';
+import ListFeeds from './components/ListFeeds';
+
 
 //Admin access
 import AdminPage from './components/AdminPage';
@@ -31,8 +33,11 @@ const AppRoute = () => (
                 <Route path="news/:postId" component={SinglePostPage} />
                 <Route path="news/:postId/edit" component={Post} onEnter={requireAuth}/>
                 <Route path="post" component={Post} onEnter={requireAuth}/>
-                <Route path="addFeed" component={AddFeed} onEnter={requireAuth}/>
               </Route>
+              <Route path="feeds" component={ListFeeds} onEnter={requireAuth}/>
+              <Route path="feed" component={Feed} onEnter={requireAuth}/>
+              <Route path="feed/:feedId/edit" component={Feed} onEnter={requireAuth}/>
+
               <Route path="admin" component={AdminPage} onEnter={requireAuth}/>
               <Redirect from="*" to="/" />
             </Route>
@@ -45,7 +50,7 @@ function requireAuth(nextState, replace) {
     replace({
       pathname: '/',
       state: { nextPathname: nextState.location.pathname }
-    })
+    });
   }
 }
 

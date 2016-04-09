@@ -80,17 +80,16 @@ const Post = React.createClass({
   handleSubmit(event) {
     event.preventDefault();
     let endpoint = '/posts/create';
-    let method = postJson;
+    let httpMethod = postJson;
     if (this.state.post.slug) {
       endpoint = `/posts/${this.state.post.slug}`;
-      method = putJson;
+      httpMethod = putJson;
     }
-    method(endpoint, {
+    httpMethod(endpoint, {
       ...this.state.post,
       categories: this.state.post.categories.filter(c => c.checked).map(c => c._id)
     })
     .then(res => {
-      console.log(res);
       if (res.accepted === 'APPROVED') {
         browserHistory.push(`/news/${res.slug}`);
       } else {
