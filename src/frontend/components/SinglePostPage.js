@@ -15,7 +15,6 @@ const NewsPage = React.createClass({
     get('/posts/' + this.props.params.postId)
     .then(post => this.setState({ post }))
     .catch(err =>  {
-      console.log(err);
       if (err.status === 404) {
         this.setState({error: err.statusText});
       }

@@ -15,6 +15,7 @@ var FeedSchema = new Schema({
   userId: {
     type: Schema.Types.ObjectId,
   },
+  categories: [Schema.Types.ObjectId],
   acceptedDefault: {
     type: String,
     default: 'WAITING' // WAITING, APPROVED or DENIED

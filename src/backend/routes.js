@@ -35,6 +35,9 @@ module.exports = function(app) {
 
     //Need editor access
     app.get('/api/feeds', hasRole(roles.editor), FeedController.index);
+    app.put('/api/feeds/:id', hasRole(roles.editor), FeedController.update);
+    app.get('/api/feeds/:id',hasRole(roles.editor), FeedController.show);
+
     app.post('/api/feeds/create', hasRole(roles.editor), FeedController.create);
 
 
