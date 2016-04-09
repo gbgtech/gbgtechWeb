@@ -1,5 +1,6 @@
 var autoprefixer  = require('autoprefixer');
 var precss        = require('precss');
+var lost          = require('lost');
 var webpack       = require('webpack');
 
 module.exports = {
@@ -33,7 +34,7 @@ module.exports = {
     configFile: '.eslintrc'
   },
   postcss: function() {
-    return [autoprefixer, precss];
+    return [autoprefixer, precss, lost];
   },
   resolve: {
     extensions: ['', '.js', '.jsx']

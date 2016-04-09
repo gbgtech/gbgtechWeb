@@ -7,6 +7,9 @@ $hotPink: #ff1493;
 
 $headerHeight: 100px;
 
+@lost flexbox flex;
+@lost cycle none;
+
 *,
 *:before,
 *:after {
@@ -159,7 +162,7 @@ nav {
     padding: 0 1rem 0;
     flex-direction: row;
     flex: 1;
-    
+
     .left-column, .right-column {
         padding: 1em;
     }
@@ -219,12 +222,10 @@ article, .news-article {
     .description { margin-top: 0.8em; font-size: 0.7em }
 }
 
-.register {
+.follow-container {
     height: 140px;
     margin-top: 1em;
     padding: 1em;
-    justify-content: space-around;
-    align-items: center;
     background: $mainWhite;
     border: 1px solid $mainBlue;
 
@@ -235,11 +236,25 @@ article, .news-article {
         min-height: 300px;
         justify-content: space-between;
     }
-    .follow-us {
-      flex-direction: row;
-    }
     .row {
+        lost-row: 1/2;
         align-items: center;
+
+        .col {
+          lost-column: 5/10;
+        }
+        .left {
+          text-align: right;
+        }
+        .right {
+        }
+    }
+
+    .email-form, .follow-us {
+      display: flex;
+      flex-wrap: nowrap;
+      flex-direction: row;
+      align-items: center;
     }
 
     .categories {
@@ -252,17 +267,18 @@ article, .news-article {
         }
     }
 
-    .row, input {
-        flex: 1;
-    }
-
     input {
-        /*padding-left: .5em;*/
-        font-size: 1.5rem;
+        padding-left: .5em;
+        width: 70%;
+        font-size: 1.2rem;
     }
     button {
-
         margin-left: 0.3em;
+
+    }
+
+    button, input {
+      height: 2.5rem;
     }
 }
 .postForm{
