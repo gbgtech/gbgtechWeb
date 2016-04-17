@@ -40,7 +40,14 @@ var PostSchema = new Schema({
       lng: String,
       name: String
     }
-  }
+  },
+  outlets:[
+    {
+      name: String,//google calendar
+      url: String,
+      id: String
+    }
+  ]
 });
 
 module.exports = mongoose.model('Posts', PostSchema);
