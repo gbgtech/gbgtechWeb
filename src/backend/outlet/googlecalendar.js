@@ -18,15 +18,14 @@ function postEvents(aPost) {
 
   var jwtClient = new google.auth.JWT(config.googlecalendar.calendarEmail, null, newparsedKey, ['https://www.googleapis.com/auth/calendar'], null);
 
-  var returnPromise=new Promise((resolve,reject) => {
+  return new Promise((resolve,reject) => {
 
     jwtClient.authorize(function(err, tokens) {
       if (err) {
-        console.log("error",err);
+        console.log("error in googlecalendar",err);
         reject();
         return;
       }
-
 
       var event = {
         'summary': aPost.title,
@@ -48,16 +47,15 @@ function postEvents(aPost) {
         resource: event,
       }, function(err, event) {
         if (err) {
-          console.log('There was an error contacting the Calendar service: ' + err);
+          console.log('There was an error contacting the Calendar service: ' + err, aPost._id);
           reject();
           return;
-        }else{
-        //add to our db.
+        } else {
+          console.log("Succesfully posted to calendar service" + aPost._id);
           resolve(event);
         }
       });
 
     });
   })
- return  returnPromise;
 }
