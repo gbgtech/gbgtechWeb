@@ -14,13 +14,14 @@ Bacon.fromNodeCallback(mongoose, 'connect', config.db).onValue(() => {
     console.log("before",posts.length);
     posts=posts.filter(p => !_(p.outlets).some({name: 'googlecalendar'}))
     console.log("after",posts.length);
-    posts.map(post =>{
-      calender.postEvents(post).then(event=>{
-        var outletInfo={name:"googlecalendar",id:event.id,url:event.url};
-        post.outlets.push(outletInfo)
-        post.save();
-      }).catch(err=>console.log("error: ",err));
-
+    posts.map((post,index) =>{
+      setTimeout(()=>{
+        calender.postEvents(post).then(event=>{
+          var outletInfo={name:"googlecalendar",id:event.id,url:event.url};
+          post.outlets.push(outletInfo)
+          post.save();
+        }).catch(err=>console.log("error: ",err));
+      },1000*index);
     });
 
   })
