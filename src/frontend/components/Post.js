@@ -18,7 +18,7 @@ const Post = React.createClass({
         from : formatDate(),
         to: formatDate(),
         organizer:'',
-        rsvpLink:'',
+        rsvp:'',
         location:''
       },
       message: null
@@ -175,7 +175,7 @@ const Post = React.createClass({
         </label>
         <label>
           RSVP-link (optional):
-          <input value={rsvp} onChange={(event) => this.handleSetValueWithEvent(event, 'rsvpLink')} />
+          <input value={rsvp} onChange={(event) => this.handleSetValueWithEvent(event, 'rsvp')} />
         </label>
 
         <label>

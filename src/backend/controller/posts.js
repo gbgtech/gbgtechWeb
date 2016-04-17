@@ -57,7 +57,7 @@ function buildPost(post, userId) {
       to: post.to,
       from: post.from,
       organizer: post.organizer,
-      rsvp: post.rsvpLink,
+      rsvp: post.rsvp,
       location: {
           lat: post.location.lat,
           lng: post.location.lng,
