@@ -27,6 +27,7 @@
   "dependencies": {
     "babel-preset-react": "^6.3.13",
     "babelify": "^7.2.0",
+    "baconjs": "~0.7.84",
     "body-parser": "^1.14.2",
     "connect-mongo": "^1.1.0",
     "dotenv": "^2.0.0",

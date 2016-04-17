@@ -1,6 +1,8 @@
 const slugify = require('speakingurl');
 
 const mongoose = require('mongoose');
+const Bacon = require('baconjs').Bacon;
+
 const Posts = mongoose.model('Posts');
 const Feeds = mongoose.model('Feeds');
 
@@ -21,54 +23,33 @@ const fetchEvents = (feed) =>//promess()
         .then(res => res.json());
 
 function fetchMeetupEvents() {
-    Feeds.find({
-      vendor: 'meetup'
-    }).then(feeds => {
-      console.log("key: "+ config.meetup.apiKey)
-      console.info("Fetching events for meetup:", feeds.map(feed => feed.uniqueId).join(', '))
-      const transformedEvents = _.flatMap(feeds, feed =>{
+    return Bacon
+      .fromPromise(Feeds.find({ vendor: 'meetup' }))
+      .flatMap(feeds => {
+        console.log("key: "+ config.meetup.apiKey)
+        console.info("Fetching events for meetup:", feeds.map(feed => feed.uniqueId).join(', '))
 
-
-       var upsertPrommesses=  fetchEvents(feed)
-       .then(group =>
-          {
-            return group.results//[]
-              .map(result => transformMeetupEvent(result, feed))
-          }
-        )
-        console.log("upsertPrommesses",upsertPrommesses);
-        return upsertPrommesses;
-      });
-
-      return Promise.all(transformedEvents)//web requests
-        .then(events =>{
-          return Promise.all(
-            _.flatten(events)
-            .map(transformToUpsertPromise))
-          console.log("events end ",events);
+        return Bacon.fromArray(feeds)
+          .flatMap(feed => Bacon
+            .fromPromise(fetchEvents(feed))
+            .flatMap(group => Bacon.fromArray(group.results))
+            .map(result => transformMeetupEvent(result, feed))
+            .flatMap(event => Bacon.fromNodeCallback(transformToUpsertPromise(event)))
+          )
       })
-    }).then(
-      res => console.log(res)
-    )
-    .catch(err => console.error("error: ",err));
+      .toPromise()
 }
 
 
 const upsertOptions = { upsert: true, setDefaultsOnInsert: true };
 
 
-const transformToUpsertPromise = (event) => new Promise((resolve) => Posts.findOneAndUpdate({
+const transformToUpsert = (event, nodeCallback) => Posts.findOneAndUpdate({
   $and: [
       {"origin.provider": event.origin.provider},
       {"origin.id": event.origin.id}
   ]
-}, { $set: event }, upsertOptions, (err, res) => {
-  if (err) {
-    reject(err);
-  } else {
-    resolve(res);
-  }
-}));
+}, { $set: event }, upsertOptions, nodeCallback);
 
 
 
