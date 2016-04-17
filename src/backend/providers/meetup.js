@@ -34,7 +34,7 @@ function fetchMeetupEvents() {
             .fromPromise(fetchEvents(feed))
             .flatMap(group => Bacon.fromArray(group.results))
             .map(result => transformMeetupEvent(result, feed))
-            .flatMap(event => Bacon.fromNodeCallback(transformToUpsertPromise(event)))
+            .flatMap(event => Bacon.fromNodeCallback(transformToUpsert, event))
           )
       })
       .toPromise()
