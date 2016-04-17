@@ -182,6 +182,7 @@ const Post = React.createClass({
           {/*<input value={location}  onChange={(event) => this.handleSetValueWithEvent(event, 'location')} />*/}
           Location:
           <Geosuggest
+            initialValue={this.state.post.location.name}
             onChange={this.onChange}
             onSuggestSelect={this.handleSelectSuggest}
             location={new google.maps.LatLng(57.7020124, 11.6135073)} // eslint-disable-line
@@ -197,7 +198,8 @@ const Post = React.createClass({
     this.handleSetValue(
       {
         lat: suggest.location.lat,
-        lng: suggest.location.lng
+        lng: suggest.location.lng,
+        name: suggest.label
       },
       'location')
   }
