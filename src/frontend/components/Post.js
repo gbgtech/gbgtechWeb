@@ -3,6 +3,7 @@ import ReactQuill from 'react-quill';
 import {postJson, putJson, get} from '../fetcher';
 import { browserHistory } from 'react-router';
 import moment from 'moment';
+import Geosuggest from 'react-geosuggest'
 
 const formatDate = (momentDate = moment()) => moment(momentDate).format('YYYY-MM-DDTHH:mm');
 
@@ -18,7 +19,7 @@ const Post = React.createClass({
         to: formatDate(),
         organizer:'',
         rsvpLink:'',
-        position:''
+        location:''
       },
       message: null
     };
@@ -153,7 +154,7 @@ const Post = React.createClass({
     );
   },
   renderEventInfo() {
-    const { from, to, organizer, rsvpLink, position } = this.state.post;
+    const { from, to, organizer, rsvpLink, location } = this.state.post;
 
     return (
       <div className="eventInfo">
@@ -173,16 +174,31 @@ const Post = React.createClass({
           RSVP-link (optional):
           <input value={rsvpLink} onChange={(event) => this.handleSetValue(event, 'rsvpLink')} />
         </label>
+
         <label>
-          Position:
-          <input value={position}  onChange={(event) => this.handleSetValue(event, 'position')} />
+          {/*<input value={location}  onChange={(event) => this.handleSetValue(event, 'location')} />*/}
+          Location:
+          <Geosuggest
+            onChange={this.onChange}
+            onSuggestSelect={this.handleSelectSuggest}
+            location={new google.maps.LatLng(57.7020124, 11.6135073)} // eslint-disable-line
+            radius={42}
+            autoActivateFirstSuggest={true}
+          />
         </label>
       </div>
     );
+  },
+
+  handleSelectSuggest(suggest) {
+    this.handleSetValue(
+      {target: {
+        lat: suggest.location.lat,
+        lng: suggest.location.lat
+      }},
+      'location')
   }
 });
-
-
 
 
 
