@@ -141,7 +141,7 @@ const Post = React.createClass({
           <ul className="categories row">
             {categories.map(category => (
               <li key={category._id}>
-                <label><input type="checkbox" checked={category.checked} onChange={() => this.handleCategoryChecked(category._id)}/>{category.name}</label>
+                <label><input type="checkbox" checked={category.checked || false} onChange={() => this.handleCategoryChecked(category._id)}/>{category.name}</label>
               </li>
             ))}
           </ul>
