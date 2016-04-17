@@ -32,13 +32,16 @@ const Post = React.createClass({
       }
     });
   },
-  handleSetValue(event, name){
+  handleSetValue(value, name){
     this.setState({
       post: {
         ...this.state.post,
-        [name]: event.target.value
+        [name]: value
       }
     });
+  },
+  handleSetValueWithEvent(event, name){
+    this.handleSetValue(event.target.value, name)
   },
   onTextChange(body) {
     this.setState({
@@ -137,7 +140,7 @@ const Post = React.createClass({
       <section>
         {message && <div className="message">{message}</div>}
         <form className="postForm" onSubmit={this.handleSubmit}>
-          <labels>Title:<input value={title} onChange={(event) => this.handleSetValue(event,'title')} /></labels>
+          <labels>Title:<input value={title} onChange={(event) => this.handleSetValueWithEvent(event,'title')} /></labels>
           <ul className="categories row">
             {categories.map(category => (
               <li key={category._id}>
@@ -160,23 +163,23 @@ const Post = React.createClass({
       <div className="eventInfo">
         <label>
           From:
-          <input value={from} onChange={(event) => this.handleSetValue(event, 'from')} type="datetime-local"/>
+          <input value={from} onChange={(event) => this.handleSetValueWithEvent(event, 'from')} type="datetime-local"/>
         </label>
         <label>
           To:
-          <input value={to} onChange={(event) => this.handleSetValue(event, 'to')} type="datetime-local"/>
+          <input value={to} onChange={(event) => this.handleSetValueWithEvent(event, 'to')} type="datetime-local"/>
         </label>
         <label>
           Organizer:
-          <input value={organizer} onChange={(event) => this.handleSetValue(event, 'organizer')} />
+          <input value={organizer} onChange={(event) => this.handleSetValueWithEvent(event, 'organizer')} />
         </label>
         <label>
           RSVP-link (optional):
-          <input value={rsvpLink} onChange={(event) => this.handleSetValue(event, 'rsvpLink')} />
+          <input value={rsvpLink} onChange={(event) => this.handleSetValueWithEvent(event, 'rsvpLink')} />
         </label>
 
         <label>
-          {/*<input value={location}  onChange={(event) => this.handleSetValue(event, 'location')} />*/}
+          {/*<input value={location}  onChange={(event) => this.handleSetValueWithEvent(event, 'location')} />*/}
           Location:
           <Geosuggest
             onChange={this.onChange}
@@ -192,10 +195,10 @@ const Post = React.createClass({
 
   handleSelectSuggest(suggest) {
     this.handleSetValue(
-      {target: {
+      {
         lat: suggest.location.lat,
-        lng: suggest.location.lat
-      }},
+        lng: suggest.location.lng
+      },
       'location')
   }
 });
