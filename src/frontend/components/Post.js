@@ -4,7 +4,7 @@ import {postJson, putJson, get} from '../fetcher';
 import { browserHistory } from 'react-router';
 import moment from 'moment';
 
-const formatDate = (momentDate = moment()) => momentDate.format('YYYY-MM-DDTHH:mm');
+const formatDate = (momentDate = moment()) => moment(momentDate).format('YYYY-MM-DDTHH:mm');
 
 const Post = React.createClass({
   getInitialState() {
@@ -64,14 +64,20 @@ const Post = React.createClass({
     Promise.all(requests)
     .then(([categories, post]) => {
       if (post) {
+        const showEventInfo = !!post.eventData;
         const postCategories = post.categories.map(c => c._id);
         this.setState({post: {
           ...post,
+          ...post.eventData,
+          from: formatDate(post.eventData.from),
+          to:   formatDate(post.eventData.to),
+          showEventInfo,
           categories: categories.map(category => ({
             ...category,
             checked: postCategories.includes(category._id)
           }))
         }});
+
       } else {
         this.setState({post: {
           ...this.state.post,
