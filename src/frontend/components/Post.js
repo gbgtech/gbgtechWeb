@@ -2,6 +2,9 @@ import React from 'react';
 import ReactQuill from 'react-quill';
 import {postJson, putJson, get} from '../fetcher';
 import { browserHistory } from 'react-router';
+import moment from 'moment';
+
+const formatDate = (momentDate = moment()) => momentDate.format('YYYY-MM-DDTHH:mm');
 
 const Post = React.createClass({
   getInitialState() {
@@ -10,9 +13,9 @@ const Post = React.createClass({
         title: '',
         body: '',
         categories: [],
-        showEventInfo:false,
-        from : '',
-        to:'',
+        showEventInfo: false,
+        from : formatDate(),
+        to: formatDate(),
         organizer:'',
         rsvpLink:'',
         position:''
