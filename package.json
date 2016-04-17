@@ -8,7 +8,8 @@
     "start": "./node_modules/.bin/supervisor -e 'js' -d ./src/backend/ node server.js & ./node_modules/.bin/webpack-dev-server --inline --port 3000 --host 0.0.0.0",
     "test:ci": "watch 'npm run test' src/",
     "seed": "node ./src/backend/config/seed.js",
-    "feeder": "node ./src/backend/commands/runFeeder.js"
+    "feeder": "node ./src/backend/commands/runFeeder.js",
+    "outlet:googlecalendar": "node ./src/backend/commands/calendarFetcher.js"
   },
   "repository": {
     "type": "git",
@@ -52,6 +53,7 @@
     "passport-email-strategy": "^1.0.2",
     "passport-google-oauth": "^1.0.0",
     "passport-local": "^1.0.0",
+    "promise-retry": "^1.1.0",
     "raw.js": "^0.4.0",
     "react": "^15.0.1",
     "react-dom": "^15.0.1",
