@@ -31,9 +31,7 @@ Bacon.fromNodeCallback(mongoose, 'connect', config.db).onValue(() => {
 
   baconStream = Bacon.fromPromise(Posts.find({ eventData: { $ne: null } }))
     .flatMap(Bacon.fromArray)
-    .log('before')
     .filter(onlyNonGoogleCalendarOutlets)
-    .log('after')
     .flatMap((post) => { 
       const bs = Bacon
       .fromPromise(backoffExp(() => calendar.postEvents(post)))
