@@ -1,10 +1,11 @@
 'use strict';
+console.log("running config: ");
 
 var _    = require('lodash'),
 	glob = require('glob');
 
-
 const DATABASE_NAME = '/gbgtechweb';
+
 
 module.exports = {
   db: process.env.MONGOHQ_URL

@@ -16,28 +16,41 @@ module.exports = {
 };
 
 
-const fetchEvents = (feed) =>
+const fetchEvents = (feed) =>//promess()
     fetch(`https://api.meetup.com/2/events?key=${config.meetup.apiKey}&group_urlname=${feed.uniqueId}`)
         .then(res => res.json());
 
-function fetchMeetupEvents(req, res) {
-
+function fetchMeetupEvents() {
     Feeds.find({
       vendor: 'meetup'
     }).then(feeds => {
+      console.log("key: "+ config.meetup.apiKey)
       console.info("Fetching events for meetup:", feeds.map(feed => feed.uniqueId).join(', '))
-      const transformedEvents = _.flatMap(feeds, feed =>
-        fetchEvents(feed).then(group =>
-          group.results
-            .map(result => transformMeetupEvent(result, feed))
-            .map(transformToUpsertPromise)
-        )
-      );
+      const transformedEvents = _.flatMap(feeds, feed =>{
 
-      return Promise.all(transformedEvents)
-        .then(events => res.json(events).end());
-    })
-    .catch(err => console.error(err));
+
+       var upsertPrommesses=  fetchEvents(feed)
+       .then(group =>
+          {
+            return group.results//[]
+              .map(result => transformMeetupEvent(result, feed))
+          }
+        )
+        console.log("upsertPrommesses",upsertPrommesses);
+        return upsertPrommesses;
+      });
+
+      return Promise.all(transformedEvents)//web requests
+        .then(events =>{
+          return Promise.all(
+            _.flatten(events)
+            .map(transformToUpsertPromise))
+          console.log("events end ",events);
+      })
+    }).then(
+      res => console.log(res)
+    )
+    .catch(err => console.error("error: ",err));
 }
 
 
@@ -59,32 +72,34 @@ const transformToUpsertPromise = (event) => new Promise((resolve) => Posts.findO
 
 
 
-const transformMeetupEvent = (event, feed) => ({
-  origin: {
-    updatedAt: event.updated,
-    provider: 'meetup',
-    id: event.id,
-    url: event.event_url
-  },
-  accepted: feed.acceptedDefault,
-  author: feed.userId,
-  title: event.name,
-  slug: slugify([
-    event.id,
-    event.group.name,
-    event.name
-  ].join(' ')),
-  body: event.description,
-  categories: feed.categories,
-  eventData: {
-    from: event.time,
-    to: ((event.duration && event.time + event.duration) || (event.time + 3600000)),
-    organizer: event.group.name,
-    rsvp: event.event_url,
-    location: {
-      lat: event.venue.lat,
-      lng: event.venue.lon,
-      name: [event.venue.name, event.venue.address_1].join(', ')
+const transformMeetupEvent = (event, feed) => {
+
+  return {
+    origin: {
+      updatedAt: event.updated,
+      provider: 'meetup',
+      id: event.id,
+      url: event.event_url
+    },
+    accepted: feed.acceptedDefault,
+    author: feed.userId,
+    title: event.name,
+    slug: slugify([
+      event.id,
+      event.group.name,
+      event.name
+    ].join(' ')),
+    body: event.description,
+    categories: feed.categories,
+    eventData: {
+      from: event.time,
+      to: ((event.duration && event.time + event.duration) || (event.time + 3600000)),
+      organizer: event.group.name,
+      rsvp: event.event_url,
+      location: {
+        lat: event.venue.lat,
+        lng: event.venue.lon,
+        name: [event.venue.name, event.venue.address_1].join(', ')
+      }
     }
-  }
-});
+  }};
