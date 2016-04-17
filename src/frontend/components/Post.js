@@ -157,8 +157,8 @@ const Post = React.createClass({
     );
   },
   renderEventInfo() {
-    const { from, to, organizer, rsvpLink, location } = this.state.post;
-
+    const { from, to, organizer, rsvp, location } = this.state.post;
+    
     return (
       <div className="eventInfo">
         <label>
@@ -175,14 +175,14 @@ const Post = React.createClass({
         </label>
         <label>
           RSVP-link (optional):
-          <input value={rsvpLink} onChange={(event) => this.handleSetValueWithEvent(event, 'rsvpLink')} />
+          <input value={rsvp} onChange={(event) => this.handleSetValueWithEvent(event, 'rsvpLink')} />
         </label>
 
         <label>
           {/*<input value={location}  onChange={(event) => this.handleSetValueWithEvent(event, 'location')} />*/}
           Location:
           <Geosuggest
-            initialValue={this.state.post.location.name}
+            initialValue={location.name}
             onChange={this.onChange}
             onSuggestSelect={this.handleSelectSuggest}
             location={new google.maps.LatLng(57.7020124, 11.6135073)} // eslint-disable-line
