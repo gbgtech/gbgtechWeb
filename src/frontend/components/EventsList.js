@@ -15,7 +15,9 @@ const EventsList = React.createClass({
   },
   render() {
     const { events } = this.state;
-    console.log(events);
+    events.forEach(event => {
+      console.log(event.eventData.from);
+    })
     return (
       <div>
         {events.map(event => (
