@@ -1,10 +1,9 @@
-var express    = require('express'),
-    bodyParser = require('body-parser'),
-    helmet = require('helmet'),
-    fs = require('fs'),
-    mongoose = require('mongoose'),
-    config = require('./config');
-
+var express = require('express'),
+  bodyParser = require('body-parser'),
+  helmet = require('helmet'),
+  fs = require('fs'),
+  mongoose = require('mongoose'),
+  config = require('./config');
 
 var modelDir = './src/backend/model';
 
@@ -13,7 +12,7 @@ fs.readdirSync(modelDir).forEach((modelPath) => {
   require('../model/' + modelPath);
 });
 
-module.exports = function(app) {
+module.exports = function (app) {
 
   // Request body parsing middleware should be above methodOverride
   app.use(bodyParser.urlencoded({
@@ -28,8 +27,6 @@ module.exports = function(app) {
   app.use(helmet.nosniff());
   app.use(helmet.ienoopen());
   app.disable('x-powered-by');
-
-
 
   var db = mongoose.connect(config.db);
   mongoose.Promise = Promise;

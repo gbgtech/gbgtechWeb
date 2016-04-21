@@ -1,12 +1,11 @@
 'use strict';
 //TODO move to outlet
 
-
 const FormData = require('form-data');
-const fetch    = require('../lib/fetch');
-const ejs      = require('ejs');
-const _        = require('lodash');
-const config   = require('../config/config.js');
+const fetch = require('../lib/fetch');
+const ejs = require('ejs');
+const _ = require('lodash');
+const config = require('../config/config.js');
 
 const BASE_URL = 'http://localhost:3000';
 const MAILGUN_URL = config.mail.url;
@@ -17,10 +16,10 @@ const convertToFormData = (obj) => {
     formData.append(key, obj[key]);
     return formData;
   }, new FormData());
-}
+};
 
 function send(options) {
-  if(options.to && options.subject && options.body) {
+  if (options.to && options.subject && options.body) {
     let to = options.to;
 
     if (Array.isArray(options.to)) {
@@ -48,8 +47,12 @@ function send(options) {
         Authorization: AUTH_HEADER
       }
     })
-    .then(json => { console.log(json) })
-    .catch(err => { console.log(err) });
+      .then(json => {
+        console.log(json);
+      })
+      .catch(err => {
+        console.log(err);
+      });
 
   } else {
     console.error("Email service missing required fields");
@@ -58,12 +61,13 @@ function send(options) {
 
 function renderTemplate(filename, params) {
   return ejs.render('<%- include(\'../template/base.ejs\', params) %>',
-    {template: filename,
+    {
+      template: filename,
       params: _.assign({}, params, {
         base_url: BASE_URL
       })
     },
-    {filename: __filename }
+    { filename: __filename }
   );
 }
 
@@ -79,7 +83,6 @@ function sendSigninMail(to, url) {
     subject: '[#GBGtech] Your sign in link'
   });
 }
-
 
 module.exports = {
   send,

@@ -70,4 +70,4 @@ exports.saveOAuthUserProfile = function (req, profile, done) {
       }
     }
   });
-}
+};

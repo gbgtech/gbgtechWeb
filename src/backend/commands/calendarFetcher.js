@@ -5,18 +5,18 @@ var config = require('../config/config');
 var Posts = mongoose.model('Posts');
 const _ = require('lodash');
 
-const outletInfoFromEvent = (event) => ({ 
-  name: "googlecalendar", 
+const outletInfoFromEvent = (event) => ({
+  name: "googlecalendar",
   id: event.id,
   url: event.url
-})
+});
 
-const onlyNonGoogleCalendarOutlets = p => !_(p.outlets).some({name: 'googlecalendar'})
+const onlyNonGoogleCalendarOutlets = p => !_(p.outlets).some({ name: 'googlecalendar' });
 
 const updatePostWithGoogleCalendarOutlet = (event, post) => {
   post.outlets.push(outletInfoFromEvent(event));
   return Bacon.fromNodeCallback(post.save);
-}
+};
 
 Bacon.fromNodeCallback(mongoose, 'connect', config.db).onValue(() => {
   // Load Mongoose models

@@ -1,7 +1,7 @@
 var session = require('express-session'),
-    MongoStore = require('connect-mongo')(session),
-    config = require('./config.js');
-module.exports = function(app, db) {
+  MongoStore = require('connect-mongo')(session),
+  config = require('./config.js');
+module.exports = function (app, db) {
   app.use(session({
     saveUninitialized: true,
     resave: true,

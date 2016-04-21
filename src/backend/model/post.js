@@ -1,5 +1,5 @@
 var mongoose = require('mongoose'),
-    Schema = mongoose.Schema;
+  Schema = mongoose.Schema;
 
 var PostSchema = new Schema({
   slug: {
@@ -41,7 +41,7 @@ var PostSchema = new Schema({
       name: String
     }
   },
-  outlets:[
+  outlets: [
     {
       name: String,//google calendar
       url: String,

@@ -2,8 +2,8 @@ var mongoose = require('mongoose'),
   Schema = mongoose.Schema;
 
 var validateLocalStrategyProperty = function (prop) {
-  return (this.provider !== 'local' || (prop.length))
-}
+  return (this.provider !== 'local' || (prop.length));
+};
 
 var validateLocalStrategyPassword = function (password) {
   return (this.provider !== 'local' || (password && password.length > 6));

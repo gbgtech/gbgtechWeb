@@ -1,5 +1,5 @@
 var mongoose = require('mongoose'),
-    Schema = mongoose.Schema;
+  Schema = mongoose.Schema;
 
 var FeedSchema = new Schema({
   name: {
@@ -10,7 +10,7 @@ var FeedSchema = new Schema({
   },
   uniqueId: {
     type: String,
-    unique:true
+    unique: true
   },
   userId: {
     type: Schema.Types.ObjectId

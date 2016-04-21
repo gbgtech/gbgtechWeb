@@ -15,4 +15,4 @@ module.exports = function (app) {
     ]
   }));
   app.get('/api/auth/google/callback', authController.oauthCallback('google'));
-}
+};

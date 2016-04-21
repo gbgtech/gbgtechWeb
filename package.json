@@ -4,6 +4,7 @@
   "description": "Website gbgtech.co",
   "main": "index.js",
   "scripts": {
+    "lint": "eslint src",
     "build": "./node_modules/.bin/webpack -p",
     "start": "./node_modules/.bin/supervisor -e 'js' -d ./src/backend/ node server.js & ./node_modules/.bin/webpack-dev-server --inline --port 3000 --host 0.0.0.0",
     "test:ci": "watch 'npm run test' src/",

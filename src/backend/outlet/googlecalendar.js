@@ -65,15 +65,13 @@ const baconRetry = (client, event) => Bacon.retry({
 function postEventsFromStream(eventStream) {
   const jwtClient = createJWTClient();
 
-
   return Bacon.fromPromise(authorizeJWTClient(jwtClient)).toProperty()
     .combine(
       eventStream.map(createGoogleCalendarEventFromPost),
       baconRetry
     )
-    .flatMap(s => s)
+    .flatMap(s => s);
 }
-
 
 function postEvent(post) {
   const jwtClient = createJWTClient();
