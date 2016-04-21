@@ -53,5 +53,5 @@ module.exports = {
   // sessionKey is set to the generic sessionId key used by PHP applications
   // for obsecurity reasons
   sessionKey: 'sessionId',
-  sessionCollection: 'sessions',
+  sessionCollection: 'sessions'
 };

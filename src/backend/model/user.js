@@ -1,12 +1,12 @@
 var mongoose = require('mongoose'),
-    Schema = mongoose.Schema;
+  Schema = mongoose.Schema;
 
-var validateLocalStrategyProperty = function(prop) {
-  return (this.provider !== 'local'  || (prop.length))
+var validateLocalStrategyProperty = function (prop) {
+  return (this.provider !== 'local' || (prop.length))
 }
 
-var validateLocalStrategyPassword = function(password) {
-	return (this.provider !== 'local' || (password && password.length > 6));
+var validateLocalStrategyPassword = function (password) {
+  return (this.provider !== 'local' || (password && password.length > 6));
 };
 
 var UserSchema = new Schema({
@@ -29,9 +29,9 @@ var UserSchema = new Schema({
     type: Object
   },
   createdAt: {
-		type: Date,
-		default: Date.now
-	},
+    type: Date,
+    default: Date.now
+  },
   signinToken: {
     type: String
   },

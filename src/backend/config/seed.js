@@ -122,5 +122,5 @@ var data = {
         uniqueId:'Goteborg-Startup-Founder-101',
         vendor:"meetup"
       }
-    },
+    }
 };

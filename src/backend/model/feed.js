@@ -13,7 +13,7 @@ var FeedSchema = new Schema({
     unique:true
   },
   userId: {
-    type: Schema.Types.ObjectId,
+    type: Schema.Types.ObjectId
   },
   categories: [Schema.Types.ObjectId],
   acceptedDefault: {
