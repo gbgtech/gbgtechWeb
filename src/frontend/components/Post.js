@@ -2,6 +2,10 @@ import React from 'react';
 import ReactQuill from 'react-quill';
 import {postJson, putJson, get} from '../fetcher';
 import { browserHistory } from 'react-router';
+import moment from 'moment';
+import Geosuggest from 'react-geosuggest'
+
+const formatDate = (momentDate = moment()) => moment(momentDate).format('YYYY-MM-DDTHH:mm');
 
 const Post = React.createClass({
   getInitialState() {
@@ -10,12 +14,12 @@ const Post = React.createClass({
         title: '',
         body: '',
         categories: [],
-        showEventInfo:false,
-        from : '',
-        to:'',
+        showEventInfo: false,
+        from : formatDate(),
+        to: formatDate(),
         organizer:'',
-        rsvpLink:'',
-        position:''
+        rsvp:'',
+        location:''
       },
       message: null
     };
@@ -28,13 +32,16 @@ const Post = React.createClass({
       }
     });
   },
-  handleSetValue(event, name){
+  handleSetValue(value, name){
     this.setState({
       post: {
         ...this.state.post,
-        [name]: event.target.value
+        [name]: value
       }
     });
+  },
+  handleSetValueWithEvent(event, name){
+    this.handleSetValue(event.target.value, name)
   },
   onTextChange(body) {
     this.setState({
@@ -61,14 +68,20 @@ const Post = React.createClass({
     Promise.all(requests)
     .then(([categories, post]) => {
       if (post) {
+        const showEventInfo = !!post.eventData;
         const postCategories = post.categories.map(c => c._id);
         this.setState({post: {
           ...post,
+          ...post.eventData,
+          from: formatDate(post.eventData.from),
+          to:   formatDate(post.eventData.to),
+          showEventInfo,
           categories: categories.map(category => ({
             ...category,
             checked: postCategories.includes(category._id)
           }))
         }});
+
       } else {
         this.setState({post: {
           ...this.state.post,
@@ -127,11 +140,11 @@ const Post = React.createClass({
       <section>
         {message && <div className="message">{message}</div>}
         <form className="postForm" onSubmit={this.handleSubmit}>
-          <labels>Title:<input value={title} onChange={(event) => this.handleSetValue(event,'title')} /></labels>
+          <labels>Title:<input value={title} onChange={(event) => this.handleSetValueWithEvent(event,'title')} /></labels>
           <ul className="categories row">
             {categories.map(category => (
               <li key={category._id}>
-                <label><input type="checkbox" checked={category.checked} onChange={() => this.handleCategoryChecked(category._id)}/>{category.name}</label>
+                <label><input type="checkbox" checked={category.checked || false} onChange={() => this.handleCategoryChecked(category._id)}/>{category.name}</label>
               </li>
             ))}
           </ul>
@@ -144,36 +157,53 @@ const Post = React.createClass({
     );
   },
   renderEventInfo() {
-    const { from, to, organizer, rsvpLink, position } = this.state.post;
-
+    const { from, to, organizer, rsvp, location } = this.state.post;
+    
     return (
       <div className="eventInfo">
         <label>
           From:
-          <input value={from} onChange={(event) => this.handleSetValue(event, 'from')} type="datetime-local"/>
+          <input value={from} onChange={(event) => this.handleSetValueWithEvent(event, 'from')} type="datetime-local"/>
         </label>
         <label>
           To:
-          <input value={to} onChange={(event) => this.handleSetValue(event, 'to')} type="datetime-local"/>
+          <input value={to} onChange={(event) => this.handleSetValueWithEvent(event, 'to')} type="datetime-local"/>
         </label>
         <label>
           Organizer:
-          <input value={organizer} onChange={(event) => this.handleSetValue(event, 'organizer')} />
+          <input value={organizer} onChange={(event) => this.handleSetValueWithEvent(event, 'organizer')} />
         </label>
         <label>
           RSVP-link (optional):
-          <input value={rsvpLink} onChange={(event) => this.handleSetValue(event, 'rsvpLink')} />
+          <input value={rsvp} onChange={(event) => this.handleSetValueWithEvent(event, 'rsvp')} />
         </label>
+
         <label>
-          Position:
-          <input value={position}  onChange={(event) => this.handleSetValue(event, 'position')} />
+          {/*<input value={location}  onChange={(event) => this.handleSetValueWithEvent(event, 'location')} />*/}
+          Location:
+          <Geosuggest
+            initialValue={location.name}
+            onChange={this.onChange}
+            onSuggestSelect={this.handleSelectSuggest}
+            location={new google.maps.LatLng(57.7020124, 11.6135073)} // eslint-disable-line
+            radius={42}
+            autoActivateFirstSuggest={true}
+          />
         </label>
       </div>
     );
+  },
+
+  handleSelectSuggest(suggest) {
+    this.handleSetValue(
+      {
+        lat: suggest.location.lat,
+        lng: suggest.location.lng,
+        name: suggest.label
+      },
+      'location')
   }
 });
-
-
 
 
 

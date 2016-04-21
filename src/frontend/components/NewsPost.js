@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router';
 import { connect } from 'react-redux';
 
-import { formatDate } from '../formatter';
+import { formatDate, formatDateTime } from '../formatter';
 import { roles } from '../roles';
 
 const userCanEditPost = (user, post) => {
@@ -19,15 +19,19 @@ const NewsPost = ({ post, user }) => (
             {post.origin && <ProviderBadge {...post.origin} />}
             {userCanEditPost(user, post) && <Link to={`/news/${post.slug}/edit`}>Edit post</Link>}
         </header>
-        <small>by {post.author && post.author.email} | {post.createdAt} | {post.categories.map(c => c.name).join(', ')}</small>
+        <small>by {post.author && post.author.email} | {renderTimeTag(post.createdAt, formatDateTime)} | {post.categories.map(c => c.name).join(', ')}</small>
         <p dangerouslySetInnerHTML={{__html: post.body}}></p>
         {post.eventData && <EventsPartial {...post.eventData} />}
     </article>
 );
 
+const renderTimeTag = (date, formatter) => date && (
+    <time dateTime={date}>{formatter(date)}</time>
+);
+
 const EventsPartial = ({ from, to, rsvp, location }) => (
     <div className="event-partial">
-        <span>{from && formatDate(from)} {to && formatDate(to)}</span>
+        <span>{renderTimeTag(from, formatDate)} {renderTimeTag(to, formatDate)}</span>
         {rsvp && (<a href={rsvp} className="button">RSVP!</a>)}
         {location && (<GoogleMapsLink {...location} />)}
     </div>

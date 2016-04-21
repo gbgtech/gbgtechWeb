@@ -57,11 +57,11 @@ function buildPost(post, userId) {
       to: post.to,
       from: post.from,
       organizer: post.organizer,
-      rsvp: post.rsvpLink,
+      rsvp: post.rsvp,
       location: {
-          lat: null,
-          lng: null,
-          name: null
+          lat: post.location.lat,
+          lng: post.location.lng,
+          name: post.location.name
       }
     };
   }
@@ -101,7 +101,7 @@ function listEvents(req, res) {
   };
 
   return Promise.all([
-      Posts.find(filter).sort({ "eventData.from": -1 }).exec(),
+      Posts.find(filter).sort({ "eventData.from": 1 }).exec(),
       Categories.find().exec()
   ]).then((results) => {
 
