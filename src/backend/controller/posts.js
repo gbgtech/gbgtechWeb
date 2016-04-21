@@ -167,7 +167,7 @@ function handleError(err, res) {
 
 function postToOutlets(){
   Posts.findOne().exec().then((post)=> {
-      googlecalendar.postEvents(post);
+      googlecalendar.postEvent(post);
   });
 }
 
