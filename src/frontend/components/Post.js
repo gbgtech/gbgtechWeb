@@ -3,7 +3,8 @@ import ReactQuill from 'react-quill';
 import {postJson, putJson, get} from '../fetcher';
 import { browserHistory } from 'react-router';
 import moment from 'moment';
-import Geosuggest from 'react-geosuggest'
+import Geosuggest from 'react-geosuggest';
+import swal from '../swal';
 
 const formatDate = (momentDate = moment()) => moment(momentDate).format('YYYY-MM-DDTHH:mm');
 
@@ -20,8 +21,7 @@ const Post = React.createClass({
         organizer:'',
         rsvp:'',
         location:''
-      },
-      message: null
+      }
     };
   },
   handleShowEventInfo(){
@@ -106,8 +106,12 @@ const Post = React.createClass({
       if (res.accepted === 'APPROVED') {
         browserHistory.push(`/news/${res.slug}`);
       } else {
-        this.setState({
-          message: 'Post has been submitted for review'
+        swal({
+          title: 'Post submitted',
+          text: 'Post has been submitted for review and will be processed by an admin',
+          type: 'success'
+        }, () => {
+          browserHistory.push('/news');
         });
       }
     });
@@ -134,11 +138,9 @@ const Post = React.createClass({
   },
 
   render() {
-    const { message } = this.state;
     const { categories, title, showEventInfo, body } = this.state.post;
     return (
       <section>
-        {message && <div className="message">{message}</div>}
         <form className="postForm" onSubmit={this.handleSubmit}>
           <labels>Title:<input value={title} onChange={(event) => this.handleSetValueWithEvent(event,'title')} /></labels>
           <ul className="categories row">
@@ -158,7 +160,7 @@ const Post = React.createClass({
   },
   renderEventInfo() {
     const { from, to, organizer, rsvp, location } = this.state.post;
-    
+
     return (
       <div className="eventInfo">
         <label>

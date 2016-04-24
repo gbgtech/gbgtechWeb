@@ -6,6 +6,7 @@ import { Router, Route, Redirect, IndexRoute, browserHistory } from 'react-route
 
 require('./style.css');
 require('../../node_modules/quill/dist/quill.snow.css');
+require('sweetalert/dist/sweetalert.css');
 
 import store from './store/store';
 import App from './components/App';
