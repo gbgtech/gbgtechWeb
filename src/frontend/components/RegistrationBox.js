@@ -43,6 +43,7 @@ const RegistrationBox = React.createClass({
 
     postJson('/users/create', { email, categories: selected }).then(res => {
       console.log(res);
+      swal({type: 'success', title: "Thanks man! 👊", text: (email + " registered with categories " + selected.map(c => c.name).join(', '))});
     });
     this.setState({
       finished: true
@@ -71,8 +72,6 @@ const RegistrationBox = React.createClass({
 
     const { email, categories } = this.state;
     const selected = categories.filter(category => category.checked);
-
-    swal({type: 'success', title: "Thanks man! 👊", text: (email + " registered with categories " + selected.map(c => c.name).join(', '))});
 
     return (
       <div className="register">
