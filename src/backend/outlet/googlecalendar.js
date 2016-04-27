@@ -5,10 +5,13 @@ const Bacon = require('baconjs').Bacon;
 const google = require('googleapis');
 const calendar = google.calendar('v3');
 const auth = config.googlecalendar.apiKey;
+const _ = require('lodash');
+const mongoose = require('mongoose');
+const Posts = mongoose.model('Posts');
+
 
 module.exports = {
-  postEvent,
-  postEventsFromStream,
+  postEvents,
   resetAll
 };
 
@@ -33,59 +36,57 @@ const createGoogleCalendarEventFromPost = (post) => ({
     timeZone: 'Europe/Stockholm'
   }
 });
+const outletInfoFromEvent = (event) => ({
+  name: "googlecalendar",
+  externalId: event.id,
+  url: event.htmlLink
+})
 
-const googleCalendarInsert = (event, jwtClient) => new Promise((resolve, reject) => {
-  calendar.events.insert({
-    auth: jwtClient,
-    calendarId: config.googlecalendar.calendarId,
-    resource: event
-  }, (err, res) => {
-    if (err) {
-      console.log('There was an error contacting the Calendar service: ', err);
-      reject(err);
-    } else {
-      resolve(res);
-    }
+const googleCalendarInsert = (jwtClient,post) => {
+  let pro=new Promise((resolve, reject) => {
+    calendar.events.insert({
+      auth: jwtClient,
+      calendarId: config.googlecalendar.calendarId,
+      resource: createGoogleCalendarEventFromPost(post)
+    }, (err, res) => {
+      if (err) {
+        if(err.code!=403){
+          console.log('There was an error contacting the Calendar service: ', err);
+        }
+        reject(err);
+      } else {
+        if(!_(post.outlets).some({name: 'googlecalendar'})){
+          let outlet=outletInfoFromEvent(res);
+          var update=Posts.update({ _id: post._id },
+            {$addToSet: {outlets: outlet}}
+          ).then(()=>resolve(res))
+          .catch(()=>reject())
+        }else{
+          resolve(res)
+        }
+
+
+      }
+    });
   });
-});
-
-const authorizeJWTClient = (client) => new Promise((resolve, reject) =>
-client.authorize(err => {
-  if (err) {
-    reject(err);
-  } else {
-    resolve(client);
-  }
-}));
-
-//googleCalendarInsert(event, client)
-
-const baconRetry = (f, client, event) => Bacon.retry({
-  source: () => Bacon.fromPromise(f(event, client)),
-  retries: 10,
-  delay: (ctx) => Math.pow(2, ctx.retriesDone) + Math.random() * 1000
-});
-
-function postEventsFromStream(eventStream) {
-  const jwtClient = createJWTClient();
-
-
-  return Bacon.fromPromise(authorizeJWTClient(jwtClient)).toProperty()
-  .combine(
-    eventStream.map(createGoogleCalendarEventFromPost),
-    baconRetry.bind(this, googleCalendarInsert)
-  )
-  .flatMap(s => s)
+  return pro;
 }
 
-const deleteEvent = (event, jwtClient) => new Promise((resolve, reject) => {
+function postEvents(events) {
+  return new Promise((resolve, reject)=>{
+    const jwtClient = createJWTClient();
+    limitGoogleRequests(events,googleCalendarInsert.bind(this,jwtClient),resolve);
+  });
+}
+
+const deleteEvent = (jwtClient,event ) => new Promise((resolve, reject) => {
   calendar.events.delete({
     auth: jwtClient,
     calendarId: config.googlecalendar.calendarId,
     eventId: event.id
   }, (err, res) => {
     if (err) {
-//      console.log('There was an error contacting the Calendar when deleting: ', err);
+      console.log('There was an error contacting the Calendar when deleting: ', err);
       reject(err);
     } else {
       resolve(res===undefined);
@@ -94,60 +95,84 @@ const deleteEvent = (event, jwtClient) => new Promise((resolve, reject) => {
 });
 
 function resetAll() {
-  const jwtClient = createJWTClient();
-  calendar.events.list({
+  console.log("resetAll");
+  return new Promise((resolve, reject)=>{
+    const jwtClient = createJWTClient();
+    var listAll=listAllEvents(jwtClient);
+    listAll.then(totEvents =>{
+      limitGoogleRequests(totEvents,deleteEvent.bind(this,jwtClient),resolve);
+    })
+    /*  calendar.events.list({
     auth: jwtClient,
     calendarId: config.googlecalendar.calendarId
   }, (err, res) => {
-    if (err) {
-      console.log('There was an error contacting the Calendar service: ', err);
-    } else {
-      var events = res.items;
-    //  events=res.items.slice(0,67);
-      console.log(events);
-      var removeObj=function(arrayObj){
-        if(arrayObj.length==0){
-          return;
+  if (err) {
+  reject();
+} else {
+var events = res.items;
+limitGoogleRequests(events,deleteEvent.bind(this,jwtClient),resolve);
+}
+});*/
+});
+}
+const listAllEvents = (jwtClient,nextPage) => {
+  console.log("listAllEvents: ");
+  return new Promise((resolve, reject) => {
+
+
+    calendar.events.list({
+      auth: jwtClient,
+      calendarId: config.googlecalendar.calendarId,
+      pageToken: nextPage
+    }, (err, res) => {
+      if(err){
+        console.log("error",err);
+      }else{
+        console.log("res.nextPageToken",res.nextPageToken);
+        if(res.nextPageToken){
+          console.log("create promess")
+          listAllEvents(jwtClient,res.nextPageToken)
+          .then((events) => {
+            console.log("promess resolve");
+            let list=events.concat(res.items);
+            resolve(list)
+          });
+
+        }else{
+          console.log("next page dont set")
+          resolve(res.items);
+
         }
-        let event=arrayObj.pop();
-        var retriesDone=0;
-        //remove events
-        var stream = Bacon.retry({
-          source: () => Bacon.fromPromise(deleteEvent(event, jwtClient)),
-          retries: 50,
-          delay: (ctx) => {
-            retriesDone++;
-            console.log("backoff: ",retriesDone);
-            return  Math.pow(2, retriesDone) + Math.random() * 1000}
-        });
-
-        stream.subscribe(res => {
-          console.log(res,retriesDone);
-          if(retriesDone!=0 && res){
-            retriesDone--;
-          }
-          removeObj(arrayObj)
-        });
       }
-      removeObj(events);
-
-
-  /*    for (var i = 0; i < events.length; i++) {
-        var event = events[i];
-        var stream = baconRetry(deleteEvent, jwtClient, event);
-        stream.subscribe(console.log);
-      }*/
-    }
+    });
   });
 }
 
-function postEvent(post) {
-  const jwtClient = createJWTClient();
 
-  console.log(jwtClient);
+function limitGoogleRequests(arrayObj,f,callback){
+  if(arrayObj.length==0){
+    callback();
+    return;
+  }
+  if(arrayObj.length%10==0){
+    console.log(arrayObj.length);
+  }
 
-  return Bacon.fromNodeCallback(jwtClient.authorize)
-  .map(() => jwtClient)
-  .flatMap(client => googleCalendarInsert(post, client))
-  .toPromise();
-}
+
+  var event=arrayObj.pop();
+  var retriesDone=0;
+  //remove events
+  let stream = Bacon.retry({
+    source: () => Bacon.fromPromise(f(event)),
+    retries: 50,
+    delay: (ctx) => {
+      retriesDone++;
+      return  Math.pow(2, retriesDone) + Math.random() * 1000}
+    });
+    stream.onEnd(() => {
+      if(retriesDone!=0){
+        retriesDone--;
+      }
+      limitGoogleRequests(arrayObj,f,callback);
+    });
+  }
