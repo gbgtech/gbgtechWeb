@@ -24,29 +24,24 @@ Bacon.fromNodeCallback(mongoose, 'connect', config.db).onValue(() => {
   // Load Mongoose models
   var calendar = require('../outlet/googlecalendar');
 
-  let currentFilter = p => !_(p.outlets).some({name: 'googlecalendar'});
 
   if(process.argv[2]=="--resset"){
-    console.log("resseting");
-    currentFilter = () => true;
-    calendar.resetAll();
+    //console.log("resseting");
+    calendar.resetAll().then(() => {
+      const postStream = Posts.find({ eventData: { $ne: null } }).then(res=>{
+      //  console.log("add postEvent");
+
+        calendar.postEvents(res).then(()=>{
+          console.log("close mongose");mongoose.connection.close()
+        })
+      });
+    });
+  }else{
+    let currentFilter = p => !_(p.outlets).some({name: 'googlecalendar'});
+
+    const postStream = Posts.find({ eventData: { $ne: null } }).then(res=>{
+      console.log(res);
+      calendar.postEvents(res.filter(currentFilter)).then(()=>{console.log("close mongose");mongoose.connection.close()})
+    });
   }
-
-/*
-  const postStream = Bacon.fromPromise(Posts.find({ eventData: { $ne: null } }))
-  .flatMap(Bacon.fromArray)
-  .filter(currentFilter)
-  .doAction(post => console.log('postStream', post._id));
-
-  calendar.postEventsFromStream(postStream)
-  .doError(err => console.error('Failed to post calendar event', err))
-  .combine(postStream, updatePostWithGoogleCalendarOutlet)
-  .flatMap(s => s)
-  .log()
-  .doError(err => console.log("Something went terribly wrong", err))
-  .onEnd(() => {
-    console.log('Finished');
-    mongoose.connection.close();
-  });
-  */
 });

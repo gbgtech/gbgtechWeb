@@ -45,7 +45,7 @@ var PostSchema = new Schema({
     {
       name: String,//google calendar
       url: String,
-      id: String
+      externalId: String
     }
   ]
 });
