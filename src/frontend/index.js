@@ -4,7 +4,7 @@ import { Provider } from 'react-redux';
 import { Router, Route, Redirect, IndexRoute, browserHistory } from 'react-router';
 
 
-require('./style.css');
+require('./css/main.css');
 require('../../node_modules/quill/dist/quill.snow.css');
 require('sweetalert/dist/sweetalert.css');
 
