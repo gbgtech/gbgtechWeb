@@ -43,7 +43,8 @@ var PostSchema = new Schema({
   },
   outlets:[
     {
-      name: String,//google calendar
+      name: String,//googlecalendar,reddit or email
+      blockedFromOutlet:Boolean,
       url: String,
       externalId: String
     }

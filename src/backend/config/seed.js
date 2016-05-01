@@ -95,7 +95,8 @@ var data = {
         name:"HUBGothenburg",
         acceptedDefault:'WAITING',
         uniqueId:'HUBGothenburg',
-        vendor:"meetup"
+        vendor:"meetup",
+        defaultBlockedOutlets:['reddit','email']
       },
       'f5':{
         userId: '->users.bark',

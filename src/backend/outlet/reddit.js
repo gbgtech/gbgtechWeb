@@ -1,31 +1,62 @@
 var rawjs = require("raw.js");
 const config = require('../config/config');
-
+const _ = require('lodash');
+const mongoose = require('mongoose');
+var Posts = mongoose.model('Posts');
 
 module.exports = {
-    postEvents
+  postEvents,postAEvent
 };
 
+var reddit = new rawjs("gbgtech");
 
+function postEvents(events) {
+  return new Promise((resolve, reject)=> {
 
-
-function postEvents(aPost) {
-    var reddit = new rawjs("raw.js example script");
 
     reddit.setupOAuth2(config.reddit.oath2User, config.reddit.oath2Key);
-    console.log(aPost);
+    console.log("events",events);
 
     reddit.auth({"username": config.reddit.user, "password": config.reddit.pass}, function(err, response) {
-      console.log(aPost);
-        if(err) {
-            console.log("Unable to authenticate user: " + err);
-        } else {
-          var post={r:"gbgtech",url:config.url+"/news/"+aPost.slug,title:aPost.title};
-
-          reddit.submit(post,function(err,id) {
-            console.log(err);
-            console.log(id);
-          });
-        }
+      if(err) {
+        console.log("Unable to authenticate user: " + err);
+        reject();
+      } else {
+        let prommessList=[];
+        _(events).forEach((event) => {
+          prommessList.push(postAEvent(event));
+        });
+        Promise.all(prommessList).then(()=>{
+          resolve();
+        });
+      }
     });
+  });
+}
+
+function postAEvent(event) {
+  return new Promise(function(resolve, reject) {
+
+    console.log("event",event)
+    var post={r:"gbgtech",url:config.url+"/news/"+event.slug,title:event.title};
+
+    reddit.submit(post,function(err,id) {
+      if(err===null){
+        let outlet =  {
+            "name": "reddit",//googlecalendar or reddit
+            "url": "https://www.reddit.com/r/gbgtech/comments/"+id+"/",
+            "externalId": id
+          }
+        var update=Posts.update({ _id: post._id },
+          {$addToSet: {outlets: outlet}});
+        update.then(()=>{
+          resolve();
+        })
+      }else{
+        console.log("error:",err);
+        reject();
+      }
+    });
+});
+
 }
