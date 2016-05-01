@@ -4,3 +4,7 @@ node_modules
 npm-debug.log
 .env
 src/backend/config/config.local.json
+
+.DS_Store
+
+.idea/
