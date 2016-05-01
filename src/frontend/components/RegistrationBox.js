@@ -2,6 +2,7 @@ import React from 'react';
 import Twitter from './buttons/Twitter';
 import Reddit from './buttons/Reddit';
 import { get, postJson } from '../fetcher';
+import swal from '../swal';
 
 const RegistrationBox = React.createClass({
   getInitialState() {
@@ -42,6 +43,7 @@ const RegistrationBox = React.createClass({
 
     postJson('/users/create', { email, categories: selected }).then(res => {
       console.log(res);
+      swal({type: 'success', title: "Thanks man! 👊", text: (email + " registered with categories " + selected.map(c => c.name).join(', '))});
     });
     this.setState({
       finished: true
@@ -73,9 +75,6 @@ const RegistrationBox = React.createClass({
 
     return (
       <div className="register">
-        <h3>Thanks man! 👊</h3>
-        {email}
-        {selected.map(c => c.name).join(', ')}
       </div>
     );
   },
