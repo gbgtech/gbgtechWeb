@@ -19,25 +19,24 @@ module.exports = {
 
 
 const fetchEvents = (feed) =>//promess()
-    fetch(`https://api.meetup.com/2/events?key=${config.meetup.apiKey}&group_urlname=${feed.uniqueId}`)
-        .then(res => res.json());
+fetch(`https://api.meetup.com/2/events?key=${config.meetup.apiKey}&group_urlname=${feed.uniqueId}`)
+.then(res => res.json());
 
 function fetchMeetupEvents() {
-    return Bacon
-      .fromPromise(Feeds.find({ vendor: 'meetup' }))
-      .flatMap(feeds => {
-        console.log("key: "+ config.meetup.apiKey)
-        console.info("Fetching events for meetup:", feeds.map(feed => feed.uniqueId).join(', '))
+  return Bacon
+  .fromPromise(Feeds.find({ vendor: 'meetup' }))
+  .flatMap(feeds => {
+    console.info("Fetching events for meetup:", feeds.map(feed => feed.uniqueId).join(', '))
 
-        return Bacon.fromArray(feeds)
-          .flatMap(feed => Bacon
-            .fromPromise(fetchEvents(feed))
-            .flatMap(group => Bacon.fromArray(group.results))
-            .map(result => transformMeetupEvent(result, feed))
-            .flatMap(event => Bacon.fromNodeCallback(transformToUpsert, event))
-          )
-      })
-      .toPromise()
+    return Bacon.fromArray(feeds)
+    .flatMap(feed => Bacon
+      .fromPromise(fetchEvents(feed))
+      .flatMap(group => Bacon.fromArray(group.results))
+      .map(result => transformMeetupEvent(result, feed))
+      .flatMap(event => Bacon.fromNodeCallback(transformToUpsert, event))
+    )
+  })
+  .toPromise()
 }
 
 
@@ -46,8 +45,8 @@ const upsertOptions = { upsert: true, setDefaultsOnInsert: true };
 
 const transformToUpsert = (event, nodeCallback) => Posts.findOneAndUpdate({
   $and: [
-      {"origin.provider": event.origin.provider},
-      {"origin.id": event.origin.id}
+    {"origin.provider": event.origin.provider},
+    {"origin.id": event.origin.id}
   ]
 }, { $set: event }, upsertOptions, nodeCallback);
 
@@ -82,5 +81,10 @@ const transformMeetupEvent = (event, feed) => {
         lng: event.venue.lon,
         name: [event.venue.name, event.venue.address_1].join(', ')
       }
-    }
-  }};
+    },
+    outlet:  feed.defaultBlockedOutlets.map((blockedOutlet) => ({
+        name:blockedOutlet,
+        blockedFromOutlet:true
+    }))
+  };
+}

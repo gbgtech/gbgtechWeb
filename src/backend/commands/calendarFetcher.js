@@ -39,7 +39,7 @@ Bacon.fromNodeCallback(mongoose, 'connect', config.db).onValue(() => {
   }else{
     let currentFilter = p => !_(p.outlets).some({name: 'googlecalendar'});
 
-    const postStream = Posts.find({ eventData: { $ne: null } }).then(res=>{
+    const postStream = Posts.find({ eventData: { $ne: null },accepted:"APPROVED" }).then(res=>{
       console.log(res);
       calendar.postEvents(res.filter(currentFilter)).then(()=>{console.log("close mongose");mongoose.connection.close()})
     });

@@ -64,8 +64,6 @@ const googleCalendarInsert = (jwtClient,post) => {
         }else{
           resolve(res)
         }
-
-
       }
     });
   });
@@ -102,17 +100,6 @@ function resetAll() {
     listAll.then(totEvents =>{
       limitGoogleRequests(totEvents,deleteEvent.bind(this,jwtClient),resolve);
     })
-    /*  calendar.events.list({
-    auth: jwtClient,
-    calendarId: config.googlecalendar.calendarId
-  }, (err, res) => {
-  if (err) {
-  reject();
-} else {
-var events = res.items;
-limitGoogleRequests(events,deleteEvent.bind(this,jwtClient),resolve);
-}
-});*/
 });
 }
 const listAllEvents = (jwtClient,nextPage) => {

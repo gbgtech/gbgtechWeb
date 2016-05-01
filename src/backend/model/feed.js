@@ -27,7 +27,9 @@ var FeedSchema = new Schema({
   updatedAt: {
     type: Date,
     default: Date.now
-  }
+  },
+  defaultBlockedOutlets: [String]//googlecalendar,reddit or email
+
 });
 
 module.exports = mongoose.model('Feeds', FeedSchema);
