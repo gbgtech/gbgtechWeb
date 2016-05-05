@@ -2,6 +2,7 @@ var autoprefixer  = require('autoprefixer');
 var precss        = require('precss');
 var lost          = require('lost');
 var webpack       = require('webpack');
+var postcssimport = require('postcss-import');
 
 module.exports = {
   entry: [
@@ -33,8 +34,8 @@ module.exports = {
   eslint: {
     configFile: '.eslintrc'
   },
-  postcss: function() {
-    return [autoprefixer, precss, lost];
+  postcss: function(webpack) {
+    return [postcssimport({addDependencyTo: webpack}),autoprefixer, precss, lost];
   },
   resolve: {
     extensions: ['', '.js', '.jsx']

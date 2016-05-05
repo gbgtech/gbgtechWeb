@@ -1,0 +1,70 @@
+
+.c-hamburger {
+    display: inline-block;
+    position: relative;
+    margin: 0 auto;
+    padding: 0;
+    width: 60px;
+    height: 60px;
+    float:right;
+    text-align: center;
+    vertical-align: middle;
+    background-color: transparent;
+    border: 0;
+    outline: 0;
+}
+
+.c-hamburger:hover {
+    span {
+        background: #2196F3;
+    }
+}
+
+.c-hamburger span {
+    transition: all 0.5s;
+    left:0;
+    right:0;
+    display: block;
+    position: absolute;
+    margin:0 auto;
+    height: 2px;
+    border-radius: 2px;
+    background: black;
+    width:25px;
+    transform-origin: center left;
+}
+
+.c-hamburger span:nth-child(2) {
+    position: relative;
+}
+
+.c-hamburger span:first-child {
+
+    top:20px;
+}
+
+.c-hamburger span:last-child {
+    bottom:20px;
+}
+
+
+.c-hamburger.is-active {
+span:first-child {
+    transform: rotate(45deg);
+}
+
+span:nth-child(2) {
+@include transition(background-color, 0.5s, ease);
+    background-color: transparent;
+    margin:0 auto;
+}
+
+span:last-child {
+    transform: rotate(-45deg);
+}
+
+.rotateable-span {
+@include transition(transform, 0.5s, ease);
+    margin-bottom: 0;
+}
+}
