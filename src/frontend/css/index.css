@@ -31,6 +31,10 @@
     align-items: center;
     margin: 55px 0 1em;
 
+    @media (max-width: $mobile-size) {
+        background: url(/assets/goetheborg-sm.jpg);
+    }
+
     h1 {
         margin: 0;
         font-size: 3rem;

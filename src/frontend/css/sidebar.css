@@ -4,6 +4,10 @@
   flex: 1;
   max-width: 25%;
 
+  @media (max-width: $desktop-size) {
+    display: none;
+  }
+
   h2 {
     margin: 0;
   }
