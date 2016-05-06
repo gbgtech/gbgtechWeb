@@ -88,11 +88,10 @@
     "precss": "~1.4.0",
     "react-transform-hmr": "~1.0.2",
     "style-loader": "~0.13.0",
-    "supervisor": "^0.9.1",
-    "webpack-dev-middleware": "^1.5.1",
+    "supervisor": "^0.9.1"
   },
   "devDependencies": {
-
+    "webpack-dev-middleware": "^1.5.1",
     "webpack-dev-server": "^1.14.1",
     "webpack-hot-middleware": "^2.6.4"
   }
