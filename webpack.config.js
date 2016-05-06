@@ -11,7 +11,8 @@ module.exports = {
   devtool: 'source-map',
   output: {
     path: __dirname + '/public',
-    publicPath: 'build/'
+    publicPath: 'build/',
+    filename:"build/bundle.js"
   },
   module: {
     loaders: [
