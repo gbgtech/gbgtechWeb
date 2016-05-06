@@ -19,7 +19,8 @@ module.exports = {
     update,
     postToOutlets,
     listEvents,
-    updateAccepted
+    updateAccepted,
+    decoratePost
 };
 
 
@@ -183,7 +184,7 @@ function updateAccepted(req, res){
   });
 }
 
-const decoratePost = (post, users, categories) => {
+function decoratePost(post, users, categories) {
     const authorObject = users.find(user => user._id.equals(post.author));
 
     const categoryObjects = (post.categories || []).map((categoryId) =>
