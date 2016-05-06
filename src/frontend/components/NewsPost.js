@@ -1,6 +1,9 @@
 import React from 'react';
 import { Link } from 'react-router';
 import { connect } from 'react-redux';
+import moment from 'moment';
+
+import Clock from "./Clock";
 
 import { formatDate, formatDateTime, formatDateHuman, formatTime } from '../formatter';
 import { roles } from '../roles';
@@ -37,7 +40,7 @@ const EventsPartial = ({ from, to, rsvp, location }) => (
         <div className="date-time">
             <div className="row">
                 <div className="fance">
-                    <i className="fa fa-clock-o" ariaHidden="true"></i>
+                  <Clock time={moment(from).toDate()}/>
                 </div>
                 <div className="info">
                     {renderTimeTag(from, formatDateHuman, 'time-day')}

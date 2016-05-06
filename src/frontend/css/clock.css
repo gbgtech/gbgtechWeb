@@ -1,0 +1,25 @@
+.iconic.iconic-clock {
+
+  .iconic-clock-hour {
+    fill: white;
+  }
+  .iconic-clock-hand,
+  .iconic-clock-axis {
+    stroke: black;
+    fill: black;
+  }
+  .iconic-clock-hand-second {
+    display: none;
+  }
+
+  .iconic-clock-hand-minute {
+    transform-origin: 64px 64px;
+    transform: rotate(0deg);
+    transition: 0.4s ease;
+  }
+  .iconic-clock-hand-hour {
+    transform-origin: 64px 64px;
+    transform: rotate(0deg);
+    transition: 0.4s ease;
+  }
+}
