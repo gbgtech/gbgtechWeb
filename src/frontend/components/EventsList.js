@@ -21,6 +21,7 @@ const EventsList = React.createClass({
         {events.map(event => (
           <EventPane key={event.slug} {...event} />
         ))}
+        {events.length === 0 && <div>No upcoming events</div>}
       </div>
     );
   }
