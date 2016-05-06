@@ -22,7 +22,7 @@
 }
 
 .who-are-we {
-    background: url(/assets/goetheborg.jpg);
+    background-image: url(/assets/goetheborg.jpg);
     height: 40vh;
     background-position: center;
     background-size: cover;
@@ -32,7 +32,7 @@
     margin: 55px 0 1em;
 
     @media (max-width: $mobile-size) {
-        background: url(/assets/goetheborg-sm.jpg);
+        background-image: url(/assets/goetheborg-sm.jpg);
     }
 
     h1 {
