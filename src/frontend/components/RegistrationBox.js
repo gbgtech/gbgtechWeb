@@ -54,35 +54,44 @@ const RegistrationBox = React.createClass({
     const { categories } = this.state;
 
     return (
-      <div className="register modal">
+      <div className="follow-container register modal paper-shadow">
         <h3>Choose categories that interests you</h3>
-        <ul className="categories row">
-          {categories.map(category => (
-            <li key={category._id}>
-              <label><input type="checkbox" checked={category.checked} onChange={() => this.handleCategoryChecked(category._id)}/>{category.name}</label>
-            </li>
-          ))}
-        </ul>
-        <button className="button" onClick={this.finishRegistration}>Sign up</button>
+        <div className="categories">
+          <ul>
+            {categories.map(category => (
+              <li key={category._id}>
+                <label><input type="checkbox" checked={category.checked} onChange={() => this.handleCategoryChecked(category._id)}/>{category.name}</label>
+              </li>
+            ))}
+          </ul>
+        </div>
+        <div className="justify-end">
+          <button className="button" onClick={this.finishRegistration}>Sign up</button>
+        </div>
       </div>
     );
   },
 
   renderFinished() {
-
-    const { email, categories } = this.state;
-    const selected = categories.filter(category => category.checked);
-
-    return (
-      <div className="register">
-      </div>
-    );
+    return null;
   },
 
   changeEmail(event) {
     this.setState({
       email: event.target.value
     });
+  },
+
+  renderFollowButtons() {
+    return (
+      <div className="follow paper-shadow">
+        <h3>Follow us on</h3>
+        <div className="follow-us follow-button-row">
+          <TwitterButton />
+          <RedditButton />
+        </div>
+      </div>
+    )
   },
 
   renderForm() {
@@ -101,13 +110,7 @@ const RegistrationBox = React.createClass({
             <button className="button main-follow-button">Next</button>
           </form>
         </div>
-        <div className="follow paper-shadow">
-          <h3>Follow us on</h3>
-          <div className="follow-us follow-button-row">
-            <TwitterButton />
-            <RedditButton />
-          </div>
-        </div>
+        {this.renderFollowButtons()}
       </div>
     );
   },
