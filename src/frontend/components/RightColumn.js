@@ -1,6 +1,6 @@
 import React from 'react';
 
-
+import EventsList from './EventsList';
 import Twitter from './Twitter';
 
 const RightColumn = React.createClass({
@@ -8,7 +8,8 @@ const RightColumn = React.createClass({
   render() {
     return (
       <div className="right-column">
-        <Twitter path="search?q=%23gbgtech%20-RT" id="696282839873093633">#gbgtech tweets</Twitter>
+        <EventsList />
+        <Twitter path="search?q=%23gbgtech%20-RT" id="696282839873093633">#gbgtech</Twitter>
       </div>
     );
   }

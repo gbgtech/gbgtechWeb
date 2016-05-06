@@ -28,8 +28,8 @@ const NewsPost = ({ post, user }) => (
     </article>
 );
 
-const renderTimeTag = (date, formatter) => date && (
-    <time dateTime={date}>{formatter(date)}</time>
+const renderTimeTag = (date, formatter, className = "") => date && (
+    <time dateTime={date} className={className}>{formatter(date)}</time>
 );
 
 const EventsPartial = ({ from, to, rsvp, location }) => (
@@ -39,14 +39,16 @@ const EventsPartial = ({ from, to, rsvp, location }) => (
                 <div className="fance">
                     <i className="fa fa-clock-o" ariaHidden="true"></i>
                 </div>
-                <div>
-                    {renderTimeTag(from, formatDateHuman)}
+                <div className="info">
+                    {renderTimeTag(from, formatDateHuman, 'time-day')}
                     <div className="time-row">{renderTimeTag(from, formatTime)} - {renderTimeTag(to, formatTime)}</div>
                 </div>
             </div>
             {rsvp && (<a href={rsvp} className="button">RSVP</a>)}
         </div>
-        {location && (<GoogleMapsLink {...location} />)}
+        {location && (<div className="google-maps">
+            {(<GoogleMapsLink {...location} />)}
+        </div>)}
     </div>
 );
 
@@ -56,7 +58,7 @@ const ProviderBadge = ({ provider, url }) => (
 
 
 const GoogleMapsLink = ({ lat, lng, name }) => (
-    <a href={`https://www.google.com/maps/preview/@${lat},${lng},13z`} className="google-maps" target="_blank">{name}</a>
+    <a href={`https://www.google.com/maps/preview/@${lat},${lng},13z`} target="_blank">{name}</a>
 );
 
 const mapStateToProps = state => ({

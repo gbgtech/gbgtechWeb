@@ -1,11 +1,35 @@
+.row {
+    display: flex;
+    flex-direction: row;
+}
+
+.center-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.content {
+    flex: 1;
+    width: 50%;
+    max-width: 800px;
+    padding: 0 1em;
+}
+
+.main-container {
+    display: flex;
+    flex-direction: column;
+}
+
 .who-are-we {
     background: url('/assets/coolest-pic.jpeg');
-    height: 95vh;
+    height: 40vh;
     background-position: center;
     background-size: cover;
     display: flex;
     justify-content: center;
     align-items: center;
+    margin: 55px 0 1em;
 
     h1 {
         margin: 0;

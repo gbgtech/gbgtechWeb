@@ -20,14 +20,15 @@ const Twitter = React.createClass({
     const { path, id, children} = this.props;
 
     return (
-      <a
-        className="twitter-timeline"
-        ref={(link) => this.link = link }
-        data-chrome="noborders nofooter transparent"
-        href={`https://twitter.com/${path}`}
-        data-widget-id={id}>
-        {children}
-      </a>
+      <div className="twitter-container">
+        <h2>Twitter - <a href={`https://twitter.com/${path}`}>{children}</a></h2>
+        <a
+          className="twitter-timeline"
+          ref={(link) => this.link = link }
+          data-chrome="noborders noheader nofooter transparent"
+          data-widget-id={id}>
+        </a>
+      </div>
     );
   }
 });

@@ -1,5 +1,17 @@
+$mainBlue: #1583cc;
+$mainBlack: #222;
+$mainWhite: #fff;
+$lightYellow: #fffeee;
+$darkYellow: yellow;
+$hotPink: #ff1493;
+$lightGray: #666;
+
 @import "header.css";
 @import "hamburger.css";
+@import "articles.css";
+@import "sidebar.css";
+@import "button.css";
+@import "clock.css";
 @import "index.css";
 
 * {
@@ -8,7 +20,7 @@
 
 html,body {
     margin: 0;
-    font-family: 'Josefin sans';
+    font-family: 'Josefin sans', sans-serif;
 }
 
 ul {
