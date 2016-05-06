@@ -1,0 +1,40 @@
+.admin-page {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  margin: 0 2em;
+  flex: 1;
+  & > div {
+    display: flex;
+    width: 48%;
+    flex-direction: column;
+    margin-top: 1em;
+  }
+}
+
+.admin-post-list-item {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: stretch;
+  padding: 0.5em;
+  .dot {
+    display: flex;
+    margin-right: 0.5em;
+    width: 0.5em;
+    height: 0.5em;
+    border-radius: 0.25em;
+    &.approved {
+      background: green;
+    }
+    &.denied {
+      background: red;
+    }
+    &.waiting {
+      background: orange;
+    }
+  }
+  &:nth-child(odd) {
+    background: lightgrey;
+  }
+}

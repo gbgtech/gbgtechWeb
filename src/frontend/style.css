@@ -105,41 +105,6 @@ nav {
     align-items: flex-end;
   }
 
-  .login-box {
-    margin-top: $headerHeight;
-    color: black;
-    border: 1px solid black;
-    background: white;
-    padding: 2em;
-    width: 500px;
-
-    .email-row {
-      display: flex;
-      flex-direction: row;
-      margin-bottom: 1em;
-      align-items: center;
-
-      input {
-        min-width: 100px;
-        flex-grow: 1;
-        margin: 0 .5em;
-        padding-left: .5em;
-        font-size: 1.5rem;
-
-      }
-
-      label {
-        display: flex;
-        align-items: center;
-      }
-
-      input, button, label {
-        height: 47px;
-      }
-
-    }
-  }
-
   .logo {
     height: 100%;
     background: url(/assets/gbgtech_logo_blue.png) white;
@@ -217,67 +182,6 @@ a.button {
 
 .event-partial {
   align-items: flex-start;
-}
-
-.google-signin {
-  background-image: url('/assets/btn_google_dark_normal_ios.svg');
-  background-repeat: no-repeat;
-  background-position: left;
-  background-color: #4285f4;
-  border: none;
-  color: #FFF;
-  background-size: contain;
-  font-size: 1rem;
-  padding: .8em 14px;
-  padding-left: 55px;
-  border-radius: 4px;
-  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, .25);
-  font-family: 'roboto';
-  min-width: 210px;
-  text-align: center;
-
-  transition: background-color .218s, border-color .218s, box-shadow .218s;
-
-  &:active {
-    background-color: #3367d6;
-  }
-  &:hover {
-    box-shadow: 0 0 3px 3px rgba(66, 133, 244, .3);
-  }
-}
-
-.admin-page {
-  flex-direction: row;
-  margin: 0 2em;
-  & > div {
-    margin-top: 1em;
-    flex: 1;
-  }
-}
-
-.admin-post-list-item {
-  flex-direction: row;
-  align-items: center;
-  justify-content: stretch;
-  padding: 0.5em;
-  .dot {
-    margin-right: 0.5em;
-    width: 0.5em;
-    height: 0.5em;
-    border-radius: 0.25em;
-    &.approved {
-      background: green;
-    }
-    &.denied {
-      background: red;
-    }
-    &.waiting {
-      background: orange;
-    }
-  }
-  &:nth-child(odd) {
-    background: lightgrey;
-  }
 }
 
 .geosuggest {
