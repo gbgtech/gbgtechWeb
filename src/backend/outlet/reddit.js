@@ -43,20 +43,18 @@ function postAEvent(event) {
     reddit.submit(post,function(err,id) {
       if(err===null){
         let outlet =  {
-            "name": "reddit",//googlecalendar or reddit
-            "url": "https://www.reddit.com/r/gbgtech/comments/"+id+"/",
-            "externalId": id
-          }
-        var update=Posts.update({ _id: post._id },
-          {$addToSet: {outlets: outlet}});
-        update.then(()=>{
-          resolve();
-        })
+          "name": "reddit",//googlecalendar or reddit
+          "url": "https://www.reddit.com/r/gbgtech/comments/"+id+"/",
+          "externalId": id
+        }
+        console.log("try to add it to the set");
+        event.outlets.push(outlet);
+        event.save(resolve);
+
       }else{
         console.log("error:",err);
         reject();
       }
     });
-});
-
+  });
 }
