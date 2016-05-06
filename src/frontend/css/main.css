@@ -25,10 +25,8 @@ $background-color: white;
     box-sizing: border-box;
 }
 
-html,body {
-    margin: 0;
-    font-family: 'Josefin sans', sans-serif;
-}
+html, body { margin: 0 }
+body { font-family: 'Josefin sans', sans-serif }
 
 ul {
     margin: 0;
