@@ -1,3 +1,5 @@
+"use strict";
+
 var mongoose = require('mongoose');
 var Posts = mongoose.model('Posts');
 var Users = mongoose.model('Users');
