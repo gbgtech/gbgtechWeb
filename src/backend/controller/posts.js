@@ -101,7 +101,7 @@ function listEvents(req, res) {
   };
 
   return Promise.all([
-      Posts.find(filter).sort({ "eventData.from": 1 }).exec(),
+      Posts.find(filter).sort({ "eventData.from": 1 }).limit(5).exec(),
       Categories.find().exec()
   ]).then((results) => {
 
