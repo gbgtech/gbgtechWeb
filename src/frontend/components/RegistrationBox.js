@@ -1,6 +1,6 @@
 import React from 'react';
-import Twitter from './buttons/Twitter';
-import Reddit from './buttons/Reddit';
+import TwitterButton from './buttons/TwitterButton';
+import RedditButton from './buttons/RedditButton';
 import { get, postJson } from '../fetcher';
 import swal from '../swal';
 
@@ -54,29 +54,26 @@ const RegistrationBox = React.createClass({
     const { categories } = this.state;
 
     return (
-      <div className="register modal">
+      <div className="follow-container register modal paper-shadow">
         <h3>Choose categories that interests you</h3>
-        <ul className="categories row">
-          {categories.map(category => (
-            <li key={category._id}>
-              <label><input type="checkbox" checked={category.checked} onChange={() => this.handleCategoryChecked(category._id)}/>{category.name}</label>
-            </li>
-          ))}
-        </ul>
-        <button className="button" onClick={this.finishRegistration}>Sign up</button>
+        <div className="categories">
+          <ul>
+            {categories.map(category => (
+              <li key={category._id}>
+                <label><input type="checkbox" checked={category.checked} onChange={() => this.handleCategoryChecked(category._id)}/>{category.name}</label>
+              </li>
+            ))}
+          </ul>
+        </div>
+        <div className="justify-end">
+          <button className="button" onClick={this.finishRegistration}>Sign up</button>
+        </div>
       </div>
     );
   },
 
   renderFinished() {
-
-    const { email, categories } = this.state;
-    const selected = categories.filter(category => category.checked);
-
-    return (
-      <div className="register">
-      </div>
-    );
+    return null;
   },
 
   changeEmail(event) {
@@ -85,23 +82,35 @@ const RegistrationBox = React.createClass({
     });
   },
 
+  renderFollowButtons() {
+    return (
+      <div className="follow paper-shadow">
+        <h3>Follow us on</h3>
+        <div className="follow-us follow-button-row">
+          <TwitterButton />
+          <RedditButton />
+        </div>
+      </div>
+    )
+  },
+
   renderForm() {
     return (
       <div className="follow-container">
-        <div className="row email">
-          <h3 className="col left">Sign up for our newsfeed:</h3>
-          <form className="col email-form right" onSubmit={this.openModal}>
-            <input type="email" tabIndex="1" required value={this.state.email} onChange={this.changeEmail} placeholder="enter email" />
-            <button className="button">Next</button>
+        <div className="email paper-shadow">
+          <h3>Sign up for our newsfeed</h3>
+          <form className="email-form follow-button-row" onSubmit={this.openModal}>
+            <input type="email"
+                   tabIndex="1"
+                   required={true}
+                   className="main-follow-button"
+                   value={this.state.email}
+                   onChange={this.changeEmail}
+                   placeholder="enter email" />
+            <button className="button main-follow-button">Next</button>
           </form>
         </div>
-        <div className="row follow">
-          <h3 className="col left">Follow our social media:</h3>
-          <div className="follow-us col right">
-            <Twitter />
-            <Reddit />
-          </div>
-        </div>
+        {this.renderFollowButtons()}
       </div>
     );
   },

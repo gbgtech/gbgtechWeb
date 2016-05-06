@@ -1,8 +1,11 @@
 import React from 'react';
 import { Link } from 'react-router';
 import { connect } from 'react-redux';
+import moment from 'moment';
 
-import { formatDate, formatDateTime } from '../formatter';
+import Clock from "./Clock";
+
+import { formatDate, formatDateTime, formatDateHuman, formatTime } from '../formatter';
 import { roles } from '../roles';
 
 const userCanEditPost = (user, post) => {
@@ -11,34 +14,49 @@ const userCanEditPost = (user, post) => {
 };
 
 const NewsPost = ({ post, user }) => (
-    <article>
+    <article className="paper-shadow">
         <header>
             {post.accepted === 'WAITING' && <div>POST UNDER REVIEW (NOT PUBLISHED YET)</div>}
             {post.accepted === 'DENIED' && <div>POST DENIED (NOT PUBLISHED)</div>}
             <h2><Link to={`/news/${post.slug}`}>{post.title}</Link></h2>
+        </header>
+        <div className="post-info">
+            <small>{renderTimeTag(post.createdAt, formatDateTime)} | {post.categories.map(c => c.name).join(', ')}</small>
             {post.origin && <ProviderBadge {...post.origin} />}
             {userCanEditPost(user, post) && <Link to={`/news/${post.slug}/edit`}>Edit post</Link>}
-        </header>
-        <small>by {post.author && post.author.email} | {renderTimeTag(post.createdAt, formatDateTime)} | {post.categories.map(c => c.name).join(', ')}</small>
-        <p dangerouslySetInnerHTML={{__html: post.body}}></p>
+        </div>
+        <div className="article-content" dangerouslySetInnerHTML={{__html: post.body}}></div>
+        {post.eventData && <hr/>}
         {post.eventData && <EventsPartial {...post.eventData} />}
     </article>
 );
 
-const renderTimeTag = (date, formatter) => date && (
-    <time dateTime={date}>{formatter(date)}</time>
+const renderTimeTag = (date, formatter, className = "") => date && (
+    <time dateTime={date} className={className}>{formatter(date)}</time>
 );
 
 const EventsPartial = ({ from, to, rsvp, location }) => (
     <div className="event-partial">
-        <span>{renderTimeTag(from, formatDate)} {renderTimeTag(to, formatDate)}</span>
-        {rsvp && (<a href={rsvp} className="button">RSVP!</a>)}
-        {location && (<GoogleMapsLink {...location} />)}
+        <div className="date-time">
+            <div className="row">
+                <div className="fance">
+                  <Clock time={moment(from).toDate()}/>
+                </div>
+                <div className="info">
+                    {renderTimeTag(from, formatDateHuman, 'time-day')}
+                    <div className="time-row">{renderTimeTag(from, formatTime)} - {renderTimeTag(to, formatTime)}</div>
+                </div>
+            </div>
+            {rsvp && (<a href={rsvp} className="button">RSVP</a>)}
+        </div>
+        {location && (<div className="google-maps">
+            {(<GoogleMapsLink {...location} />)}
+        </div>)}
     </div>
 );
 
 const ProviderBadge = ({ provider, url }) => (
-    <a href={url} className={'provider ' + provider}></a>
+    <a href={url} className={'provider ' + provider} target="_blank" />
 );
 
 
