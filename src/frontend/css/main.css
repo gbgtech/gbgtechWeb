@@ -6,6 +6,10 @@ $darkYellow: yellow;
 $hotPink: #ff1493;
 $lightGray: #666;
 
+$mobile-size: 590px;
+$desktop-size: 780px;
+$background-color: white;
+
 @import "index.css";
 @import "header.css";
 @import "hamburger.css";
