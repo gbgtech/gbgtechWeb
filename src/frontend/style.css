@@ -1,0 +1,357 @@
+$mainBlue: #1583cc;
+$mainBlack: #222;
+$mainWhite: #fff;
+$lightYellow: #fffeee;
+$darkYellow: yellow;
+$hotPink: #ff1493;
+$lightGray: #666;
+
+$headerHeight: 100px;
+
+@lost flexbox flex;
+@lost cycle none;
+
+*,
+*:before,
+*:after {
+  box-sizing: border-box;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-weight: 300;
+}
+
+header,
+section,
+article,
+footer,
+nav,
+li,
+form,
+div,
+html,
+body {
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+  margin: 0;
+  padding: 0;
+  align-items: stretch;
+}
+
+// ::selection { background: $hotPink; color: $mainWhite; }
+
+.row {
+  flex-direction: row;
+}
+
+.block {
+  display: block;
+}
+
+html, body, #root, .app {
+  height: 100%;
+}
+
+body {
+  font-family: 'Josefin Sans', sans-serif;
+  // font-weight: 400;
+  // font-size: 1.5rem;
+}
+
+nav {
+  width: 100%;
+  background: $mainBlack;
+  color: $mainWhite;
+
+  height: $headerHeight;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+
+  ul {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    display: flex;
+  }
+
+  .navigation {
+    flex: 1;
+  }
+
+  .login-menu, .logo {
+    flex: 0 1 200px;
+  }
+
+  .shade {
+    z-index: 1;
+    background: rgba(10, 10, 10, 0.6);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-end;
+  }
+
+  .login-box {
+    margin-top: $headerHeight;
+    color: black;
+    border: 1px solid black;
+    background: white;
+    padding: 2em;
+    width: 500px;
+
+    .email-row {
+      display: flex;
+      flex-direction: row;
+      margin-bottom: 1em;
+      align-items: center;
+
+      input {
+        min-width: 100px;
+        flex-grow: 1;
+        margin: 0 .5em;
+        padding-left: .5em;
+        font-size: 1.5rem;
+
+      }
+
+      label {
+        display: flex;
+        align-items: center;
+      }
+
+      input, button, label {
+        height: 47px;
+      }
+
+    }
+  }
+
+  .logo {
+    height: 100%;
+    background: url(/assets/gbgtech_logo_blue.png) white;
+    background-size: auto 80%;
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+
+  li {
+    font-size: 1.2rem;
+    border-bottom: 1px solid transparent;
+    padding: 20px;
+
+    &:hover {
+      border-bottom: 1px solid $mainWhite;
+    }
+  }
+
+  a {
+    color: $mainWhite;
+    text-decoration: none;
+  }
+}
+
+.main-container {
+  padding: 0 1rem 0;
+  flex-direction: row;
+  flex: 1;
+
+  .left-column, .right-column {
+    padding: 1em;
+  }
+
+  .left-column {
+    flex: 1 1 25%;
+  }
+
+  .right-column {
+    flex: 1 1 35%;
+    padding: 1em 0 0;
+
+    iframe {
+      flex: 1;
+    }
+  }
+}
+
+.postForm {
+  flex: 1;
+  margin-top: 1em;
+  .categories li {
+    display: inline-flex;
+    width: 30%;
+  }
+  .quill {
+    flex: 1;
+    flex-direction: column;
+    .quill-toolbar {
+      display: inline;
+      flex-grow: 0;
+    }
+    .quill-contents {
+      border: 1px solid black;
+      flex: 1;
+      .ql-editor {
+        flex: 1;
+      }
+    }
+  }
+}
+
+a.button {
+  text-decoration: none;
+}
+
+.event-partial {
+  align-items: flex-start;
+}
+
+.google-signin {
+  background-image: url('/assets/btn_google_dark_normal_ios.svg');
+  background-repeat: no-repeat;
+  background-position: left;
+  background-color: #4285f4;
+  border: none;
+  color: #FFF;
+  background-size: contain;
+  font-size: 1rem;
+  padding: .8em 14px;
+  padding-left: 55px;
+  border-radius: 4px;
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, .25);
+  font-family: 'roboto';
+  min-width: 210px;
+  text-align: center;
+
+  transition: background-color .218s, border-color .218s, box-shadow .218s;
+
+  &:active {
+    background-color: #3367d6;
+  }
+  &:hover {
+    box-shadow: 0 0 3px 3px rgba(66, 133, 244, .3);
+  }
+}
+
+.admin-page {
+  flex-direction: row;
+  margin: 0 2em;
+  & > div {
+    margin-top: 1em;
+    flex: 1;
+  }
+}
+
+.admin-post-list-item {
+  flex-direction: row;
+  align-items: center;
+  justify-content: stretch;
+  padding: 0.5em;
+  .dot {
+    margin-right: 0.5em;
+    width: 0.5em;
+    height: 0.5em;
+    border-radius: 0.25em;
+    &.approved {
+      background: green;
+    }
+    &.denied {
+      background: red;
+    }
+    &.waiting {
+      background: orange;
+    }
+  }
+  &:nth-child(odd) {
+    background: lightgrey;
+  }
+}
+
+.geosuggest {
+  position: relative;
+  width: 50%;
+  text-align: left;
+}
+
+.geosuggest__input {
+  width: 100%;
+  border: 2px solid transparent;
+  box-shadow: 0 0 1px #3d464d;
+  padding: .5em 1em;
+  -webkit-transition: border 0.2s, box-shadow 0.2s;
+  transition: border 0.2s, box-shadow 0.2s;
+}
+
+.geosuggest__input:focus {
+  border-color: #267dc0;
+  box-shadow: 0 0 0 transparent;
+}
+
+.geosuggest__suggests {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  max-height: 25em;
+  padding: 0;
+  margin-top: -1px;
+  background: #fff;
+  border: 2px solid #267dc0;
+  border-top-width: 0;
+  overflow-x: hidden;
+  overflow-y: auto;
+  list-style: none;
+  z-index: 5;
+  -webkit-transition: max-height 0.2s, border 0.2s;
+  transition: max-height 0.2s, border 0.2s;
+}
+
+.geosuggest__suggests--hidden {
+  max-height: 0;
+  overflow: hidden;
+  border-width: 0;
+}
+
+/**
+ * A geosuggest item
+ */
+.geosuggest-item {
+  font-size: 18px;
+  font-size: 1rem;
+  padding: .5em .65em;
+  cursor: pointer;
+}
+
+.geosuggest-item:hover,
+.geosuggest-item:focus {
+  background: #f5f5f5;
+}
+
+.geosuggest-item--active {
+  background: #267dc0;
+  color: #fff;
+}
+
+.geosuggest-item--active:hover,
+.geosuggest-item--active:focus {
+  background: #ccc;
+}
+
+.postForm label {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
