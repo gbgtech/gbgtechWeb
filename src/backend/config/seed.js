@@ -23,12 +23,6 @@ mongoose.connect(config.db, function(err) {
 
 // Data array containing seed data - documents organized by Model
 var data = {
-    users: {
-        '_model': 'Users',
-        'admin': { email: 'admin@gbgtech.co', provider: 'email', role: roles.admin},
-        'bark': { email: 'erikaxelsson1@gmail.com', provider: 'email', role: roles.admin },
-        'tejp': { email: 'andresamuelsson94@gmail.com', provider: 'email', role: roles.admin}
-    },
     categories: {
         '_model': 'Categories',
         'c1': { description:"Learn abute a new framework or language", name: 'Tech talk' },
@@ -38,6 +32,13 @@ var data = {
         'c5': { description:"Who writes abute what", name: 'In the spotligth' },
         'c6': { description:"Party?", name: 'After hours' },
         'c7': { description:"Meet new perssons", name: 'Network' }
+    },
+    users: {
+        '_model': 'Users',
+        'admin': { email: 'admin@gbgtech.co', provider: 'email', role: roles.admin},
+        'bark': { email: 'erikaxelsson1@gmail.com', provider: 'email', role: roles.admin, subscribedCategories: ['->categories.c7', '->categories.c4']},
+        'tejp': { email: 'andresamuelsson94@gmail.com', provider: 'email', role: roles.admin, subscribedCategories: ['->categories.c1', '->categories.c5']},
+        'ndushi': { email: 'johan.lindskogen@gmail.com', provider: 'email', role: roles.admin}
     },
     posts: {
         '_model': 'Posts',
@@ -94,7 +95,8 @@ var data = {
         name:"HUBGothenburg",
         acceptedDefault:'WAITING',
         uniqueId:'HUBGothenburg',
-        vendor:"meetup"
+        vendor:"meetup",
+        defaultBlockedOutlets:['reddit','email']
       },
       'f5':{
         userId: '->users.bark',

@@ -1,6 +1,7 @@
 'use strict';
-//TODO move to outlet
 
+const mongoose = require('mongoose');
+const Users = mongoose.model('Users');
 
 const FormData = require('form-data');
 const fetch    = require('../lib/fetch');
@@ -17,6 +18,48 @@ const convertToFormData = (obj) => {
     formData.append(key, obj[key]);
     return formData;
   }, new FormData());
+}
+
+function sendToSubscribers(posts) {
+  let promises = []
+  posts.map(p => {
+    const mailPromise = new Promise((resolve, reject) => {
+      Users.aggregate([
+        { "$project": {
+          "email": 1,
+          "subscribedCategories": 1,
+          "intersection": {"$setIntersection": ["$subscribedCategories", p.categories]}
+        }},
+        { "$match": {
+          "intersection": {"$not": {"$size": 0}}
+        }}
+      ]).exec((error,subscribers) => {
+        if (!error) {
+          subscribers.forEach(s => {
+            promises.push(createMailPromise(resolve, s, p))
+          })
+        } else {
+          reject();
+          console.log("error:", error);
+        }
+      });
+    });
+    promises.push(mailPromise);
+  })
+
+  return Promise.all(promises)
+}
+
+function createMailPromise(resolve, subscriber, post) {
+  send({
+    to: subscriber.email,
+    subject: post.title,
+    body: post.body,
+    isHTML: true
+  })
+  const outlet = { "name": "email" }
+  post.outlets.push(outlet);
+  post.save(resolve);
 }
 
 function send(options) {
@@ -58,13 +101,13 @@ function send(options) {
 
 function renderTemplate(filename, params) {
   return ejs.render('<%- include(\'../template/base.ejs\', params) %>',
-    {template: filename,
-      params: _.assign({}, params, {
-        base_url: BASE_URL
-      })
-    },
-    {filename: __filename }
-  );
+  {template: filename,
+    params: _.assign({}, params, {
+      base_url: BASE_URL
+    })
+  },
+  {filename: __filename }
+);
 }
 
 function sendSigninMail(to, url) {
@@ -83,5 +126,6 @@ function sendSigninMail(to, url) {
 
 module.exports = {
   send,
+  sendToSubscribers,
   sendSigninMail
 };

@@ -12,13 +12,14 @@ module.exports = {
   devtool: 'source-map',
   output: {
     path: __dirname + '/public',
-    publicPath: 'build/'
+    publicPath: 'build/',
+    filename:"build/bundle.js"
   },
   module: {
     loaders: [
       {
         test: /(\.jsx|\.js)$/,
-        loaders: ["babel", "eslint-loader"],
+        loader: "babel!eslint",
         exclude: /(node_modules|bower_components)/
       },
       {

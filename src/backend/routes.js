@@ -4,7 +4,7 @@ var CategoriesController = require('./controller/categories');
 var PostsController = require('./controller/posts');
 var FeedController = require('./controller/feed');
 var authRoutes = require('./routes/auth');
-var Meetup = require('./providers/meetup');
+//var Meetup = require('./providers/meetup');
 
 var hasRole = require('./controller/auth').HasRole;
 var roles = require('./controller/auth').Roles;
@@ -28,7 +28,7 @@ module.exports = function(app) {
     app.put('/api/posts/:id/accepted', hasRole(roles.user), PostsController.updateAccepted);
 
     app.get('/api/events', PostsController.listEvents);
-    app.get('/api/meetup', Meetup.fetchMeetupEvents);
+  //fetchMeetupEvents  app.get('/api/meetup', Meetup.fetcfetchMeetupEventshMeetupEvents);
 
     app.get('/api/reddit', PostsController.postToOutlets);
 

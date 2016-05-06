@@ -40,7 +40,15 @@ var PostSchema = new Schema({
       lng: String,
       name: String
     }
-  }
+  },
+  outlets:[
+    {
+      name: String,//googlecalendar,reddit or email
+      blockedFromOutlet:Boolean,
+      url: String,
+      externalId: String
+    }
+  ]
 });
 
 module.exports = mongoose.model('Posts', PostSchema);
