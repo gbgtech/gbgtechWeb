@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-const Github = React.createClass({
+const GithubButton = React.createClass({
 
   componentDidMount() {
     //TODO code this
@@ -25,4 +25,4 @@ const Github = React.createClass({
   }
 });
 
-export default Github
+export default GithubButton

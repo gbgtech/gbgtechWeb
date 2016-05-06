@@ -14,7 +14,7 @@ const userCanEditPost = (user, post) => {
 };
 
 const NewsPost = ({ post, user }) => (
-    <article>
+    <article className="paper-shadow">
         <header>
             {post.accepted === 'WAITING' && <div>POST UNDER REVIEW (NOT PUBLISHED YET)</div>}
             {post.accepted === 'DENIED' && <div>POST DENIED (NOT PUBLISHED)</div>}

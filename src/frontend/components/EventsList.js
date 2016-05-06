@@ -16,7 +16,7 @@ const EventsList = React.createClass({
   render() {
     const { events } = this.state;
     return (
-      <div className="events-list">
+      <div className="events-list paper-shadow">
         <h2>Upcoming events</h2>
         {events.map(event => (
           <EventPane key={event.slug} {...event} />

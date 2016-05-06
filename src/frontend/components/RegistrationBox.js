@@ -1,6 +1,6 @@
 import React from 'react';
-import Twitter from './buttons/Twitter';
-import Reddit from './buttons/Reddit';
+import TwitterButton from './buttons/TwitterButton';
+import RedditButton from './buttons/RedditButton';
 import { get, postJson } from '../fetcher';
 import swal from '../swal';
 
@@ -88,18 +88,24 @@ const RegistrationBox = React.createClass({
   renderForm() {
     return (
       <div className="follow-container">
-        <div className="row email">
-          <h3 className="col left">Sign up for our newsfeed:</h3>
-          <form className="col email-form right" onSubmit={this.openModal}>
-            <input type="email" tabIndex="1" required value={this.state.email} onChange={this.changeEmail} placeholder="enter email" />
-            <button className="button">Next</button>
+        <div className="email paper-shadow">
+          <h3>Sign up for our newsfeed</h3>
+          <form className="email-form follow-button-row" onSubmit={this.openModal}>
+            <input type="email"
+                   tabIndex="1"
+                   required={true}
+                   className="main-follow-button"
+                   value={this.state.email}
+                   onChange={this.changeEmail}
+                   placeholder="enter email" />
+            <button className="button main-follow-button">Next</button>
           </form>
         </div>
-        <div className="row follow">
-          <h3 className="col left">Follow our social media:</h3>
-          <div className="follow-us col right">
-            <Twitter />
-            <Reddit />
+        <div className="follow paper-shadow">
+          <h3>Follow us on</h3>
+          <div className="follow-us follow-button-row">
+            <TwitterButton />
+            <RedditButton />
           </div>
         </div>
       </div>

@@ -1,26 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-const Twitter = React.createClass({
-
-  componentDidMount() {
-    const elem = ReactDOM.findDOMNode(this.link);
-
-    if (!this.initialized) {
-      this.initialized = true;
-
-      const js = document.createElement('script');
-      js.id = 'twitter-wjs';
-      js.src = '//platform.twitter.com/widgets.js';
-      elem.parentNode.appendChild(js);
-    }
-  },
+const TwitterFeed = React.createClass({
 
   render() {
     const { path, id, children} = this.props;
 
     return (
-      <div className="twitter-container">
+      <div className="twitter-container paper-shadow">
         <h2>Twitter - <a href={`https://twitter.com/${path}`}>{children}</a></h2>
         <a
           className="twitter-timeline"
@@ -33,4 +20,4 @@ const Twitter = React.createClass({
   }
 });
 
-export default Twitter;
+export default TwitterFeed;
