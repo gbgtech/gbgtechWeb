@@ -23,7 +23,7 @@ var requestEmail = function(req, res) {
 
       crypto.randomBytes(24, (ex, buf) => {
         user.signinToken = buf.toString('hex');
-        const signinUrl = req.protocol + '://' + req.hostname + ':3000/api/auth/email/signin/' + user.signinToken;
+        const signinUrl = '/api/auth/email/signin/' + user.signinToken;
         user.save((err) => {
           if (!err) {
             mail.sendSigninMail(user.email, signinUrl);
