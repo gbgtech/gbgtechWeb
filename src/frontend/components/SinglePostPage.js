@@ -1,31 +1,19 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 
 import { get } from '../fetcher';
 
 import NewsPost from './NewsPost';
 
+import * as actions from '../store/actions';
+
 const NewsPage = React.createClass({
-  getInitialState() {
-    return {
-      error: undefined,
-      post: undefined
-    };
-  },
-  componentDidMount() {
-    get('/posts/' + this.props.params.postId)
-    .then(post => this.setState({ post }))
-    .catch(err =>  {
-      if (err.status === 404) {
-        this.setState({error: err.statusText});
-      }
-    });
+  componentWillMount() {
+    this.props.requestPost(this.props.postId);
   },
   render() {
-    const { post, error } = this.state;
-
-    if (error) {
-      return <section>{error}</section>;
-    }
+    const { post } = this.props;
 
     if (!post) {
       return <section></section>;
@@ -39,6 +27,14 @@ const NewsPage = React.createClass({
   }
 });
 
+const mapStateToProps = (state, props) => {
+  return {
+    postId: props.params.postId,
+    post: state.posts[props.params.postId]
+  }
+}
 
-
-export default NewsPage;
+export default connect(
+  mapStateToProps,
+  dispatch => bindActionCreators(actions, dispatch)
+)(NewsPage);
