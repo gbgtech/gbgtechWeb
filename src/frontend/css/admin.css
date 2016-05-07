@@ -38,3 +38,126 @@
     background: lightgrey;
   }
 }
+
+$padding-base-vertical: 1em;
+$padding-base-horizontal: 1em;
+
+.postForm {
+  .quill {
+    display: flex;
+    flex-direction: column;
+    min-height: 300px;
+    margin-bottom: $padding-base-horizontal;
+
+    .quill-contents {
+      border: 1px solid black;
+      flex: 1;
+    }
+  }
+
+  .control-label {
+    width: 30%;
+    display: flex;
+    justify-content: flex-end;
+    max-width: 100%; // Force IE8 to wrap long content (see https://github.com/twbs/bootstrap/issues/13141)
+    margin-bottom: 5px;
+    font-weight: bold;
+    padding-right: $padding-base-vertical;
+  }
+
+  .form-control {
+    font-family: $sans-font;
+    display: flex;
+    width: 50%;
+    // height: $input-height-base; // Make inputs at least the height of their button counterpart (base line-height + padding + border)
+    padding: $padding-base-vertical $padding-base-horizontal;
+  }
+
+  .form-group {
+    margin-bottom: 1em;
+    display: flex;
+  }
+
+  .categories {
+    font-family: $display-font;
+    flex-wrap: wrap;
+
+    label {
+      margin-right: $padding-base-horizontal;
+
+      input {
+        margin-right: $padding-base-horizontal;
+      }
+    }
+  }
+
+  .geosuggest {
+    font-family: $sans-font;
+    position: relative;
+    width: 50%;
+    text-align: left;
+  }
+
+  .geosuggest__input {
+    width: 100%;
+    border: 2px solid transparent;
+    box-shadow: 0 0 1px #3d464d;
+    padding: .5em 1em;
+    transition: border 0.2s, box-shadow 0.2s;
+  }
+
+  .geosuggest__input:focus {
+    border-color: #267dc0;
+    box-shadow: 0 0 0 transparent;
+  }
+
+  .geosuggest__suggests {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    max-height: 25em;
+    padding: 0;
+    margin-top: -1px;
+    background: #fff;
+    border: 2px solid #267dc0;
+    border-top-width: 0;
+    overflow-x: hidden;
+    overflow-y: auto;
+    list-style: none;
+    z-index: 5;
+    transition: max-height 0.2s, border 0.2s;
+  }
+
+  .geosuggest__suggests--hidden {
+    max-height: 0;
+    overflow: hidden;
+    border-width: 0;
+  }
+
+  /**
+   * A geosuggest item
+   */
+  .geosuggest-item {
+    font-size: 18px;
+    font-size: 1rem;
+    padding: .5em .65em;
+    cursor: pointer;
+  }
+
+  .geosuggest-item:hover,
+  .geosuggest-item:focus {
+    background: #f5f5f5;
+  }
+
+  .geosuggest-item--active {
+    background: #267dc0;
+    color: #fff;
+  }
+
+  .geosuggest-item--active:hover,
+  .geosuggest-item--active:focus {
+    background: #ccc;
+  }
+
+}

@@ -142,15 +142,27 @@ const Post = React.createClass({
     return (
       <section>
         <form className="postForm" onSubmit={this.handleSubmit}>
-          <labels>Title:<input value={title} onChange={(event) => this.handleSetValueWithEvent(event,'title')} /></labels>
-          <ul className="categories row">
-            {categories.map(category => (
-              <li key={category._id}>
-                <label><input type="checkbox" checked={category.checked || false} onChange={() => this.handleCategoryChecked(category._id)}/>{category.name}</label>
-              </li>
-            ))}
-          </ul>
-          <label><input type="checkbox" checked={showEventInfo} onChange={this.handleShowEventInfo}/>Is event</label>
+          <div className="form-group">
+            <label className="control-label">Title</label>
+            <input value={title} className="form-control" onChange={(event) => this.handleSetValueWithEvent(event,'title')} />
+          </div>
+          <div className="form-group">
+            <label className="control-label">Categories</label>
+            <ul className="categories form-control">
+              {categories.map(category => (
+                <li key={category._id}>
+                  <label>
+                    <input type="checkbox" checked={category.checked || false} onChange={() => this.handleCategoryChecked(category._id)}/>{category.name}
+                  </label>
+                </li>
+              ))}
+            </ul>
+          </div>
+          <div className="form-group">
+            <label className="control-label">
+              <input type="checkbox" checked={showEventInfo} onChange={this.handleShowEventInfo}/> Is event
+            </label>
+          </div>
           {showEventInfo && this.renderEventInfo()}
           <ReactQuill theme="snow" value={body} onChange={this.onTextChange} />
           <button className="button">Submit</button>
@@ -163,35 +175,34 @@ const Post = React.createClass({
 
     return (
       <div className="eventInfo">
-        <label>
-          From:
-          <input value={from} onChange={(event) => this.handleSetValueWithEvent(event, 'from')} type="datetime-local"/>
-        </label>
-        <label>
-          To:
-          <input value={to} onChange={(event) => this.handleSetValueWithEvent(event, 'to')} type="datetime-local"/>
-        </label>
-        <label>
-          Organizer:
-          <input value={organizer} onChange={(event) => this.handleSetValueWithEvent(event, 'organizer')} />
-        </label>
-        <label>
-          RSVP-link (optional):
-          <input value={rsvp} onChange={(event) => this.handleSetValueWithEvent(event, 'rsvp')} />
-        </label>
+        <div className="form-group">
+          <label className="control-label">From</label>
+          <input value={from} className="form-control" onChange={(event) => this.handleSetValueWithEvent(event, 'from')} type="datetime-local"/>
+        </div>
+        <div className="form-group">
+          <label className="control-label">To</label>
+          <input value={to} className="form-control" onChange={(event) => this.handleSetValueWithEvent(event, 'to')} type="datetime-local"/>
+        </div>
+        <div className="form-group">
+          <label className="control-label">Organizer</label>
+          <input value={organizer} className="form-control" onChange={(event) => this.handleSetValueWithEvent(event, 'organizer')} />
+        </div>
+        <div className="form-group">
+          <label className="control-label">RSVP-link (optional)</label>
+          <input value={rsvp} className="form-control" onChange={(event) => this.handleSetValueWithEvent(event, 'rsvp')} />
+        </div>
 
-        <label>
-          {/*<input value={location}  onChange={(event) => this.handleSetValueWithEvent(event, 'location')} />*/}
-          Location:
+        <div className="form-group">
+          <label className="control-label">Location</label>
           <Geosuggest
-            initialValue={location.name}
-            onChange={this.onChange}
-            onSuggestSelect={this.handleSelectSuggest}
-            location={new google.maps.LatLng(57.7020124, 11.6135073)} // eslint-disable-line
-            radius={42}
-            autoActivateFirstSuggest={true}
-          />
-        </label>
+              initialValue={location.name}
+              onChange={this.onChange}
+              onSuggestSelect={this.handleSelectSuggest}
+              location={new google.maps.LatLng(57.7020124, 11.6135073)} // eslint-disable-line
+              radius={42}
+              autoActivateFirstSuggest={true}
+            />
+        </div>
       </div>
     );
   },
