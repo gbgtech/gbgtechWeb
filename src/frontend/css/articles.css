@@ -8,7 +8,7 @@ article, .news-article {
 
   small {
     color: $lightGray;
-    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-family: $sans-font;
   }
 
   .article-content {
@@ -56,7 +56,7 @@ article, .news-article {
   .event-partial {
     display: flex;
     flex-direction: column;
-    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-family: $sans-font;
     margin: 0 0.5em 0.5em;
 
     .date-time {

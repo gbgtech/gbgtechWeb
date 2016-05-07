@@ -11,6 +11,9 @@ $mobile-size: 590px;
 $desktop-size: 780px;
 $background-color: white;
 
+$sans-font: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+$display-font: 'Josefin Sans', sans-serif;
+
 @import "index.css";
 @import "header.css";
 @import "admin.css";
@@ -26,7 +29,7 @@ $background-color: white;
 }
 
 html, body { margin: 0 }
-body { font-family: 'Josefin sans', sans-serif }
+body { font-family: $display-font }
 
 ul {
     margin: 0;
