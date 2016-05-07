@@ -31,7 +31,7 @@ const NewsPost = ({ post, user }) => (
     </article>
 );
 
-const renderTimeTag = (date, formatter, className = "") => date && (
+export const renderTimeTag = (date, formatter, className = null) => date && (
     <time dateTime={date} className={className}>{formatter(date)}</time>
 );
 

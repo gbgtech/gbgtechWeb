@@ -45,9 +45,7 @@
 
   h4 {
     margin: 0;
-  }
-  small {
-    font-size: 0.6em
+    margin-top: 0.4em;
   }
 
   .description {

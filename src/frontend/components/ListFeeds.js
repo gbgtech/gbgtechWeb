@@ -15,10 +15,9 @@ const ListFeeds = React.createClass({
   },
   render() {
     const { feeds } = this.state;
-    console.log(feeds);
     return (
-      <div>
-        <Link to={'/feed'}>Add feed</Link>
+      <div className="feeds">
+        <Link to={'/feed'} className="button">Add feed</Link>
 
         {feeds.map(feed => (
           <div className="row">{feed.name}  <Link to={'/feed/'+feed._id+"/edit"}>Edit</Link> </div>

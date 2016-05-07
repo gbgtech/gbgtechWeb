@@ -42,6 +42,11 @@
 $padding-base-vertical: 1em;
 $padding-base-horizontal: 1em;
 
+.feeds {
+  margin-left: $padding-base-horizontal;
+  margin-top: $padding-base-vertical;
+}
+
 .postForm {
   .quill {
     display: flex;
