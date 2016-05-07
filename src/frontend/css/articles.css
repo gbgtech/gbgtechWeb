@@ -14,6 +14,7 @@ article, .news-article {
   .article-content {
     font-family: Georgia, serif;
     margin-left: 0.5em;
+    word-wrap: break-word;
 
     img {
       text-align: center;

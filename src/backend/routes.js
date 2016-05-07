@@ -4,6 +4,7 @@ var CategoriesController = require('./controller/categories');
 var PostsController = require('./controller/posts');
 var FeedController = require('./controller/feed');
 var authRoutes = require('./routes/auth');
+var RssController = require('./controller/rss');
 //var Meetup = require('./providers/meetup');
 
 var hasRole = require('./controller/auth').HasRole;
@@ -32,6 +33,7 @@ module.exports = function(app) {
 
     app.get('/api/reddit', PostsController.postToOutlets);
 
+    app.get('/api/rss', RssController.getFeed);
 
     //Need editor access
     app.get('/api/feeds', hasRole(roles.editor), FeedController.index);

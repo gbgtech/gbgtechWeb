@@ -9,7 +9,6 @@ const ejs      = require('ejs');
 const _        = require('lodash');
 const config   = require('../config/config.js');
 
-const BASE_URL = 'http://localhost:3000';
 const MAILGUN_URL = config.mail.url;
 const AUTH_HEADER = config.mail.key;
 
@@ -71,7 +70,7 @@ function send(options) {
     }
 
     const formParams = {
-      from: options.from || 'tech@gbgtech.co',
+      from: options.from || '#GBGtech <hello@gbgtech.se>',
       to,
       subject: options.subject
     };
@@ -103,7 +102,7 @@ function renderTemplate(filename, params) {
   return ejs.render('<%- include(\'../template/base.ejs\', params) %>',
   {template: filename,
     params: _.assign({}, params, {
-      base_url: BASE_URL
+      base_url: process.env.URL
     })
   },
   {filename: __filename }

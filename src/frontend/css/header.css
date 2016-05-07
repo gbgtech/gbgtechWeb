@@ -1,6 +1,3 @@
-$desktop-size: 768px;
-$background-color: white;
-
 .logo {
     width: 100px;
     height: 40px;
@@ -17,6 +14,7 @@ $background-color: white;
     flex-wrap: wrap;
     justify-content: space-between;
     position: fixed;
+    top: 0;
     z-index: 2;
     background: $background-color;
     width: 100%;
@@ -38,7 +36,7 @@ $background-color: white;
     flex-direction: column;
     position: absolute;
     z-index: 1;
-    top: 0;
+    top: $header-height;
     left: 0;
     background: $background-color;
     box-shadow: 0 1px 2px rgba(00,00,00,0.3);
@@ -104,7 +102,6 @@ $background-color: white;
 
 .link-wrapper {
     width: 100%;
-    position: relative;
     display: flex;
     justify-content: flex-end;
 
@@ -117,4 +114,87 @@ $background-color: white;
             box-shadow: none;
         }
     }
+}
+.shade {
+    background: rgba(10, 10, 10, 0.6);
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+}
+
+.login-box {
+    top: $header-height;
+    right: 0;
+    position: absolute;
+    color: black;
+    background: white;
+    padding: 1em;
+    width: 100%;
+    max-width: 500px;
+    display: flex;
+
+    form {
+        width: 100%;
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        align-items: space-between;
+    }
+
+    .email-row {
+      display: flex;
+      flex-direction: row;
+      margin: 0.5em 0;
+      align-items: center;
+      justify-content: flex-end;
+
+      input {
+        min-width: 100px;
+        flex-grow: 1;
+        margin: 0 .5em;
+        padding-left: .5em;
+        font-size: 1.5rem;
+
+      }
+
+      label {
+        display: flex;
+        align-items: center;
+      }
+
+      input, button, label {
+        height: 47px;
+      }
+
+    }
+  }
+
+.google-signin {
+  background-image: url('/assets/btn_google_dark_normal_ios.svg');
+  background-repeat: no-repeat;
+  background-position: left;
+  background-color: #4285f4;
+  border: none;
+  color: #FFF;
+  background-size: contain;
+  font-size: 1rem;
+  padding: .8em 14px;
+  padding-left: 55px;
+  border-radius: 4px;
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, .25);
+  font-family: 'roboto';
+  min-width: 210px;
+  text-align: center;
+
+  transition: background-color .218s, border-color .218s, box-shadow .218s;
+
+  &:active {
+    background-color: #3367d6;
+  }
+  &:hover {
+    box-shadow: 0 0 3px 3px rgba(66, 133, 244, .3);
+  }
 }

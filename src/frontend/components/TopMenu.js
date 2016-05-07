@@ -11,7 +11,7 @@ import { roles } from '../roles';
 
 const LoginBox = ({complete, mail, onSubmit, onClose, onChangeMail}) => (
   <div className="shade" onClick={onClose}>
-    <div className="login-box">
+    <div className="login-box paper-shadow">
       {complete ? (
         "Thanks! Check your mailbox!"
       ) : (
@@ -21,7 +21,9 @@ const LoginBox = ({complete, mail, onSubmit, onClose, onChangeMail}) => (
             <input type="email" value={mail} onChange={onChangeMail} placeholder="Enter email"/>
             <button className="button">Submit</button>
           </div>
-          <a href="/api/auth/google" className="google-signin">Sign in with Google</a>
+          <div className="email-row">
+            <a href="/api/auth/google" className="google-signin">Sign in with Google</a>
+          </div>
         </form>
       )}
     </div>
@@ -95,7 +97,7 @@ var TopMenu = React.createClass({
         <div className="link-wrapper">
           <ul className={"navigation "+ (navOpen? 'active' : '')}>
             <li><Link to={'/'}>news</Link></li>
-            <li><Link to={'/hubs'}>hubs</Link></li>
+            {/* <li><Link to={'/hubs'}>hubs</Link></li> */}
             {signedIn && <li><Link to={'/post'}>post</Link></li>}
             {signedIn && user.role >= roles.editor && <li><Link to={'/feeds'}>feeds</Link></li>}
             {signedIn && user.role >= roles.editor && <li><Link to={'/admin'}>admin</Link></li>}

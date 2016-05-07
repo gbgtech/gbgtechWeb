@@ -5,9 +5,15 @@ $lightYellow: #fffeee;
 $darkYellow: yellow;
 $hotPink: #ff1493;
 $lightGray: #666;
+$header-height: 55px;
+
+$mobile-size: 590px;
+$desktop-size: 780px;
+$background-color: white;
 
 @import "index.css";
 @import "header.css";
+@import "admin.css";
 @import "hamburger.css";
 @import "articles.css";
 @import "sidebar.css";
@@ -19,10 +25,8 @@ $lightGray: #666;
     box-sizing: border-box;
 }
 
-html,body {
-    margin: 0;
-    font-family: 'Josefin sans', sans-serif;
-}
+html, body { margin: 0 }
+body { font-family: 'Josefin sans', sans-serif }
 
 ul {
     margin: 0;
