@@ -1,4 +1,6 @@
-require('dotenv').config();
+if(process.env.NODE_ENV!="production"){
+  require('dotenv').config();
+}
 var mongoose = require('mongoose');
 var config = require('../config/config');
 var fs = require('fs');

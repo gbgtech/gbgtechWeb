@@ -10,7 +10,9 @@
     "test:ci": "watch 'npm run test' src/",
     "seed": "node ./src/backend/config/seed.js",
     "feeder": "node ./src/backend/commands/runFeeder.js",
-    "outlet:googlecalendar": "node ./src/backend/commands/calendarFetcher.js"
+    "outlet:googlecalendar": "node ./src/backend/commands/calendarProvider.js",
+    "outlet:reddit": "node ./src/backend/commands/redditProvider.js",
+    "outlet:email": "node ./src/backend/commands/emailProvider.js"
   },
   "repository": {
     "type": "git",
