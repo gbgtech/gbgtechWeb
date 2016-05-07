@@ -34,7 +34,7 @@ function index(req, res) {
     }
 
     return Promise.all([
-        Posts.find(filter).sort({ createdAt: -1 }).exec(),
+        Posts.find(filter).sort({ acceptedAt: -1 }).exec(),
         Categories.find().exec()
     ]).then((results) => {
 
@@ -177,7 +177,7 @@ function updateAccepted(req, res){
   const post = req.body;
 
   Posts.findOneAndUpdate({slug}, {
-    $set: {accepted: post.accepted}
+    $set: {accepted: post.accepted,acceptedAt:Date.now()}
   },{new: true},
   (err, updatedPost) => {
     res.json(updatedPost).end()

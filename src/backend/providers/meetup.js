@@ -62,6 +62,7 @@ const transformMeetupEvent = (event, feed) => {
       url: event.event_url
     },
     accepted: feed.acceptedDefault,
+    acceptedAt: (feed.acceptedDefault=="APPROVED"?Date.now():null),
     author: feed.userId,
     title: event.name,
     slug: slugify([
