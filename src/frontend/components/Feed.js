@@ -2,6 +2,30 @@ import React from 'react';
 import {postJson,putJson,get} from '../fetcher';
 import { browserHistory } from 'react-router';
 
+
+const outlets = [
+  {
+    "code": "reddit",
+    "name": "Reddit"
+  },
+  {
+    "code": "email",
+    "name": "Email"
+  },
+  {
+    "code": "twitter",
+    "name": "Twitter"
+  },
+  {
+    "code": "calendar",
+    "name": "Calendar"
+  },
+  {
+    "code": "site",
+    "name": "Publish to newsfeed"
+  }
+]
+
 const feed = React.createClass({
   getInitialState() {
     return {
@@ -9,8 +33,12 @@ const feed = React.createClass({
         name: '',
         uniqueId: '',
         categories: [],
-        vendor:'meetup',
-        acceptedDefault:  'WAITING'
+        vendor: 'meetup',
+        acceptedDefault:  'WAITING',
+        outlets: outlets.map(outlet => ({
+          ...outlet,
+          checked: true
+        }))
       }
     };
   },
@@ -93,59 +121,61 @@ const feed = React.createClass({
     });
   },
   render() {
-    const { categories, name,uniqueId} = this.state.feed;
+    const { acceptedDefault, outlets, categories, name, uniqueId} = this.state.feed;
     return (
-      <section>
+      <section className="feeds">
         <form className="postForm" onSubmit={this.handleSubmit}>
-          <select defaultValue="Meetup"  onChange={(event) => this.handleSetValue(event,'vendor')}>
-            <option value="Meetup">Meetup</option>
-          </select>
-
-          <labels>Name:<input value={name} onChange={(event) => this.handleSetValue(event,'name')} /></labels>
-          <labels>Group name:<input value={uniqueId} onChange={(event) => this.handleSetValue(event,'uniqueId')} /></labels>
-          <ul className="categories row">
-            {categories.map(category => (
-              <li key={category._id}>
-                <label><input type="checkbox" checked={category.checked} onChange={() => this.handleCategoryChecked(category._id)}/>{category.name}</label>
-              </li>
-            ))}
-          </ul>
-          <select defaultValue="WAITING" onChange={(event) => this.handleSetValue(event,'acceptedDefault')} name="acceptedDefault">
-            <option value="DENIED">DENIED</option>
-            <option value="WAITING">WAITING</option>
-            <option value="APPROVED">APPROVED</option>
-          </select>
-          <button className="button">Submit</button>
+          <div className="form-group">
+            <label className="control-label">Vendor</label>
+            <select defaultValue="meetup" onChange={(event) => this.handleSetValue(event,'vendor')}>
+              <option value="meetup">Meetup</option>
+            </select>
+          </div>
+          <div className="form-group">
+            <label className="control-label">Name</label>
+            <input value={name} onChange={(event) => this.handleSetValue(event,'name')} />
+          </div>
+          <div className="form-group">
+            <label className="control-label">Group name:</label>
+            <input value={uniqueId} onChange={(event) => this.handleSetValue(event,'uniqueId')} />
+          </div>
+          <div className="form-group">
+            <label className="control-label">Categories</label>
+            <ul className="categories form-control">
+              {categories.map(category => (
+                <li key={category._id}>
+                  <label>
+                    <input type="checkbox" checked={category.checked} onChange={() => this.handleCategoryChecked(category._id)}/> {category.name}
+                  </label>
+                </li>
+              ))}
+            </ul>
+          </div>
+          <div className="form-group">
+            <label className="control-label">Default accepted status</label>
+            <select value={acceptedDefault} onChange={(event) => this.handleSetValue(event,'acceptedDefault')} name="acceptedDefault">
+              <option value="WAITING">Waiting</option>
+              <option value="APPROVED">Approved</option>
+            </select>
+          </div>
+          <div className="form-group">
+            <label className="control-label">Publish to outlets</label>
+            <ul className="categories form-control">
+              {outlets.map(outlet => (
+                <li key={outlet.code}>
+                  <label>
+                    <input type="checkbox" checked={outlet.checked} onChange={() => this.handleOutletChecked(outlet.code)}/> {outlet.name}
+                  </label>
+                </li>
+              ))}
+            </ul>
+          </div>
+          <div className="form-group">
+            <label className="control-label"></label>
+            <button className="button">Submit</button>
+          </div>
         </form>
       </section>
-    );
-  },
-  renderEventInfo () {
-    const { from, to, organizer, rsvpLink, position } = this.state.post;
-
-    return (
-      <div className="eventInfo">
-        <label>
-          From:
-          <input value={from} onChange={(event) => this.handleSetValue(event, 'from')} type="datetime-local"/>
-        </label>
-        <label>
-          To:
-          <input value={to} onChange={(event) => this.handleSetValue(event, 'to')} type="datetime-local"/>
-        </label>
-        <label>
-          Organizer:
-          <input value={organizer} onChange={(event) => this.handleSetValue(event, 'organizer')} />
-        </label>
-        <label>
-          RSVP-link (optional):
-          <input value={rsvpLink} onChange={(event) => this.handleSetValue(event, 'rsvpLink')} />
-        </label>
-        <label>
-          Position:
-          <input value={position}  onChange={(event) => this.handleSetValue(event, 'position')} />
-        </label>
-      </div>
     );
   }
 });
