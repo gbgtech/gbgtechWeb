@@ -97,7 +97,7 @@ var TopMenu = React.createClass({
         <div className="link-wrapper">
           <ul className={"navigation "+ (navOpen? 'active' : '')}>
             <li><Link to={'/'}>news</Link></li>
-            <li><Link to={'/hubs'}>hubs</Link></li>
+            {/* <li><Link to={'/hubs'}>hubs</Link></li> */}
             {signedIn && <li><Link to={'/post'}>post</Link></li>}
             {signedIn && user.role >= roles.editor && <li><Link to={'/feeds'}>feeds</Link></li>}
             {signedIn && user.role >= roles.editor && <li><Link to={'/admin'}>admin</Link></li>}
