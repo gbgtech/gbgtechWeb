@@ -18,7 +18,7 @@ const LoginBox = ({complete, mail, onSubmit, onClose, onChangeMail}) => (
         <form onSubmit={onSubmit} onClick={e => e.stopPropagation()}>
           <div className="email-row">
             <label>Email:</label>
-            <input type="email" value={mail} onChange={onChangeMail} placeholder="enter email"/>
+            <input type="email" value={mail} onChange={onChangeMail} placeholder="Enter email"/>
             <button className="button">Submit</button>
           </div>
           <a href="/api/auth/google" className="google-signin">Sign in with Google</a>
@@ -100,8 +100,8 @@ var TopMenu = React.createClass({
             {signedIn && user.role >= roles.editor && <li><Link to={'/feeds'}>feeds</Link></li>}
             {signedIn && user.role >= roles.editor && <li><Link to={'/admin'}>admin</Link></li>}
             <li><a href="http://gothenburgstartup.com">gothenburg startup map</a></li>
-            {!signedIn && <li onClick={this.openLoginBox}><a href="#">Login</a></li>}
-            {signedIn && <li onClick={this.handleSignout}><a href="#">Logout</a></li>}
+            {!signedIn && <li onClick={this.openLoginBox}><a href="#">login</a></li>}
+            {signedIn && <li onClick={this.handleSignout}><a href="#">logout</a></li>}
           </ul>
           {loginBoxOpen && (<LoginBox complete={complete} mail={mail} success={success} onSubmit={this.handleSubmit} onClose={this.closeLoginBox} onChangeMail={this.handleChangeMail} />)}
         </div>
