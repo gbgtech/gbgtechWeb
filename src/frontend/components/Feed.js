@@ -9,7 +9,7 @@ const feed = React.createClass({
         name: '',
         uniqueId: '',
         categories: [],
-        vendor:'Meetup',
+        vendor:'meetup',
         acceptedDefault:  'WAITING'
       }
     };
