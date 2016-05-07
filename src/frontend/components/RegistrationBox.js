@@ -1,7 +1,8 @@
 import React from 'react';
 import TwitterButton from './buttons/TwitterButton';
 import RedditButton from './buttons/RedditButton';
-import { get, postJson } from '../fetcher';
+import { get, postJson,putJson } from '../fetcher';
+import { connect } from 'react-redux';
 import swal from '../swal';
 
 const RegistrationBox = React.createClass({
@@ -15,6 +16,8 @@ const RegistrationBox = React.createClass({
   },
   componentDidMount() {
     get('/categories').then(categories => this.setState({categories}));
+
+
   },
   handleCategoryChecked(categoryId) {
     const categories = this.state.categories.map(category => {
@@ -33,8 +36,16 @@ const RegistrationBox = React.createClass({
   openModal(event) {
     event.preventDefault();
 
+
+    let newCategories=this.state.categories.map((category)=>({
+      ...category,
+      checked:this.props.user.subscribedCategories.includes(category._id)
+    }))
+
+
     this.setState({
-      modalOpen: true
+      modalOpen: true,
+      categories:newCategories
     });
   },
   finishRegistration() {
@@ -49,25 +60,39 @@ const RegistrationBox = React.createClass({
       finished: true
     });
   },
+  updateCattegorys(){
+    const { categories } = this.state;
+    const selected = categories.filter(c => c.checked).map(c => c._id);
+    putJson('/users/updateCategories', {categories: selected }).then(res => {
+      console.log(res);
+      swal({type: 'success', title: "Updated", text: ("Updated with categories " + selected.map(c => c.name).join(', '))});
+    });
+    this.setState({
+      finished: true
+    });
+  },
 
   renderModal() {
     const { categories } = this.state;
 
     return (
       <div className="follow-container register modal paper-shadow">
-        <h3>Choose categories that interests you</h3>
-        <div className="categories">
-          <ul>
-            {categories.map(category => (
-              <li key={category._id}>
-                <label><input type="checkbox" checked={category.checked} onChange={() => this.handleCategoryChecked(category._id)}/>{category.name}</label>
-              </li>
-            ))}
-          </ul>
-        </div>
-        <div className="justify-end">
-          <button className="button" onClick={this.finishRegistration}>Sign up</button>
-        </div>
+      <h3>Choose categories that interests you</h3>
+      <div className="categories">
+      <ul>
+      {categories.map(category => (
+        <li key={category._id}>
+        <label><input type="checkbox" checked={category.checked} onChange={() => this.handleCategoryChecked(category._id)}/>{category.name}</label>
+        </li>
+      ))}
+      </ul>
+      </div>
+      <div className="justify-end">
+      {this.props.signedIn ?
+        (<button className="button" onClick={this.updateCattegorys}> update </button>):
+        (<button className="button" onClick={this.finishRegistration}> Sign up</button> )
+      }
+      </div>
       </div>
     );
   },
@@ -85,11 +110,11 @@ const RegistrationBox = React.createClass({
   renderFollowButtons() {
     return (
       <div className="follow paper-shadow">
-        <h3>Follow us on</h3>
-        <div className="follow-us follow-button-row">
-          <TwitterButton />
-          <RedditButton />
-        </div>
+      <h3>Follow us on</h3>
+      <div className="follow-us follow-button-row">
+      <TwitterButton />
+      <RedditButton />
+      </div>
       </div>
     )
   },
@@ -97,22 +122,35 @@ const RegistrationBox = React.createClass({
   renderForm() {
     return (
       <div className="follow-container">
-        <div className="email paper-shadow">
-          <h3>Sign up for our newsfeed</h3>
-          <form className="email-form follow-button-row" onSubmit={this.openModal}>
-            <input type="email"
-                   tabIndex="1"
-                   required={true}
-                   className="main-follow-button"
-                   value={this.state.email}
-                   onChange={this.changeEmail}
-                   placeholder="enter email" />
-            <button className="button main-follow-button">Next</button>
-          </form>
-        </div>
-        {this.renderFollowButtons()}
+
+      {this.renderEmailForm()}
+
+
+
+      {this.renderFollowButtons()}
       </div>
     );
+  },
+  renderEmailForm(){
+    if(this.props.signedIn){
+      return(<div className="email paper-shadow">Check your email preferences <button onClick={this.openModal}> here</button ></div>)
+    }else{
+      return(
+        <div className="email paper-shadow">
+        <h3>Sign up for our newsfeed</h3>
+        <form className="email-form follow-button-row" onSubmit={this.openModal}>
+        <input type="email"
+        tabIndex="1"
+        required={true}
+        className="main-follow-button"
+        value={this.state.email}
+        onChange={this.changeEmail}
+        placeholder="enter email" />
+        <button className="button main-follow-button">Next</button>
+        </form>
+        </div>
+      )
+    }
   },
 
   render() {
@@ -128,4 +166,9 @@ const RegistrationBox = React.createClass({
   }
 });
 
-export default RegistrationBox;
+const mapStateToProps = state => ({
+  signedIn: state.signedIn,
+  user: state.user
+});
+
+export default connect(mapStateToProps)(RegistrationBox);

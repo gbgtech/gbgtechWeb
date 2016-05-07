@@ -1,6 +1,5 @@
 import React from 'react';
 import { get } from '../fetcher';
-import { connect } from 'react-redux';
 
 import NewsPost from './NewsPost';
 import RegistrationBox from './RegistrationBox';
@@ -21,7 +20,7 @@ const NewsPage = React.createClass({
     const { posts } = this.state;
     return (
       <section>
-          {!signedIn && <RegistrationBox />}
+          <RegistrationBox />
         {posts.map(post => (
           <NewsPost key={post._id} post={post}/>
         ))}
@@ -30,8 +29,5 @@ const NewsPage = React.createClass({
   }
 });
 
-const mapStateToProps = state => ({
-  signedIn: state.signedIn
-});
 
-export default connect(mapStateToProps)(NewsPage);
+export default NewsPage;

@@ -6,16 +6,23 @@ var Users = mongoose.model('Users');
 
 module.exports = {
     create: create,
-    me: me
+    me: me,
+    updateCategories:updateCategories
 };
 
 function me(req, res) {
   var u = req.user;
   u.providers = undefined;
-  
+
   return res.send(u);
 }
-
+function updateCategories(req, res) {
+    req.user.subscribedCategories=req.body.categories;
+    console.log("req.categories: "+req.body.categories);
+    req.user.save();
+    res.status(201).json(req.user);
+    res.end();
+}
 
 function create(req, res) {
     var userData = req.body;

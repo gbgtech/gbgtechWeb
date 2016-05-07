@@ -19,6 +19,7 @@ module.exports = function(app) {
     app.get('/api/users/me', hasRole(roles.user), UsersController.me);
 
     app.post('/api/users/create', UsersController.create);
+    app.put('/api/users/updateCategories', UsersController.updateCategories);
 
     app.get('/api/categories', CategoriesController.index);
 
