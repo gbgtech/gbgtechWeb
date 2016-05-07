@@ -15,7 +15,7 @@ const initialState = {
 };
 
 const reducePosts = (state, posts) => posts.reduce((acc, post) => {
-  acc[post._id] = post;
+  acc[post.slug] = post;
   return acc;
 }, state)
 
@@ -36,7 +36,7 @@ const appReducer = (state = initialState, action) => {
       posts: reducePosts(state.posts, [action.post])
     }
   case RECEIVE_POSTS:
-    const postsOrder = action.posts.map(p => p._id)
+    const postsOrder = action.posts.map(p => p.slug)
     return {
       ...state,
       postsOrder,

@@ -1,26 +1,25 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+
+
 import { get } from '../fetcher';
 
 import NewsPost from './NewsPost';
 import RegistrationBox from './RegistrationBox';
 
+import * as actions from '../store/actions';
+
 
 const NewsPage = React.createClass({
-  getInitialState() {
-    return {
-      posts: []
-    };
-  },
   componentWillMount() {
-    get('/posts').then(posts => this.setState({ posts }));
+    this.props.requestPosts();
   },
-
   render() {
-    const { signedIn } = this.props;
-    const { posts } = this.state;
+    const { posts } = this.props;
     return (
       <section>
-          <RegistrationBox />
+        <RegistrationBox />
         {posts.map(post => (
           <NewsPost key={post._id} post={post}/>
         ))}
@@ -29,5 +28,16 @@ const NewsPage = React.createClass({
   }
 });
 
+const mapStateToProps = (state, props) => {
+  const { postsOrder, posts } = state;
+  return {
+    order: postsOrder,
+    posts: postsOrder.map(id => posts[id])
+  }
+}
 
-export default NewsPage;
+
+export default connect(
+  mapStateToProps,
+  dispatch => bindActionCreators(actions, dispatch)
+)(NewsPage);

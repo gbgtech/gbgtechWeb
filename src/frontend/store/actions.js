@@ -29,7 +29,7 @@ export const requestPosts = () => {
       .then(posts => dispatch(receivePosts(posts)))
       .catch(error => dispatch(receivePostsError(error)))
   }
-);
+};
 
 export const receivePosts = (posts) => ({
   type: RECEIVE_POSTS,
