@@ -32,7 +32,7 @@ function fetchMeetupEvents() {
     .flatMap(feed => Bacon
       .fromPromise(fetchEvents(feed))
       .flatMap(group => Bacon.fromArray(group.results))
-      .map(result => transformMeetupEvent(result, feed))
+      .flatMap(result => Bacon.fromPromise(transformMeetupEvent(result, feed)))
       .flatMap(event => Bacon.fromNodeCallback(transformToUpsert, event))
     )
   })
@@ -53,16 +53,14 @@ const transformToUpsert = (event, nodeCallback) => Posts.findOneAndUpdate({
 
 
 const transformMeetupEvent = (event, feed) => {
-
-  return {
+  console.log("transformMeetupEvent");
+  var newPost={
     origin: {
       updatedAt: event.updated,
       provider: 'meetup',
       id: event.id,
       url: event.event_url
     },
-    accepted: feed.acceptedDefault,
-    acceptedAt: (feed.acceptedDefault=="APPROVED"?Date.now():null),
     author: feed.userId,
     title: event.name,
     slug: slugify([
@@ -71,7 +69,6 @@ const transformMeetupEvent = (event, feed) => {
       event.name
     ].join(' ')),
     body: event.description,
-    categories: feed.categories,
     eventData: {
       from: event.time,
       to: ((event.duration && event.time + event.duration) || (event.time + 3600000)),
@@ -82,10 +79,32 @@ const transformMeetupEvent = (event, feed) => {
         lng: event.venue.lon,
         name: [event.venue.name, event.venue.address_1].join(', ')
       }
-    },
-    outlet:  feed.defaultBlockedOutlets.map((blockedOutlet) => ({
-        name:blockedOutlet,
-        blockedFromOutlet:true
-    }))
+    }
+
   };
+  return new Promise(function(resolve, reject) {//This one check if it updates och create new events
+    Posts.findOne({
+      $and: [
+        {"origin.provider": newPost.origin.provider},
+        {"origin.id": newPost.origin.id}
+      ]
+    },function(err,res) {
+      console.log("foundOne");
+      console.log(res);
+      if(!res){
+        newPost.categories=feed.categories;
+        newPost.accepted= feed.acceptedDefault;
+        newPost.acceptedAt=(feed.acceptedDefault=="APPROVED"?Date.now():null);
+
+        newPost.outlet=  feed.defaultBlockedOutlets.map((blockedOutlet) => ({
+          name:blockedOutlet,
+          blockedFromOutlet:true
+        }))
+      }
+      resolve(newPost);
+    })
+  }).catch(function (err) {
+    console.error(err);
+  });
+
 }
