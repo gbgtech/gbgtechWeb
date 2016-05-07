@@ -33,7 +33,7 @@ const NewsPage = React.createClass({
 
     return (
       <section>
-        <NewsPost key={post._id} post={post}/>
+        <NewsPost showFull={true} key={post._id} post={post}/>
       </section>
     );
   }

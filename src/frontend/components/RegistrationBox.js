@@ -122,11 +122,7 @@ const RegistrationBox = React.createClass({
   renderForm() {
     return (
       <div className="follow-container">
-
       {this.renderEmailForm()}
-
-
-
       {this.renderFollowButtons()}
       </div>
     );
