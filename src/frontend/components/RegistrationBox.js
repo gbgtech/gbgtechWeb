@@ -65,7 +65,7 @@ const RegistrationBox = React.createClass({
     const selected = categories.filter(c => c.checked).map(c => c._id);
     putJson('/users/updateCategories', {categories: selected }).then(res => {
       console.log(res);
-      swal({type: 'success', title: "Updated", text: ("Updated with categories " + selected.map(c => c.name).join(', '))});
+      swal({type: 'success', title: "Updated", text: ("Updated with categories")});
     });
     this.setState({
       finished: true
