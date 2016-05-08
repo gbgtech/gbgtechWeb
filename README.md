@@ -15,7 +15,7 @@ This is the website for gbgtech.co
 * `npm run seed` 
    * for seeding th mongoDB
 * Copy /.env.template to .env and add keys(ask someone or fetch your own).
-* `npm start`
+* `npm run start-dev`
     * Starts live reload on frontend and backend.
 
 
