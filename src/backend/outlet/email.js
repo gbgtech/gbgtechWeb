@@ -70,7 +70,7 @@ function send(options) {
     }
 
     const formParams = {
-      from: options.from || '#GBGtech <hello@gbgtech.se>',
+      from: options.from || '#gbgtech <hello@gbgtech.se>',
       to,
       subject: options.subject
     };

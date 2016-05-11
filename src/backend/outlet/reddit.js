@@ -27,9 +27,7 @@ function postEvents(events) {
         _(events).forEach((event) => {
           prommessList.push(postAEvent(event));
         });
-        Promise.all(prommessList).then(()=>{
-          resolve();
-        });
+        Promise.all(prommessList).then(resolve);
       }
     });
   });
@@ -37,8 +35,6 @@ function postEvents(events) {
 
 function postAEvent(event) {
   return new Promise(function(resolve, reject) {
-
-    console.log("event",event)
     var post={r:"gbgtech",url:config.url+"/news/"+event.slug,title:event.title};
 
     reddit.submit(post,function(err,id) {

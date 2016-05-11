@@ -15,13 +15,14 @@ module.exports = {
   resetAll
 };
 
-const createJWTClient = () => new google.auth.JWT(
+const createJWTClient = () => {
+  return new google.auth.JWT(
   config.googlecalendar.calendarEmail,
   null,
   config.googlecalendar.apiKey.replace(/\\n/g, "\n"),
   ['https://www.googleapis.com/auth/calendar'],
   null
-);
+)};
 
 const createGoogleCalendarEventFromPost = (post) => ({
   summary: post.title,
@@ -97,16 +98,14 @@ function resetAll() {
   return new Promise((resolve, reject)=>{
     const jwtClient = createJWTClient();
     var listAll=listAllEvents(jwtClient);
+    console.log("listall",listAll)
     listAll.then(totEvents =>{
       limitGoogleRequests(totEvents,deleteEvent.bind(this,jwtClient),resolve);
     })
 });
 }
 const listAllEvents = (jwtClient,nextPage) => {
-  console.log("listAllEvents: ");
   return new Promise((resolve, reject) => {
-
-
     calendar.events.list({
       auth: jwtClient,
       calendarId: config.googlecalendar.calendarId,
@@ -144,7 +143,6 @@ function limitGoogleRequests(arrayObj,f,callback){
   if(arrayObj.length%10==0){
     console.log(arrayObj.length);
   }
-
 
   var event=arrayObj.pop();
   var retriesDone=0;

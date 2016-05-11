@@ -16,6 +16,9 @@ Bacon.fromNodeCallback(mongoose, 'connect', config.db).onValue(() => {
   var email = require('../outlet/email');
 
   const postStream = Posts.find({ eventData: { $ne: null },accepted:"APPROVED" }).then(res=>{
-    email.sendToSubscribers(res.filter(currentFilter)).then(()=>{console.log("close mongose");mongoose.connection.close()})
+    email.sendToSubscribers(res.filter(currentFilter)).then(()=>{
+      console.log("close mongose");
+      mongoose.connection.close()
+    })
   });
 });

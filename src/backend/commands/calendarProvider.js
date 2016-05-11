@@ -26,11 +26,8 @@ Bacon.fromNodeCallback(mongoose, 'connect', config.db).onValue(() => {
 
 
   if(process.argv[2]=="--resset"){
-    //console.log("resseting");
     calendar.resetAll().then(() => {
-      const postStream = Posts.find({ eventData: { $ne: null } }).then(res=>{
-      //  console.log("add postEvent");
-
+      const postStream = Posts.find({ eventData: { $ne: null },accepted:"APPROVED"}).then(res=>{
         calendar.postEvents(res).then(()=>{
           console.log("close mongose");mongoose.connection.close()
         })
@@ -40,7 +37,6 @@ Bacon.fromNodeCallback(mongoose, 'connect', config.db).onValue(() => {
     let currentFilter = p => !_(p.outlets).some({name: 'googlecalendar'});
 
     const postStream = Posts.find({ eventData: { $ne: null },accepted:"APPROVED" }).then(res=>{
-      console.log(res);
       calendar.postEvents(res.filter(currentFilter)).then(()=>{console.log("close mongose");mongoose.connection.close()})
     });
   }
