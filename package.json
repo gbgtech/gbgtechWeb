@@ -72,6 +72,7 @@
     "passport-google-oauth": "^1.0.0",
     "passport-local": "^1.0.0",
     "postcss-import": "^8.1.0",
+    "postcss-inline-svg": "^1.4.0",
     "postcss-loader": "~0.8.0",
     "precss": "~1.4.0",
     "promise-retry": "^1.1.0",

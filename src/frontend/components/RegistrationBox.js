@@ -2,6 +2,7 @@ import React from 'react';
 import TwitterButton from './buttons/TwitterButton';
 import RedditButton from './buttons/RedditButton';
 import RssButton from './buttons/RssButton';
+import GCalendarButton from './buttons/GCalendarButton';
 import { get, postJson,putJson } from '../fetcher';
 import { connect } from 'react-redux';
 import swal from '../swal';
@@ -111,12 +112,13 @@ const RegistrationBox = React.createClass({
   renderFollowButtons() {
     return (
       <div className="follow paper-shadow">
-      <h3>Follow us on</h3>
-      <div className="follow-us follow-button-row">
-      <TwitterButton />
-      <RedditButton />
-      <RssButton />
-      </div>
+        <h3>Follow us on</h3>
+        <div className="follow-us follow-button-row">
+          <TwitterButton />
+          <RedditButton />
+          <RssButton />
+          <GCalendarButton />
+        </div>
       </div>
     )
   },
