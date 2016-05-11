@@ -40,7 +40,7 @@ function getFeed(req, res) {
           const xml = feed.xml({indent: true});
           return res.send(xml).end();
       });
-  }).catch((err) => handleError(err, res));
+  }).catch((err) => console.error(err));
 }
 
 function createItem(post) {
@@ -49,8 +49,7 @@ function createItem(post) {
     description:  post.body,
     url:          post.outlets.url,
     guid:         post._id,
-    categories:   post.categories,
-    author:       post.author,
+    categories:   post.categories.map(c => c.name),
     date:         post.createdAt,
   }
   if (post.eventData) {
