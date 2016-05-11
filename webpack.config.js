@@ -4,6 +4,8 @@ var lost          = require('lost');
 var webpack       = require('webpack');
 var postcssimport = require('postcss-import');
 
+var production = "production" === process.env.NODE_ENV;
+
 module.exports = {
   entry: [
     './src/frontend/index',
@@ -63,5 +65,9 @@ module.exports = {
     new webpack.ProvidePlugin({
       'fetch': 'imports?this=>global!exports?global.fetch!whatwg-fetch'
     }),
+    new webpack.DefinePlugin({
+       __DEV__: !production,
+       'process.env.NODE_ENV': '"' + process.env.NODE_ENV + '"'
+    })
   ]
 };
