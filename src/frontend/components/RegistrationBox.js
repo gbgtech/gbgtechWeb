@@ -16,8 +16,6 @@ const RegistrationBox = React.createClass({
   },
   componentDidMount() {
     get('/categories').then(categories => this.setState({categories}));
-
-
   },
   handleCategoryChecked(categoryId) {
     const categories = this.state.categories.map(category => {
@@ -35,12 +33,15 @@ const RegistrationBox = React.createClass({
   },
   openModal(event) {
     event.preventDefault();
-
-
-    let newCategories=this.state.categories.map((category)=>({
-      ...category,
-      checked:this.props.user.subscribedCategories.includes(category._id)
-    }))
+    let newCategories;
+    if(this.props.user){
+      newCategories=this.state.categories.map((category)=>({
+        ...category,
+        checked:this.props.user.subscribedCategories.includes(category._id)
+      }))
+    }else{
+      newCategories=this.state.categories;
+    }
 
 
     this.setState({
