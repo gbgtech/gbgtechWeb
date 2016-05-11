@@ -5,6 +5,10 @@ var webpack       = require('webpack');
 var postcssimport = require('postcss-import');
 var inlinesvg     = require('postcss-inline-svg');
 
+if(process.env.NODE_ENV!="production"){
+  require('dotenv').config();
+}
+
 var production = "production" === process.env.NODE_ENV;
 
 var entry = ['./src/frontend/index'];
@@ -79,7 +83,8 @@ module.exports = {
     }),
     new webpack.DefinePlugin({
        __DEV__: !production,
-       'process.env.NODE_ENV': '"' + process.env.NODE_ENV + '"'
+       'NODE_ENV': '"' + process.env.NODE_ENV + '"',
+       'GOOGLECALENDAR_ID': '"' + process.env.GOOGLECALENDAR_ID + '"'
     })
   ]
 };

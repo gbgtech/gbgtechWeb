@@ -20,6 +20,9 @@
         ],
         "react/jsx-uses-react": 1
     },
+    "globals": {
+        "GOOGLECALENDAR_ID": false
+    },
     "env": {
         "es6": true,
         "node": true,
