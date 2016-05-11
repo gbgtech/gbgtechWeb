@@ -26,7 +26,6 @@ function getFeed(req, res) {
       return Users.find({_id: {$in: userIds}}).exec().then((users) => {
           posts = posts.map((post) => PostsController.decoratePost(post, users, categories));
 
-          process.env.URL
           let feed = new RSS({
             title: "GBGtech",
             description: "Tech community announcements in Gothenburg.",
