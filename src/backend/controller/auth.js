@@ -66,7 +66,7 @@ var signinEmail = function(req, res, next) {
 
 var signout = function(req, res) {
   req.logout();
-  res.redirect('/');
+  res.end("{}");
 }
 
 var roles = {

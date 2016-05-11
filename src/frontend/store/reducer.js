@@ -29,7 +29,11 @@ const appReducer = (state = initialState, action) => {
     };
 
   case SET_SIGNED_OUT:
-    return initialState;
+    return {
+      ...state,
+      signedIn: false,
+      user: null
+    };
   case RECEIVE_POST:
     return {
       ...state,
