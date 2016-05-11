@@ -109,7 +109,7 @@ const RegistrationBox = React.createClass({
       <div className="follow paper-shadow">
         <h3>Follow us on</h3>
         <div className="follow-us follow-button-row">
-          <TwitterButton />
+          {/* <TwitterButton /> */}
           <RedditButton />
           <RssButton />
           <GCalendarButton />
