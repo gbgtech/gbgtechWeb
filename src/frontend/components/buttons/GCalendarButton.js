@@ -4,6 +4,6 @@ const GoogleCalendarButton = () => {
   return (
     <a href="" className="main-follow-button calendar-btn" />
   );
-}
+};
 
-export default GoogleCalendarButton
+export default GoogleCalendarButton;

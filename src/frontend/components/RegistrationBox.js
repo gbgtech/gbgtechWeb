@@ -40,7 +40,7 @@ const RegistrationBox = React.createClass({
       newCategories=this.state.categories.map((category)=>({
         ...category,
         checked:this.props.user.subscribedCategories.includes(category._id)
-      }))
+      }));
     }else{
       newCategories=this.state.categories;
     }
@@ -56,7 +56,6 @@ const RegistrationBox = React.createClass({
     const selected = categories.filter(c => c.checked).map(c => c._id);
 
     postJson('/users/create', { email, categories: selected }).then(res => {
-      console.log(res);
       swal({type: 'success', title: "Thanks man! 👊", text: (email + " registered with categories " + selected.map(c => c.name).join(', '))});
     });
     this.setState({
@@ -67,7 +66,6 @@ const RegistrationBox = React.createClass({
     const { categories } = this.state;
     const selected = categories.filter(c => c.checked).map(c => c._id);
     putJson('/users/updateCategories', {categories: selected }).then(res => {
-      console.log(res);
       swal({type: 'success', title: "Updated", text: ("Updated with categories")});
     });
     this.setState({
@@ -123,7 +121,6 @@ const RegistrationBox = React.createClass({
       </div>
     )
   },
-
   renderForm() {
     return (
       <div className="follow-container">
