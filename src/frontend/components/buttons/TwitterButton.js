@@ -3,10 +3,11 @@ import React from 'react';
 const TwitterButton = React.createClass({
   render() {
     return (
-      <a data-show-count="false"
-         className="twitter-follow-button main-follow-button"
-         href="https://twitter.com/gbgtech"
-         data-size="large"/>
+      <div className="twitter main-follow-button">
+        <a href="https://twitter.com/gbgtech">
+          <i />
+        </a>
+      </div>
     );
   }
 });
