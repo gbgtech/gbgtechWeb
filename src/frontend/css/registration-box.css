@@ -21,10 +21,12 @@
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    flex: 1;
+    flex: 1 0;
 
     h3 { margin: 0 }
   }
+
+  .email { flex-basis: 60%; }
 
   > div {
     margin-left: 1em;
