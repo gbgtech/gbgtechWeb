@@ -35,20 +35,16 @@ const RegistrationBox = React.createClass({
   },
   openModal(event) {
     event.preventDefault();
-    let newCategories;
-    if(this.props.user){
-      newCategories=this.state.categories.map((category)=>({
-        ...category,
-        checked:this.props.user.subscribedCategories.includes(category._id)
-      }));
-    }else{
-      newCategories=this.state.categories;
-    }
+
+    const newCategories=this.state.categories.map((category)=>({
+      ...category,
+      checked: this.props.user && this.props.user.subscribedCategories.includes(category._id)
+    }))
 
 
     this.setState({
       modalOpen: true,
-      categories:newCategories
+      categories: newCategories
     });
   },
   finishRegistration() {
