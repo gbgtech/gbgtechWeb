@@ -83,7 +83,7 @@ module.exports = {
     }),
     new webpack.DefinePlugin({
        __DEV__: !production,
-       'NODE_ENV': '"' + process.env.NODE_ENV + '"',
+       'process.env.NODE_ENV': '"' + process.env.NODE_ENV + '"',
        'GOOGLECALENDAR_ID': '"' + process.env.GOOGLECALENDAR_ID + '"'
     })
   ]
