@@ -2,6 +2,7 @@
 
 var mongoose = require('mongoose');
 var slugify = require('speakingurl');
+var moment = require('moment');
 
 var Posts = mongoose.model('Posts');
 var Categories = mongoose.model('Categories');
@@ -98,11 +99,12 @@ function listEvents(req, res) {
   var filter = {
     eventData: {$ne:null},
     accepted: 'APPROVED',
-    "eventData.from": {$gt:new Date()}
+    "eventData.from": { $gt: moment().startOf('day').toDate() },
+    "eventData.from": { $lt: moment().add(7, 'days').toDate() }
   };
 
   return Promise.all([
-      Posts.find(filter).sort({ "eventData.from": 1 }).limit(5).exec(),
+      Posts.find(filter).sort({ "eventData.from": 1 }).limit(20).exec(),
       Categories.find().exec()
   ]).then((results) => {
 
