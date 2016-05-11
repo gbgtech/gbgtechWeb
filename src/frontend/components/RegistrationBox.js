@@ -39,7 +39,7 @@ const RegistrationBox = React.createClass({
     const newCategories=this.state.categories.map((category)=>({
       ...category,
       checked: this.props.user && this.props.user.subscribedCategories.includes(category._id)
-    }))
+    }));
 
 
     this.setState({
@@ -51,7 +51,7 @@ const RegistrationBox = React.createClass({
     const { email, categories } = this.state;
     const selected = categories.filter(c => c.checked).map(c => c._id);
 
-    postJson('/users/create', { email, categories: selected }).then(res => {
+    postJson('/users/create', { email, categories: selected }).then(() => {
       swal({type: 'success', title: "Thanks man! 👊", text: (email + " registered with categories " + selected.map(c => c.name).join(', '))});
     });
     this.setState({
@@ -61,7 +61,7 @@ const RegistrationBox = React.createClass({
   updateCattegorys(){
     const { categories } = this.state;
     const selected = categories.filter(c => c.checked).map(c => c._id);
-    putJson('/users/updateCategories', {categories: selected }).then(res => {
+    putJson('/users/updateCategories', {categories: selected }).then(() => {
       swal({type: 'success', title: "Updated", text: ("Updated with categories")});
     });
     this.setState({
@@ -115,7 +115,7 @@ const RegistrationBox = React.createClass({
           <GCalendarButton />
         </div>
       </div>
-    )
+    );
   },
   renderForm() {
     return (
@@ -134,7 +134,7 @@ const RegistrationBox = React.createClass({
             <button className="edit-button button main-follow-button" onClick={this.openModal}>Edit</button>
           </div>
         </div>
-      )
+      );
     } else {
       return(
         <div className="email paper-shadow">
@@ -150,7 +150,7 @@ const RegistrationBox = React.createClass({
         <button className="button main-follow-button">Next</button>
         </form>
         </div>
-      )
+      );
     }
   },
 

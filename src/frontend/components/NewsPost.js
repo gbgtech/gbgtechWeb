@@ -6,7 +6,7 @@ import moment from 'moment';
 
 import Clock from "./Clock";
 
-import { formatDate, formatDateTime, formatDateHuman, formatTime } from '../formatter';
+import {formatDateTime, formatDateHuman, formatTime } from '../formatter';
 import { roles } from '../roles';
 
 const userCanEditPost = (user, post) => {
@@ -28,12 +28,12 @@ const NewsPost =React.createClass({
         if(innerHTMLDomNode.offsetHeight>=1000){
           this.setState({toLong:true});
         }
-      }
+      };
       var divs=innerHTMLDomNode.querySelectorAll('img');
       [...divs].forEach((div)=> {
         div.onload = ()=>{
           div.onload=null;
-          testSize()
+          testSize();
         };
       });
       testSize();
@@ -61,9 +61,9 @@ const NewsPost =React.createClass({
         {post.eventData && <hr/>}
         {post.eventData && <EventsPartial {...post.eventData} />}
       </article>
-    )
+    );
   }
-})
+});
 
 export const renderTimeTag = (date, formatter, className = null) => date && (
   <time dateTime={date} className={className}>{formatter(date)}</time>
