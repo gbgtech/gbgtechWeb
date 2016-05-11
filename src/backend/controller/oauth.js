@@ -64,8 +64,6 @@ exports.saveOAuthUserProfile = function(req, profile, done) {
           }
         });
       } else { // Found user with provider
-        console.log("User found with provider "+ provider);
-        console.log(user);
         done(err, user);
       }
     }
