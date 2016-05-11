@@ -7,11 +7,16 @@ var inlinesvg     = require('postcss-inline-svg');
 
 var production = "production" === process.env.NODE_ENV;
 
-module.exports = {
-  entry: [
-    './src/frontend/index',
+var entry = ['./src/frontend/index'];
+if (!production) {
+  entry = [
+    'webpack-dev-server/client?http://0.0.0.0:3000',
     'webpack/hot/dev-server'
-  ],
+  ].concat(entry);
+}
+
+module.exports = {
+  entry: entry,
   devtool: 'source-map',
   output: {
     path: __dirname + '/public/build',
