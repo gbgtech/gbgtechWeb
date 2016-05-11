@@ -17,7 +17,7 @@ Bacon.fromNodeCallback(mongoose, 'connect', config.db).onValue(() => {
 
   const postStream = Posts.find({ eventData: { $ne: null },accepted:"APPROVED" }).then(res=>{
     //console.log(res);
-    reddit.postEvents(res).then(()=>{
+    reddit.postEvents(res.filter(currentFilter)).then(()=>{
       console.log("close mongose");
       mongoose.connection.close();
       process.exit()
