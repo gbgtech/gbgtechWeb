@@ -136,7 +136,9 @@ const RegistrationBox = React.createClass({
       return (
         <div className="email paper-shadow">
           <h3>Email preferences</h3>
-          <button className="button main-follow-button" onClick={this.openModal}>Edit</button>
+          <div className="row">
+            <button className="edit-button button main-follow-button" onClick={this.openModal}>Edit</button>
+          </div>
         </div>
       )
     } else {
