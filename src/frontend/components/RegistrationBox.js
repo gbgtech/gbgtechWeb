@@ -1,6 +1,7 @@
 import React from 'react';
 import TwitterButton from './buttons/TwitterButton';
 import RedditButton from './buttons/RedditButton';
+import RssButton from './buttons/RssButton';
 import { get, postJson,putJson } from '../fetcher';
 import { connect } from 'react-redux';
 import swal from '../swal';
@@ -114,6 +115,7 @@ const RegistrationBox = React.createClass({
       <div className="follow-us follow-button-row">
       <TwitterButton />
       <RedditButton />
+      <RssButton />
       </div>
       </div>
     )
