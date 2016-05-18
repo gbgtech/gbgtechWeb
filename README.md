@@ -1,9 +1,9 @@
-# gbgtech.co
+# gbgtech.se
 
 [![Join the chat at https://gitter.im/gbgtech/gbgtechWeb](https://badges.gitter.im/gbgtech/gbgtechWeb.svg)](https://gitter.im/gbgtech/gbgtechWeb?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
 ## What is this?
-This is the website for gbgtech.co
+This is the website for gbgtech.se
 
 ## Required
 * node
