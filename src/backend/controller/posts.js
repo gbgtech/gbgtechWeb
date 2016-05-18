@@ -99,8 +99,7 @@ function listEvents(req, res) {
   var filter = {
     eventData: {$ne:null},
     accepted: 'APPROVED',
-    "eventData.from": { $gt: moment().startOf('day').toDate() },
-    "eventData.from": { $lt: moment().add(7, 'days').toDate() }
+    "eventData.from": { $gt: moment().startOf('day').toDate(), $lt: moment().add(7, 'days').toDate()},
   };
 
   return Promise.all([
