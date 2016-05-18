@@ -19,7 +19,7 @@ const LoginBox = ({complete, mail, onSubmit, onClose, onChangeMail}) => (
           <div className="email-row">
             <label>Email:</label>
             <input type="email" value={mail} onChange={onChangeMail} placeholder="Enter email"/>
-            <button className="button">Submit</button>
+            <button className="button" onClick={onSubmit}>Submit</button>
           </div>
           <div className="email-row">
             <a href="/api/auth/google" className="google-signin">Sign in with Google</a>
