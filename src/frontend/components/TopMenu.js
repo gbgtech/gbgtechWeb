@@ -9,7 +9,7 @@ import { roles } from '../roles';
 
 
 
-const LoginBox = ({complete, mail, onSubmit, onClose, onChangeMail}) => (
+const LoginBox = ({complete, error, mail, onSubmit, onClose, onChangeMail}) => (
   <div className="shade" onClick={onClose}>
     <div className="login-box paper-shadow">
       {complete ? (
@@ -18,8 +18,9 @@ const LoginBox = ({complete, mail, onSubmit, onClose, onChangeMail}) => (
         <form onSubmit={onSubmit} onClick={e => e.stopPropagation()}>
           <div className="email-row">
             <label>Email:</label>
-            <input type="email" value={mail} onChange={onChangeMail} placeholder="Enter email"/>
-            <button className="button">Submit</button>
+            <input type="email" value={mail} onChange={onChangeMail} placeholder="Enter email"
+              className={error ? 'validation-error' : ''} />
+            <button className="button" onClick={onSubmit}>Submit</button>
           </div>
           <div className="email-row">
             <a href="/api/auth/google" className="google-signin">Sign in with Google</a>
@@ -71,6 +72,10 @@ var TopMenu = React.createClass({
           failed: false,
           complete: true
         });
+      } else {
+        this.setState({
+          failed: true
+        });
       }
     });
   },
@@ -82,7 +87,7 @@ var TopMenu = React.createClass({
   render() {
     const { signedIn,user } = this.props;
 
-    const { loginBoxOpen, complete, success, mail,navOpen } = this.state;
+    const { loginBoxOpen, complete, success, mail, navOpen, failed} = this.state;
 
     return (
       <nav className="main-navigation">
@@ -105,7 +110,7 @@ var TopMenu = React.createClass({
             {!signedIn && <li onClick={this.openLoginBox}><a href="#">login</a></li>}
             {signedIn && <li onClick={this.handleSignout}><a href="#">logout</a></li>}
           </ul>
-          {loginBoxOpen && (<LoginBox complete={complete} mail={mail} success={success} onSubmit={this.handleSubmit} onClose={this.closeLoginBox} onChangeMail={this.handleChangeMail} />)}
+          {loginBoxOpen && (<LoginBox complete={complete} mail={mail} success={success} error={failed} onSubmit={this.handleSubmit} onClose={this.closeLoginBox} onChangeMail={this.handleChangeMail} />)}
         </div>
       </nav>
     );
