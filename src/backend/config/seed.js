@@ -122,6 +122,14 @@ var data = {
         acceptedDefault:'WAITING',
         uniqueId:'Goteborg-Startup-Founder-101',
         vendor:"meetup"
+      },
+      'f8':{
+        userId: '->users.bark',
+        categories: ['->categories.c4'],
+        name:"Startup pingpong",
+        acceptedDefault:'WAITING',
+        uniqueId:'1413909182196557',
+        vendor:"facebook"
       }
     },
 };

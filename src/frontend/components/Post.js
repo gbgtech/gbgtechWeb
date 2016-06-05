@@ -5,6 +5,8 @@ import { browserHistory } from 'react-router';
 import moment from 'moment';
 import Geosuggest from 'react-geosuggest';
 import swal from '../swal';
+var {GooglePlacesAutocomplete} = require('react-native-google-places-autocomplete');
+
 
 const formatDate = (momentDate = moment()) => moment(momentDate).format('YYYY-MM-DDTHH:mm');
 

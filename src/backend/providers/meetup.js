@@ -14,7 +14,7 @@ const Headers = fetch.Headers;
 
 
 module.exports = {
-  fetchMeetupEvents
+  fetchEvents
 };
 
 
@@ -22,7 +22,7 @@ const fetchEvents = (feed) =>//promess()
 fetch(`https://api.meetup.com/2/events?key=${config.meetup.apiKey}&group_urlname=${feed.uniqueId}`)
 .then(res => res.json());
 
-function fetchMeetupEvents() {
+function fetchEvents() {
   return Bacon
   .fromPromise(Feeds.find({ vendor: 'meetup' }))
   .flatMap(feeds => {

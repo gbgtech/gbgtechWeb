@@ -53,6 +53,7 @@
     "exports-loader": "~0.6.2",
     "express": "^4.13.3",
     "express-session": "^1.13.0",
+    "fb": "^1.1.0",
     "form-data": "^1.0.0-rc3",
     "glob": "^6.0.4",
     "googleapis": "~2.1.7",
