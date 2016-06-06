@@ -8,7 +8,7 @@ module.exports = {
 
 //list my FeedCollectors
 function index(req, res) {
-  Feeds.find({"userId":req.user}).then(data =>
+  Feeds.find({}).then(data =>
       res.json(data).end()
   );
 }
