@@ -126,5 +126,10 @@ article, .news-article {
       background-image: url(/assets/meetup.svg);
       background-size: 100%;
     }
+
+    &.facebook {
+      background-image: url(/assets/facebook.png);
+      background-size: 100%;
+    }
   }
 }
