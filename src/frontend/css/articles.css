@@ -129,7 +129,7 @@ article, .news-article {
 
     &.facebook {
       background-image: url(/assets/facebook.png);
-      background-size: 100%;
+      background-size: 60%;
     }
   }
 }
