@@ -71,6 +71,10 @@ const feed = React.createClass({
           categories: categories.map(category => ({
             ...category,
             checked: feed.categories.includes(category._id)
+          })),
+          outlets: outlets.map(outlet => ({
+            ...outlet,
+            checked: true
           }))
         }
         });
