@@ -26,6 +26,11 @@ const outlets = [
   }
 ]
 
+const groupLabel = {
+  meetup: 'Group name',
+  facebook: 'Page id'
+}
+
 const feed = React.createClass({
   getInitialState() {
     return {
@@ -125,7 +130,7 @@ const feed = React.createClass({
     });
   },
   render() {
-    const { acceptedDefault, outlets, categories, name, uniqueId} = this.state.feed;
+    const { vendor, acceptedDefault, outlets, categories, name, uniqueId} = this.state.feed;
     return (
       <section className="feeds">
         <form className="postForm" onSubmit={this.handleSubmit}>
@@ -133,6 +138,7 @@ const feed = React.createClass({
             <label className="control-label">Vendor</label>
             <select defaultValue="meetup" onChange={(event) => this.handleSetValue(event,'vendor')}>
               <option value="meetup">Meetup</option>
+              <option value="facebook">Facebook</option>
             </select>
           </div>
           <div className="form-group">
@@ -140,9 +146,13 @@ const feed = React.createClass({
             <input value={name} onChange={(event) => this.handleSetValue(event,'name')} />
           </div>
           <div className="form-group">
-            <label className="control-label">Group name:</label>
+            <label className="control-label">{groupLabel[vendor]}:</label>
             <input value={uniqueId} onChange={(event) => this.handleSetValue(event,'uniqueId')} />
           </div>
+          {vendor === 'facebook' && <div className="form-group">
+            <label className="control-label">Copy paste this:</label>
+            <code>$$('div[id^="PageHeaderPageletController"]')[0].id.split('_')[1]</code>
+          </div>}
           <div className="form-group">
             <label className="control-label">Categories</label>
             <ul className="categories form-control">
