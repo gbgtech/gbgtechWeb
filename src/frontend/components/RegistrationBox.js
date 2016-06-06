@@ -1,5 +1,4 @@
 import React from 'react';
-import TwitterButton from './buttons/TwitterButton';
 import RedditButton from './buttons/RedditButton';
 import RssButton from './buttons/RssButton';
 import GCalendarButton from './buttons/GCalendarButton';
@@ -109,7 +108,6 @@ const RegistrationBox = React.createClass({
       <div className="follow paper-shadow">
         <h3>Follow us on</h3>
         <div className="follow-us follow-button-row">
-          {/* <TwitterButton /> */}
           <RedditButton />
           <RssButton />
           <GCalendarButton />

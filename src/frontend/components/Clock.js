@@ -50,7 +50,7 @@ const Clock = React.createClass({
           <circle cx="64" cy="64" r="2" className="iconic-clock-axis iconic-property-fill" />
         </g>
       </svg>
-    )
+    );
   }
 });
 
